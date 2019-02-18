@@ -1,4 +1,4 @@
-const SERVER_URL = "http://localhost";
+const SERVER_URL = "https://ec2-3-16-14-138.us-east-2.compute.amazonaws.com";
 const SERVER_PORT = 5634;
 
 $.ajax( {
