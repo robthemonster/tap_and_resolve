@@ -1,5 +1,5 @@
 $.ajax( {
-    url:"/randomCard",
+    url:"https://api.tapandresolve.tk/randomCard",
     type: 'GET'
 }).then(response => {
     console.log(response.card.imageUrl);
