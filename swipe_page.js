@@ -1,8 +1,5 @@
-const SERVER_URL = "https://ec2-3-16-14-138.us-east-2.compute.amazonaws.com";
-const SERVER_PORT = 5634;
-
 $.ajax( {
-    url:SERVER_URL+":"+ SERVER_PORT+"/randomCard",
+    url:"/randomCard",
     type: 'GET'
 }).then(response => {
     console.log(response.card.imageUrl);
