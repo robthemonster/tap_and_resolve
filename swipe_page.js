@@ -1,16 +1,44 @@
-const API_URL = "https://api.tapandresolve.tk";
+const API_URL = "https://localhost"//"https://api.tapandresolve.tk";
+let currentCard = -1;
 shuffleCard();
+
+function likeCard() {
+    let id = "TESTFUCK";
+    $.post({
+        url: API_URL + "/addCardToLiked",
+        data: {'userid': id, 'uuid': currentCard},
+    }).then(() => {
+        shuffleCard();
+    })
+}
+
+function blockCard() {
+    let id = "TESTFUCK";
+    $.post({
+        url: API_URL + "/addCardToBlocked",
+        data: {'userid': id, 'uuid': currentCard},
+    }).then(() => {
+        shuffleCard();
+    })
+}
+
 function shuffleCard() {
-    console.log(window.netlifyIdentity.currentUser());
-    $.ajax({
+    let id = "TESTFUCK";
+    if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
+        id = window.netlifyIdentity.currentUser().id;
+    }
+    $.post({
         url: API_URL + "/randomCard",
-        data:{'uid':window.netlifyIdentity.currentUser().id},
-        type: 'GET'
+        data: {'userid': id},
     }).then(response => {
+        currentCard = response.card.id;
         console.log(response.card.imageUrl);
         $("#card_image").attr('src', response.card.imageUrl);
         $("#card_name").text(response.card.name);
         $("#info_text").text(response.card.text);
         $("#flavor_text").text(response.card.flavor);
+        if (response.card.imageUrl === undefined) {
+            setTimeout(shuffleCard, 500);
+        }
     });
 }
