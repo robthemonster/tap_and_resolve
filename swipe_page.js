@@ -37,7 +37,7 @@ function shuffleCard() {
 
         $("#card_image_div").css('display', 'block');
         $("#loading_circle").css('display', 'none');
-        let imageurl = randomCard.image_uris.normal;
+        let imageurl = (randomCard.image_uris) ? randomCard.image_uris.border_crop : false;
         $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
     });
 }

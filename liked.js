@@ -1,19 +1,3 @@
-function getLoadingCircle(uuid) {
-    // language=HTML
-    return `<span  id="${uuid}_loading_circle" class="col s8 l4 valign-wrapper" style="height: 100%">
-            <div class="preloader-wrapper big active center-block">
-                <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-                </div>
-            </div>
-        </span>`;
-}
 
 let cards = {};
 let filterReady = false;
@@ -29,7 +13,7 @@ $.post({
     liked.forEach(card => {
         let uuid = card.id;
         let name = card.name;
-        let imageurl = card.image_uris.normal;
+        let imageurl = card.image_uris ? card.image_uris.border_crop : false;
         cards[uuid] = card;
         autocomplete[name] = null;
         let outerAnchor = $("<a>", {
@@ -64,7 +48,8 @@ $.post({
     let autocomplete_input = $("#autocomplete-input");
     autocomplete_input.autocomplete({
         data: autocomplete,
-        onAutocomplete: filterCards
+        onAutocomplete: filterCards,
+        sortFunction: (a,b) => (a < b ? -1 : 1)
     });
     autocomplete_input.removeAttr("disabled");
     filterReady = true;

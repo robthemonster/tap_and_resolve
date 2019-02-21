@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tap&Resolve</title>
+    <title>Search</title>
     <link rel="stylesheet" href="materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,14 +26,14 @@
         }
     </style>
 </head>
-<body class="">
+<body>
 <nav id="navbar">
     <div class="nav-wrapper blue">
         <a href="index.html" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">Liked</a></li>
-            <li><a href="search.html">Search</a></li>
+            <li><a href="liked.html">Liked</a></li>
+            <li><a href="#">Search</a></li>
             <li><a href="#">Filters</a></li>
         </ul>
     </div>
@@ -41,34 +41,26 @@
 
 <ul class="sidenav" id="mobile-demo">
     <li><a href="liked.html">Liked</a></li>
-    <li><a href="search.html">Search</a></li>
+    <li><a href="#">Search</a></li>
     <li><a href="#">Filters</a></li>
 </ul>
 
 <div class="row">
     <div class="input-field col s12">
-        <input type="text" id="autocomplete-input"  onchange="filterCards()" class="autocomplete" disabled>
+        <input type="text" id="autocomplete-input" oninput="filterCards()" class="autocomplete">
         <label for="autocomplete-input"><i class="material-icons prefix">search</i></label>
     </div>
 </div>
 
-<div id="liked_collection" class="collection">
+<div id="results_collection" class="collection">
 </div>
-<div id="card_modal" class="modal">
-    <div class="modal-content">
-        <h4 id="modal_card_name">Modal Header</h4>
-        <p id="modal_card_text">A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-</div>
+
 <script
         src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="constants.js"></script>
-<script src="liked.js"></script>
+<script src="search.js"></script>
 </body>
 </html>
