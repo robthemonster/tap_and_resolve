@@ -1,4 +1,4 @@
-const API_URL = "https://api.tapandresolve.tk";
+const API_URL = "https://localhost"//"https://api.tapandresolve.tk";
 const MTG_API_URL = "https://api.magicthegathering.io/v1";
 let currentCard = -1;
 shuffleCard();
@@ -39,15 +39,17 @@ function shuffleCard() {
         $.get({
             url: MTG_API_URL + "/cards/" + randomUuid,
         }).then(response => {
+            if (response.card.imageUrl === undefined) {
+                setTimeout(shuffleCard, 500);
+                return;
+            }
             currentCard = response.card.id;
             console.log(response.card.imageUrl);
             $("#card_image").attr('src', response.card.imageUrl);
             $("#card_name").text(response.card.name);
             $("#info_text").text(response.card.text);
             $("#flavor_text").text(response.card.flavor);
-            if (response.card.imageUrl === undefined) {
-                setTimeout(shuffleCard, 500);
-            }
+
         });
     });
 }

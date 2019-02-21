@@ -3,8 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <title>Tap&Resolve</title>
-</head>
-<body>
+    <link rel="stylesheet" href="materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .collection-item {
+            height: 15vh;
+        }
 
+        .card_name_column {
+            height: 100%;
+            text-align: center;
+        }
+
+        .card_name_inner {
+            width: 100%;
+        }
+
+        .img_column {
+            min-width: fit-content;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="">
+<nav id="navbar">
+    <div class="nav-wrapper blue">
+        <a href="index.html" class="brand-logo center">Tap&Resolve</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Liked</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">Filters</a></li>
+            <li><a href="#">Mobile</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="liked.html">Liked</a></li>
+    <li><a href="#">Search</a></li>
+    <li><a href="#">Filters</a></li>
+    <li><a href="#">Mobile</a></li>
+</ul>
+
+
+<div class="row">
+    <div class="input-field col s12">
+        <input type="text" id="autocomplete-input" oninput="filterCards()" class="autocomplete" disabled>
+        <label for="autocomplete-input"><i class="material-icons prefix">search</i></label>
+    </div>
+</div>
+
+<div id="liked_collection" class="collection">
+
+    <!--<a class="collection-item row">-->
+    <!--<span class="col s4 l4 offset-l4 flow-text valign-wrapper card_name_column"><span class="card_name_inner">Karak's Thumb</span></span>-->
+    <!--<span class="col s8 l2 valign-wrapper" style="height: 100%">-->
+    <!--<div class="preloader-wrapper big active center-block">-->
+    <!--<div class="spinner-layer spinner-blue-only">-->
+    <!--<div class="circle-clipper left">-->
+    <!--<div class="circle"></div>-->
+    <!--</div><div class="gap-patch">-->
+    <!--<div class="circle"></div>-->
+    <!--</div><div class="circle-clipper right">-->
+    <!--<div class="circle"></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</span>-->
+
+    <!--&lt;!&ndash;<span class="col s8 l2 center-align img_column preloader-wrapper">&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<img src=" http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=48923&type=card" alt=""&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;class="responsive-img ">&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+    <!--</a>-->
+</div>
+<div id="card_modal" class="modal">
+    <div class="modal-content">
+        <h4 id="modal_card_name">Modal Header</h4>
+        <p id="modal_card_text">A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="liked.js"></script>
 </body>
 </html>
