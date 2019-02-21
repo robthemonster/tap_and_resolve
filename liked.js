@@ -2,7 +2,9 @@ const API_URL = "https://api.tapandresolve.tk";
 const MTG_API_URL = "https://api.magicthegathering.io/v1";
 
 
-const LOADING_CIRCLE_HTML = `<span  id="${uuid}_loading_circle" class="col s8 l2 valign-wrapper" style="height: 100%">
+function getLoadingCircle(uuid) {
+    // language=HTML
+    return `<span  id="${uuid}_loading_circle" class="col s8 l2 valign-wrapper" style="height: 100%">
             <div class="preloader-wrapper big active center-block">
                 <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
@@ -15,10 +17,12 @@ const LOADING_CIRCLE_HTML = `<span  id="${uuid}_loading_circle" class="col s8 l2
                 </div>
             </div>
         </span>`;
+}
+
 $(document).ready(function () {
     $('.sidenav').sidenav();
 });
-$(document).ready(function(){
+$(document).ready(function () {
     $('.modal').modal();
 });
 
@@ -37,12 +41,12 @@ $.post({
     liked.forEach(card => {
         let uuid = card.uuid;
         let name = card.name;
-        cards[uuid] = {uuid: uuid, name:name};
+        cards[uuid] = {uuid: uuid, name: name};
         autocomplete[name] = null;
         let outerAnchor = $("<a>", {
             class: "collection-item row modal-trigger",
             id: uuid + "_collection_item",
-            onclick: 'setModalContent(\"'+uuid+'\")',
+            onclick: 'setModalContent(\"' + uuid + '\")',
             href: "#card_modal"
         });
         let cardNameSpan = $("<span>", {
@@ -62,7 +66,7 @@ $.post({
             class: "responsive-img",
             id: uuid + "_card_img"
         });
-        let loadingCircle = $(LOADING_CIRCLE_HTML);
+        let loadingCircle = $(getLoadingCircle(uuid));
 
         cardNameSpan.append(cardNameInner);
         cardImageSpan.append(cardImg);
@@ -80,7 +84,7 @@ $.post({
     });
     let autocomplete_input = $("#autocomplete-input");
     autocomplete_input.autocomplete({
-        data:autocomplete,
+        data: autocomplete,
         onAutocomplete: filterCards
     });
     autocomplete_input.removeAttr("disabled");
