@@ -1,4 +1,4 @@
-const API_URL = "https://localhost"//"https://api.tapandresolve.tk";
+const API_URL = "https://api.tapandresolve.tk";
 const MTG_API_URL = "https://api.magicthegathering.io/v1";
 
 
