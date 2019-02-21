@@ -1,10 +1,6 @@
-const API_URL = "https://api.tapandresolve.tk";
-const MTG_API_URL = "https://api.magicthegathering.io/v1";
-
-
 function getLoadingCircle(uuid) {
     // language=HTML
-    return `<span  id="${uuid}_loading_circle" class="col s8 l2 valign-wrapper" style="height: 100%">
+    return `<span  id="${uuid}_loading_circle" class="col s8 l4 valign-wrapper" style="height: 100%">
             <div class="preloader-wrapper big active center-block">
                 <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
@@ -29,13 +25,12 @@ $(document).ready(function () {
 let cards = {};
 let filterReady = false;
 
-let id = "TESTFUCK";
 if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
     id = window.netlifyIdentity.currentUser().id;
 }
 $.post({
     url: API_URL + "/getLiked",
-    data: {'userid': id}
+    data: {'userid': TEST_USER_ID}
 }).then(liked => {
     let autocomplete = {};
     liked.forEach(card => {
@@ -59,7 +54,7 @@ $.post({
             text: name
         });
         let cardImageSpan = $("<span>", {
-            class: "col s8 l2 center-align img_column",
+            class: "col s8 l4 center-align img_column",
             id: uuid + "_card_img_container"
         });
         let cardImg = $("<img>", {
