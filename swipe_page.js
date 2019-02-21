@@ -1,10 +1,6 @@
 let currentCard = -1;
 shuffleCard();
 
-$(document).ready(function(){
-    $('.sidenav').sidenav();
-});
-
 function likeCard() {
     $.post({
         url: API_URL + "/addCardToLiked",
@@ -27,19 +23,21 @@ function shuffleCard() {
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
         id = window.netlifyIdentity.currentUser().id;
     }
+    currentCard = -1;
+    $("#card_image_div").css('display', 'none');
+    $("#loading_circle").css('display', 'block');
     $.post({
         url: API_URL + "/randomCard",
         data: {'userid': TEST_USER_ID},
     }).then(randomCard => {
-        currentCard = randomCard.uuid;
+        currentCard = randomCard.id;
         $("#card_name").text(randomCard.name);
         $("#info_text").text(randomCard.text);
         $("#flavor_text").text(randomCard.flavor);
-        $.get({
-            url: MTG_API_URL + "/cards/" + randomCard.uuid,
-        }).then(response => {
-            console.log(response.card.imageUrl);
-            $("#card_image").attr('src', response.card.imageUrl);
-        });
+
+        $("#card_image_div").css('display', 'block');
+        $("#loading_circle").css('display', 'none');
+        let imageurl = randomCard.image_uris.normal;
+        $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
     });
 }

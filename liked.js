@@ -15,13 +15,6 @@ function getLoadingCircle(uuid) {
         </span>`;
 }
 
-$(document).ready(function () {
-    $('.sidenav').sidenav();
-});
-$(document).ready(function () {
-    $('.modal').modal();
-});
-
 let cards = {};
 let filterReady = false;
 
@@ -34,9 +27,10 @@ $.post({
 }).then(liked => {
     let autocomplete = {};
     liked.forEach(card => {
-        let uuid = card.uuid;
+        let uuid = card.id;
         let name = card.name;
-        cards[uuid] = {uuid: uuid, name: name};
+        let imageurl = card.image_uris.normal;
+        cards[uuid] = card;
         autocomplete[name] = null;
         let outerAnchor = $("<a>", {
             class: "collection-item row modal-trigger",
@@ -59,23 +53,13 @@ $.post({
         });
         let cardImg = $("<img>", {
             class: "responsive-img",
-            id: uuid + "_card_img"
+            id: uuid + "_card_img",
+            src: (imageurl)? imageurl : IMAGE_NOT_AVAILABLE
         });
-        let loadingCircle = $(getLoadingCircle(uuid));
-
         cardNameSpan.append(cardNameInner);
         cardImageSpan.append(cardImg);
-        outerAnchor.append(cardNameSpan, loadingCircle);
+        outerAnchor.append(cardNameSpan, cardImageSpan);
         $("#liked_collection").append(outerAnchor);
-        $.get({
-            url: MTG_API_URL + "/cards/" + uuid
-        }).then(response => {
-            //  $("#" + uuid + "_card_name").text(response.card.name);
-            cards[uuid] = response.card;
-            cardImg.attr('src', response.card.imageUrl);
-            $("#" + uuid + "_loading_circle").remove();
-            $("#" + uuid + "_collection_item").append(cardImageSpan);
-        });
     });
     let autocomplete_input = $("#autocomplete-input");
     autocomplete_input.autocomplete({
