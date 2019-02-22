@@ -1,7 +1,5 @@
 const API_URL = "https://api.tapandresolve.tk";
-const SCRYFALL_API = "https://api.scryfall.com";
-const IMAGE_NOT_AVAILABLE = "./image_not_found.png";
-const MAX_SEARCH_RESULT_IMAGES = 25;
+const IMAGE_NOT_AVAILABLE = "../assets/image_not_found.png";
 const MODAL_HTML = `<div id="card_modal" class="modal modal-fixed-footer blue-grey darken-2 white-text">
     <div class="modal-content row">
         <div class="center row">
@@ -82,7 +80,6 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
 </ul>`
 }
 
-
 $("body").append($(MODAL_HTML));
 
 function addNavBar(likedRef, blockedRef, searchRef, homeRef) {
@@ -115,12 +112,11 @@ function setModalContentFromPageIndex(page, index) {
     setModalContentFromCard(card);
 }
 
-
 function setModalTextAndImage(card) {
     $("#modal_card_name").text(card.name);
     $("#modal_card_text").text(card.oracle_text);
     $("#modal_card_flavor").text(card.flavor_text);
-    $("#modal_card_image").attr('src', card.image_uris.border_crop);
+    $("#modal_card_image").attr('src', (card.image_uris) ? card.image_uris.border_crop : IMAGE_NOT_AVAILABLE);
     $.get(card.uri)
         .then(response => {
             console.log(response);
@@ -216,9 +212,17 @@ function unblockByUuid(uuid) {
 }
 
 function getUserId() {
-    return "TESTFUCK";
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
-        id = window.netlifyIdentity.currentUser().id;
+        return window.netlifyIdentity.currentUser().id;
+    } else {
+        netlifyIdentity.on('init', user => console.log('init', user));
+        netlifyIdentity.on('login', user => console.log('login', user));
+        netlifyIdentity.on('logout', () => console.log('Logged out'));
+        netlifyIdentity.on('error', err => console.error('Error', err));
+        netlifyIdentity.on('open', () => console.log('Widget opened'));
+        netlifyIdentity.on('close', () => console.log('Widget closed'));
+        window.netlifyIdentity.open();
+        window.netlifyIdentity.on
     }
 }
 

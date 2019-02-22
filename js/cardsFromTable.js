@@ -13,7 +13,7 @@ if (TABLE_REF === "LIKED") {
     blockedRef = "#";
     likedRef = "liked.html";
 }
-addNavBar(likedRef, blockedRef, "search.html", "index.html");
+addNavBar(likedRef, blockedRef, "search.html", "draw.html");
 
 fetchAndDisplayCards();
 
@@ -73,6 +73,7 @@ function fetchAndDisplayCards() {
         });
         autocomplete_input.removeAttr("disabled");
         filterReady = true;
+        filterCards();
     });
 }
 
@@ -81,9 +82,10 @@ function filterCards() {
         return;
     }
     let querystring = $("#autocomplete-input").val().toString().toLowerCase();
+    console.log(querystring);
     for (let uuid in cards) {
         let name = cards[uuid].name.toLowerCase();
-        $("#" + uuid + "_collection_item").css('display', name.startsWith(querystring) ? 'block' : 'none');
+        $("#" + uuid + "_collection_item").css('display', name.includes(querystring) ? 'block' : 'none');
 
     }
 }

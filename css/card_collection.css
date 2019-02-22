@@ -1,0 +1,17 @@
+.collection-item {
+    height: 15vh;
+}
+
+.card_name_column {
+    height: 100%;
+    text-align: center;
+}
+
+.card_name_inner {
+    width: 100%;
+}
+
+.img_column {
+    height: 100%;
+    overflow: hidden;
+}
