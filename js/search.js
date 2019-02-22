@@ -2,7 +2,7 @@ let cards = [];
 let resultsReturnedFor = null;
 const PAGE_SIZE = 50;
 
-addNavBar("liked.html", "blocked.html", "#", "draw.html");
+addNavBarAndLogin("liked.html", "blocked.html", "#", "draw.html");
 function handleModalClose() {}
 
 function filterCards() {

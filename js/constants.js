@@ -63,26 +63,34 @@ const MODAL_HTML = `<div id="card_modal" class="modal modal-fixed-footer blue-gr
 function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
     return `<nav id="navbar">
     <div class="nav-wrapper blue-grey darken-2">
-    <a href="${homeRef}" class="brand-logo center">Tap&Resolve</a>
-    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-<ul class="right hide-on-med-and-down">
-    <li><a href="${likedRef}"><i class="material-icons green-text">check</i></a></li>
-<li><a href="${blockedRef}"><i class="material-icons red-text">block</i></a></li>
-<li><a href="${searchRef}"><i class="material-icons prefix">search</i></a></li>
-</ul>
-</div>
+        <a href="${homeRef}" class="brand-logo center">Tap&Resolve</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="${likedRef}"><i class="material-icons green-text">check</i></a></li>
+            <li><a href="${blockedRef}"><i class="material-icons red-text">block</i></a></li>
+            <li><a href="${searchRef}"><i class="material-icons prefix">search</i></a></li>
+        </ul>
+    </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-    <li><a href="${likedRef}"><i style="width:100%;" class="center-align material-icons green-text">check</i></a></li>
-<li><a href="${blockedRef}"><i style="width:100%;" class="center-align material-icons red-text">block</i></a></li>
-<li><a href="${searchRef}"><i style="width: 100%" class="center-align material-icons prefix">search</i></a></li>
+    <li><a href="${likedRef}"><i style="width:100%;" class="center-align material-icons green-text">check</i></a>
+    </li>
+    <li><a href="${blockedRef}"><i style="width:100%;" class="center-align material-icons red-text">block</i></a>
+    </li>
+    <li><a href="${searchRef}"><i style="width: 100%" class="center-align material-icons prefix">search</i></a>
+    </li>
 </ul>`
 }
 
 $("body").append($(MODAL_HTML));
 
-function addNavBar(likedRef, blockedRef, searchRef, homeRef) {
+function getLoginWidgetHtml() {
+    return `<div data-netlify-identity-button></div>`;
+}
+
+function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
+    window.netlifyIdentity.on('close', getUserId);
     $("body").prepend($(getNavBarHtml(likedRef, blockedRef, searchRef, homeRef)));
 }
 
@@ -215,14 +223,7 @@ function getUserId() {
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
         return window.netlifyIdentity.currentUser().id;
     } else {
-        netlifyIdentity.on('init', user => console.log('init', user));
-        netlifyIdentity.on('login', user => console.log('login', user));
-        netlifyIdentity.on('logout', () => console.log('Logged out'));
-        netlifyIdentity.on('error', err => console.error('Error', err));
-        netlifyIdentity.on('open', () => console.log('Widget opened'));
-        netlifyIdentity.on('close', () => console.log('Widget closed'));
         window.netlifyIdentity.open();
-        window.netlifyIdentity.on
     }
 }
 

@@ -13,7 +13,7 @@ if (TABLE_REF === "LIKED") {
     blockedRef = "#";
     likedRef = "liked.html";
 }
-addNavBar(likedRef, blockedRef, "search.html", "draw.html");
+addNavBarAndLogin(likedRef, blockedRef, "search.html", "draw.html");
 
 fetchAndDisplayCards();
 

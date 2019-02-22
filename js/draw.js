@@ -1,5 +1,5 @@
 let currentCard = -1;
-addNavBar("liked.html", "blocked.html", "search.html", "#");
+addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
 
 function handleModalClose () {
     console.log('delayed call');

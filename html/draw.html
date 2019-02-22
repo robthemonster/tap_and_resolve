@@ -6,38 +6,9 @@
     <link rel="stylesheet" href="../css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        #card_container {
-            max-height: 95vh;
-            max-width: 95vh;
-            margin: auto;
-        }
-
-        #card_image_div {
-            height: 65vh;
-            display: none;
-        }
-
-        #loading_circle {
-            height: 70vh;
-            display: block;
-        }
-
-        #loading_circle_inner {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-        }
-
-        #card_image_div img {
-            height: 100%;
-        }
-    </style>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="stylesheet" href="../css/draw.css">
 </head>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <body class="blue-grey darken-4">
 
 <div id="card_container" class="card blue-grey darken-1 white-text">
@@ -55,7 +26,7 @@
             </div>
         </span>
     <div id="card_image_div" class="center-align waves-effect waves-block">
-        <a id="modal_trigger" class="modal-trigger" href="#card_modal" >
+        <a id="modal_trigger" class="modal-trigger" href="#card_modal">
             <img id="card_image" src="" class="responsive-img" alt="">
         </a>
     </div>
