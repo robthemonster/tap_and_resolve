@@ -35,7 +35,7 @@ function blockCard() {
     })
 }
 
-function loginCallback {
+function loginCallback() {
     shuffleCard();
 }
 
