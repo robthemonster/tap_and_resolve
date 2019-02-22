@@ -225,7 +225,6 @@ function getUserId() {
     } else {
         console.log(window.netlifyIdentity);
         window.netlifyIdentity.on('login', loginCallback);
-        window.netlifyIdentity.open();
     }
 }
 
