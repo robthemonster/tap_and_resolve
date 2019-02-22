@@ -26,15 +26,15 @@ function shuffleCard() {
     currentCard = -1;
     $("#card_image_div").css('display', 'none');
     $("#loading_circle").css('display', 'block');
+    $("#modal_trigger").attr('disabled','disabled');
     $.post({
         url: API_URL + "/randomCard",
         data: {'userid': TEST_USER_ID},
     }).then(randomCard => {
         currentCard = randomCard.id;
+        setModalContentFromCard(randomCard);
+        $("#modal_trigger").removeAttr('disabled');
         $("#card_name").text(randomCard.name);
-        $("#info_text").text(randomCard.text);
-        $("#flavor_text").text(randomCard.flavor);
-
         $("#card_image_div").css('display', 'block');
         $("#loading_circle").css('display', 'none');
         let imageurl = (randomCard.image_uris) ? randomCard.image_uris.border_crop : false;

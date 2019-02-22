@@ -40,21 +40,21 @@
 
 <body class="blue-grey darken-4">
 <nav id="navbar">
-    <div class="nav-wrapper blue">
+    <div class="nav-wrapper blue-grey darken-2">
         <a href="#" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="liked.html">Liked</a></li>
-            <li><a href="search.html">Search</a></li>
-            <li><a href="#">Filters</a></li>
+            <li><a href="liked.html"><i class="material-icons green-text">check</i></a></li>
+            <li><a href="blocked.html"><i class="material-icons red-text">block</i></a></li>
+            <li><a href="search.html"><i class="material-icons prefix">search</i></a></li>
         </ul>
     </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-    <li><a href="liked.html">Liked</a></li>
-    <li><a href="search.html">Search</a></li>
-    <li><a href="#">Filters</a></li>
+    <li><a href="liked.html"><i class="material-icons green-text">check</i></a></li>
+    <li><a href="blocked.html"><i class="material-icons red-text">block</i></a></li>
+    <li><a href="search.html"><i class="material-icons prefix">search</i></a></li>
 </ul>
 
 <div id="card_container" class="card blue-grey darken-1 white-text">
@@ -71,15 +71,12 @@
                 </div>
             </div>
         </span>
-    <div id="card_image_div" class="center-align  waves-effect waves-block waves-light">
-        <img id="card_image" src="" class="activator responsive-img" alt="">
+    <div id="card_image_div" class="center-align waves-effect waves-block">
+        <a id="modal_trigger" class="modal-trigger" href="#card_modal" >
+            <img id="card_image" src="" class="responsive-img" alt="">
+        </a>
     </div>
     <span id="card_name" class="card-title"></span>
-    <div class="card-reveal blue-grey white-text">
-        <span class="card-title">&nbsp;<i class="medium material-icons right">close</i></span>
-        <p id="info_text"></p>
-        <p id="flavor_text" class="grey-text text-lighten-1"></p>
-    </div>
     <div class="card-content center-align row hide-on-small-and-down">
         <a class="col s4 btn-large hoverable blue-grey waves-effect yellow-text" onclick="shuffleCard()" href="#"><i
                 class="material-icons">autorenew</i></a>

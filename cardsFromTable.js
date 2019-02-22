@@ -1,25 +1,32 @@
-
 let cards = {};
 let filterReady = false;
-
+let TABLE_REF = $("#TABLE_REF").val();
+console.log(TABLE_REF);
+let endpoint = "";
+if (TABLE_REF === "LIKED") {
+    endpoint = "/getLiked";
+} else if (TABLE_REF === "BLOCKED") {
+    endpoint = "/getBlocked"
+}
 if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
     id = window.netlifyIdentity.currentUser().id;
 }
+
 $.post({
-    url: API_URL + "/getLiked",
+    url: API_URL + endpoint,
     data: {'userid': TEST_USER_ID}
-}).then(liked => {
+}).then(response => {
     let autocomplete = {};
-    liked.forEach(card => {
+    response.forEach(card => {
         let uuid = card.id;
         let name = card.name;
         let imageurl = card.image_uris ? card.image_uris.border_crop : false;
         cards[uuid] = card;
         autocomplete[name] = null;
         let outerAnchor = $("<a>", {
-            class: "collection-item row modal-trigger",
+            class: "collection-item row modal-trigger blue-grey darken-2 white-text",
             id: uuid + "_collection_item",
-            onclick: 'setModalContent(\"' + uuid + '\")',
+            onclick: 'setModalContentFromIndex(\"' + uuid + '\")',
             href: "#card_modal"
         });
         let cardNameSpan = $("<span>", {
@@ -38,26 +45,23 @@ $.post({
         let cardImg = $("<img>", {
             class: "responsive-img",
             id: uuid + "_card_img",
-            src: (imageurl)? imageurl : IMAGE_NOT_AVAILABLE
+            src: (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE
         });
         cardNameSpan.append(cardNameInner);
         cardImageSpan.append(cardImg);
         outerAnchor.append(cardNameSpan, cardImageSpan);
-        $("#liked_collection").append(outerAnchor);
+        $("#card_collection").append(outerAnchor);
     });
+    console.log(cards);
     let autocomplete_input = $("#autocomplete-input");
     autocomplete_input.autocomplete({
         data: autocomplete,
         onAutocomplete: filterCards,
-        sortFunction: (a,b) => (a < b ? -1 : 1)
+        sortFunction: (a, b) => (a < b ? -1 : 1)
     });
     autocomplete_input.removeAttr("disabled");
     filterReady = true;
 });
-
-function setModalContent(uuid) {
-    $("#modal_card_name").text(cards[uuid].name);
-}
 
 function filterCards() {
     if (!filterReady) {

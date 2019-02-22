@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search - Tap&Resolve</title>
+    <title>Blocked - Tap&Resolve</title>
     <link rel="stylesheet" href="materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,34 +33,34 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="liked.html"><i class="material-icons green-text">check</i></a></li>
-            <li><a href="blocked.html"><i class="material-icons red-text">block</i></a></li>
-            <li><a href="#"><i class="material-icons prefix">search</i></a></li>
+            <li><a href="#"><i class="material-icons red-text">block</i></a></li>
+            <li><a href="search.html"><i class="material-icons prefix">search</i></a></li>
         </ul>
     </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
     <li><a href="liked.html"><i class="material-icons green-text">check</i></a></li>
-    <li><a href="blocked.html"><i class="material-icons red-text">block</i></a></li>
-    <li><a href="#"><i class="material-icons prefix">search</i></a></li>
+    <li><a href="#"><i class="material-icons red-text">block</i></a></li>
+    <li><a href="search.html"><i class="material-icons prefix">search</i></a></li>
 </ul>
 
 <div class="row white">
     <div class="input-field col s12">
-        <input type="text" id="autocomplete-input" oninput="filterCards()" class="autocomplete">
+        <input type="text" id="autocomplete-input"  onchange="filterCards()" class="autocomplete" disabled>
         <label for="autocomplete-input"><i class="material-icons prefix">search</i></label>
     </div>
 </div>
 
-<div id="results_collection" class="collection blue-grey darken-4 white-text">
+<div id="card_collection" class="collection">
 </div>
-
 <script
         src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="constants.js"></script>
-<script src="search.js"></script>
+<input type="text" value="BLOCKED" id="TABLE_REF" disabled style="display: none">
+<script src="cardsFromTable.js"></script>
 </body>
 </html>
