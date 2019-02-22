@@ -1,10 +1,27 @@
 let currentCard = -1;
+addNavBar("liked.html", "blocked.html", "search.html", "#");
+
+function handleModalClose () {
+    console.log('delayed call');
+    setTimeout(() => {
+        $.post({
+            url: API_URL + "/getUserCardStatus",
+            data: {userid: getUserId(), uuid: currentCard}
+        })
+            .then(response => {
+                if (response.liked || response.blocked) {
+                    shuffleCard();
+                }
+            })
+    }, 500);
+}
+
 shuffleCard();
 
 function likeCard() {
     $.post({
         url: API_URL + "/addCardToLiked",
-        data: {'userid': TEST_USER_ID, 'uuid': currentCard},
+        data: {'userid': getUserId(), 'uuid': currentCard},
     }).then(() => {
         shuffleCard();
     })
@@ -13,23 +30,20 @@ function likeCard() {
 function blockCard() {
     $.post({
         url: API_URL + "/addCardToBlocked",
-        data: {'userid': TEST_USER_ID, 'uuid': currentCard},
+        data: {'userid': getUserId(), 'uuid': currentCard},
     }).then(() => {
         shuffleCard();
     })
 }
 
 function shuffleCard() {
-    if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
-        id = window.netlifyIdentity.currentUser().id;
-    }
     currentCard = -1;
     $("#card_image_div").css('display', 'none');
     $("#loading_circle").css('display', 'block');
-    $("#modal_trigger").attr('disabled','disabled');
+    $("#modal_trigger").attr('disabled', 'disabled');
     $.post({
         url: API_URL + "/randomCard",
-        data: {'userid': TEST_USER_ID},
+        data: {'userid': getUserId()},
     }).then(randomCard => {
         currentCard = randomCard.id;
         setModalContentFromCard(randomCard);

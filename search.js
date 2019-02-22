@@ -1,8 +1,11 @@
 let cards = [];
 let resultsReturnedFor = null;
 const PAGE_SIZE = 50;
+
+addNavBar("liked.html", "blocked.html", "#", "index.html");
+function handleModalClose() {}
+
 function filterCards() {
-    $("#results_collection").empty();
     let queryString = $("#autocomplete-input").val();
     queryString = (queryString) ? queryString.toString().toLowerCase() : undefined;
     if ((queryString === undefined) || (queryString === resultsReturnedFor)) {
@@ -10,8 +13,10 @@ function filterCards() {
     }
     $.post({
         url: API_URL + "/searchForCard",
-        data: {searchString: queryString, userid: TEST_USER_ID, pagesize: PAGE_SIZE}
+        data: {searchString: queryString, userid: getUserId(), pagesize: PAGE_SIZE}
     }).then(response => {
+        let resultsCollection = $("#results_collection");
+        resultsCollection.empty();
         cards = response.results;
         resultsReturnedFor = queryString;
         $("#autocomplete-input").autocomplete({
@@ -52,7 +57,7 @@ function filterCards() {
             });
             cardImageSpan.append(cardImg);
             outerAnchor.append(cardImageSpan);
-            $("#results_collection").append(outerAnchor);
+            resultsCollection.append(outerAnchor);
         }
     })
 }
