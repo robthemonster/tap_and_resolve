@@ -7,7 +7,9 @@ addNavBarAndLogin("liked.html", "blocked.html", "#", "draw.html");
 function handleModalClose() {
 }
 
-loginCallback = filterCards;
+function loginCallback() {
+    filterCards();
+}
 
 function filterCards() {
     let queryString = $("#autocomplete-input").val();

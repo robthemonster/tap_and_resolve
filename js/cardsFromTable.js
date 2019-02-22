@@ -20,7 +20,9 @@ function handleModalClose() {
     setTimeout(fetchAndDisplayCards, 500);
 }
 
-loginCallback = fetchAndDisplayCards;
+function loginCallback() {
+    fetchAndDisplayCards();
+}
 
 function fetchAndDisplayCards() {
     let cardCollection = $("#card_collection");
