@@ -224,7 +224,11 @@ function getUserId() {
         return window.netlifyIdentity.currentUser().id;
     } else {
         window.netlifyIdentity.on('login', loginCallback);
-        setTimeout(window.netlifyIdentity.open, 1000);
+        setTimeout(() => {
+            if (!window.netlifyIdentity || !window.netlifyIdentity.currentUser()) {
+                window.netlifyIdentity.open();
+            }
+        }, 1000);
     }
 }
 
