@@ -215,10 +215,14 @@ function getUserId() {
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
         return window.netlifyIdentity.currentUser().id;
     } else {
-        window.netlifyIdentity.on('login', loginCallback);
-        window.netlifyIdentity.on('close', getUserId);
         setTimeout(() => {
-            if (!window.netlifyIdentity || !window.netlifyIdentity.currentUser()) {
+            if (!window.netlifyIdentity) {
+                setTimeout(getUserId, 1000);
+                return;
+            }
+            if (!window.netlifyIdentity.currentUser()) {
+                window.netlifyIdentity.on('login', loginCallback);
+                window.netlifyIdentity.on('close', getUserId);
                 window.netlifyIdentity.open();
             }
         }, 1000);
