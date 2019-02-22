@@ -218,9 +218,11 @@ function getUserId() {
         setTimeout(() => {
             if (!window.netlifyIdentity) {
                 setTimeout(getUserId, 1000);
+                console.log('tried');
                 return;
             }
             if (!window.netlifyIdentity.currentUser()) {
+                console.log("tried w widg");
                 window.netlifyIdentity.on('login', loginCallback);
                 window.netlifyIdentity.on('close', getUserId);
                 window.netlifyIdentity.open();
