@@ -85,12 +85,7 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
 
 $("body").append($(MODAL_HTML));
 
-function getLoginWidgetHtml() {
-    return `<div data-netlify-identity-button></div>`;
-}
-
 function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
-    window.netlifyIdentity.on('close', getUserId);
     $("body").prepend($(getNavBarHtml(likedRef, blockedRef, searchRef, homeRef)));
 }
 
@@ -111,7 +106,6 @@ $(".autocomplete").keydown((event) => {
 
 function setModalContentFromIndex(index) {
     let card = cards[index];
-    console.log(index);
     setModalContentFromCard(card);
 }
 
@@ -127,7 +121,6 @@ function setModalTextAndImage(card) {
     $("#modal_card_image").attr('src', (card.image_uris) ? card.image_uris.border_crop : IMAGE_NOT_AVAILABLE);
     $.get(card.uri)
         .then(response => {
-            console.log(response);
             let prices = response.prices;
             let [usd, foil, tix] = [prices['usd'], prices['usd_foil'], prices['usd_foil']];
             $("#modal_card_usd").text(usd !== null ? "$" + usd : "");
@@ -185,7 +178,6 @@ function resetModalButtons(uuid) {
         data: {userid: getUserId(), uuid: uuid}
     })
         .then(response => {
-            console.log(response);
             showButtons();
             changeButtonFunctions(response, uuid);
         });
@@ -224,6 +216,7 @@ function getUserId() {
         return window.netlifyIdentity.currentUser().id;
     } else {
         window.netlifyIdentity.on('login', loginCallback);
+        window.netlifyIdentity.on('close', getUserId);
         setTimeout(() => {
             if (!window.netlifyIdentity || !window.netlifyIdentity.currentUser()) {
                 window.netlifyIdentity.open();

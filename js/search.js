@@ -3,11 +3,11 @@ let resultsReturnedFor = null;
 const PAGE_SIZE = 50;
 
 addNavBarAndLogin("liked.html", "blocked.html", "#", "draw.html");
-function handleModalClose() {}
 
-function loginCallback() {
-    filterCards();
+function handleModalClose() {
 }
+
+loginCallback = filterCards;
 
 function filterCards() {
     let queryString = $("#autocomplete-input").val();
@@ -40,7 +40,7 @@ function filterCards() {
             let outerAnchor = $("<a>", {
                 class: "collection-item row modal-trigger blue-grey darken-2 white-text",
                 id: uuid + "_collection_item",
-                onclick: 'setModalContentFromPageIndex(0,\"' +i + '\")',
+                onclick: 'setModalContentFromPageIndex(0,\"' + i + '\")',
                 href: "#card_modal"
             });
             let cardNameSpan = $("<span>", {

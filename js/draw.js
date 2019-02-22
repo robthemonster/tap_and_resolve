@@ -1,9 +1,7 @@
 let currentCard = -1;
 addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
-window.netlifyIdentity.on('login', shuffleCard);
 
-function handleModalClose () {
-    console.log('delayed call');
+function handleModalClose() {
     setTimeout(() => {
         $.post({
             url: API_URL + "/getUserCardStatus",
@@ -37,9 +35,7 @@ function blockCard() {
     })
 }
 
-function loginCallback() {
-    shuffleCard();
-}
+loginCallback = shuffleCard;
 
 function shuffleCard() {
     currentCard = -1;

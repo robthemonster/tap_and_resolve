@@ -1,7 +1,6 @@
 let cards = {};
 let filterReady = false;
 let TABLE_REF = $("#TABLE_REF").val();
-console.log(TABLE_REF);
 let endpoint = "";
 let likedRef, blockedRef;
 if (TABLE_REF === "LIKED") {
@@ -21,9 +20,7 @@ function handleModalClose() {
     setTimeout(fetchAndDisplayCards, 500);
 }
 
-function loginCallback() {
-    fetchAndDisplayCards();
-}
+loginCallback = fetchAndDisplayCards;
 
 function fetchAndDisplayCards() {
     let cardCollection = $("#card_collection");
@@ -72,7 +69,6 @@ function fetchAndDisplayCards() {
             outerAnchor.append(cardNameSpan, cardImageSpan);
             cardCollection.append(outerAnchor);
         });
-        console.log(cards);
         let autocomplete_input = $("#autocomplete-input");
         autocomplete_input.autocomplete({
             data: autocomplete,
@@ -90,7 +86,6 @@ function filterCards() {
         return;
     }
     let querystring = $("#autocomplete-input").val().toString().toLowerCase();
-    console.log(querystring);
     for (let uuid in cards) {
         let name = cards[uuid].name.toLowerCase();
         $("#" + uuid + "_collection_item").css('display', name.includes(querystring) ? 'block' : 'none');
