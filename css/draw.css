@@ -10,17 +10,29 @@
 }
 
 #loading_circle {
-    height: 70vh;
-    display: block;
+    height: 65vh;
 }
 
 #loading_circle_inner {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    position: fixed;
     margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.button_row {
+    height: 10vh;
+}
+
+.btn {
+    width: 95%;
+    height: 100%;
+}
+
+.btn_icon {
+    vertical-align: middle;
 }
 
 #card_image_div img {

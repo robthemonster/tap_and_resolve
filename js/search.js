@@ -15,7 +15,7 @@ function filterCards() {
     let queryString = $("#autocomplete-input").val();
     queryString = (queryString) ? queryString.toString().toLowerCase() : undefined;
     let userid = getUserId();
-    if (!userid || (queryString === undefined) || (queryString === resultsReturnedFor)) {
+    if (!userid || (queryString === undefined)) {
         return;
     }
     $.post({

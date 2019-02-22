@@ -1,16 +1,23 @@
 const API_URL = "https://api.tapandresolve.tk";
 const IMAGE_NOT_AVAILABLE = "../assets/image_not_found.png";
-const MODAL_HTML = `<div id="card_modal" class="modal modal-fixed-footer blue-grey darken-2 white-text">
+const MODAL_HTML = `<style>
+    .footer_button {
+        height: 100%;
+        width: 95%;
+    }
+
+    .footer_column {
+        padding-left: 0;
+        padding-right: 0;
+    }
+</style>
+<div id="card_modal" class="modal modal-fixed-footer blue-grey darken-2 white-text">
     <div class="modal-content row">
         <div class="center row">
             <img src="#" id="modal_card_image" alt="" class="responsive-img">
         </div>
         <div class="row">
-            <h4 id="modal_card_name" class="row header flow-text"></h4>
-            <div class="row">
-                <p id="modal_card_text" class=""></p>
-                <p id="modal_card_flavor" class=""></p>
-            </div>
+            <div id="card_faces"></div>
             <div>
                 <h3 class="header flow-text">Prices</h3>
                 <p id="modal_card_usd"></p>
@@ -22,8 +29,8 @@ const MODAL_HTML = `<div id="card_modal" class="modal modal-fixed-footer blue-gr
             </div>
         </div>
     </div>
-    <div class="modal-footer blue-grey darken-3 row">
-        <span class="col s4 center">
+    <div class="modal-footer blue-grey darken-1 row valign-wrapper" style="margin-bottom: 0;">
+        <span class="col s4 center footer_column">
             <div id="modal_block_loader" class="preloader-wrapper small active">
                 <div class="spinner-layer ">
                   <div class="circle-clipper left">
@@ -35,14 +42,15 @@ const MODAL_HTML = `<div id="card_modal" class="modal modal-fixed-footer blue-gr
                   </div>
                 </div>
             </div>
-            <a href="#" id="modal_block_anchor" class="center btn hoverable blue-grey waves-effect red-text" style="height:100%;width:100%;"><i
-                    id="modal_block_icon" class="material-icons">block</i></a>
+            <a href="#" id="modal_block_anchor"
+               class="center btn hoverable blue-grey waves-effect red-text footer_button">
+                <i id="modal_block_icon" class="material-icons">block</i></a>
         </span>
-        <span class="col s4 center">
-            <a href="#" class="col s4 center btn blue-grey waves-effect modal-close white-text" style="height:100%;width:100%;"><i
+        <span class="col s4 center footer_column">
+            <a href="#" class="center btn blue-grey waves-effect modal-close white-text footer_button"><i
                     class="material-icons">keyboard_arrow_down</i></a>
-            </span>
-        <span class="col s4 center" >
+        </span>
+        <span class="col s4 center footer_column">
             <div id="modal_like_loader" class="preloader-wrapper small active">
                 <div class="spinner-layer ">
                   <div class="circle-clipper left">
@@ -54,7 +62,8 @@ const MODAL_HTML = `<div id="card_modal" class="modal modal-fixed-footer blue-gr
                   </div>
                 </div>
             </div>
-            <a href="#" id="modal_like_anchor"  style="width:100%;height:100%;"  class="center btn hoverable blue-grey waves-effect green-text" ><i
+            <a href="#" id="modal_like_anchor"
+               class="center btn hoverable blue-grey waves-effect green-text footer_button"><i
                     id="modal_like_icon" class="material-icons">check</i></a>
         </span>
     </div>
@@ -81,6 +90,14 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
     <li><a href="${searchRef}"><i style="width: 100%" class="center-align material-icons prefix">search</i></a>
     </li>
 </ul>`
+}
+
+function getFaceNameAndText(name, text, flavor) {
+    return `<h4 class="row header flow-text">${name}</h4>
+<div class="row">
+    <p>${text}</p>
+    <p>${flavor}</p>
+</div>`;
 }
 
 $("body").append($(MODAL_HTML));
@@ -114,11 +131,26 @@ function setModalContentFromPageIndex(page, index) {
     setModalContentFromCard(card);
 }
 
+function appendCardFaceText(face) {
+    let facediv = $("#card_faces");
+    facediv.append($(getFaceNameAndText(face.name, face.oracle_text ? face.oracle_text : "", face.flavor_text ? face.flavor_text : "")));
+}
+
 function setModalTextAndImage(card) {
-    $("#modal_card_name").text(card.name);
-    $("#modal_card_text").text(card.oracle_text);
-    $("#modal_card_flavor").text(card.flavor_text);
-    $("#modal_card_image").attr('src', (card.image_uris) ? card.image_uris.border_crop : IMAGE_NOT_AVAILABLE);
+    $("#card_faces").empty();
+    if (card.card_faces) {
+        card.card_faces.forEach(face => {
+            appendCardFaceText(face);
+        })
+    } else {
+        appendCardFaceText(card);
+    }
+    let cardImage = $("#modal_card_image");
+    if (card.image_uris) {
+        cardImage.attr('src', card.image_uris.border_crop ? card.image_uris.border_crop : IMAGE_NOT_AVAILABLE);
+    } else {
+        cardImage.attr('src', IMAGE_NOT_AVAILABLE);
+    }
     $.get(card.uri)
         .then(response => {
             let prices = response.prices;
@@ -218,11 +250,9 @@ function getUserId() {
         setTimeout(() => {
             if (!window.netlifyIdentity) {
                 setTimeout(getUserId, 1000);
-                console.log('tried');
                 return;
             }
             if (!window.netlifyIdentity.currentUser()) {
-                console.log("tried w widg");
                 window.netlifyIdentity.on('login', loginCallback);
                 window.netlifyIdentity.on('close', getUserId);
                 window.netlifyIdentity.open();

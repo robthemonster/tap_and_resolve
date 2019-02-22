@@ -39,11 +39,21 @@ function loginCallback() {
     shuffleCard();
 }
 
-function shuffleCard() {
-    currentCard = -1;
+function hideCard() {
     $("#card_image_div").css('display', 'none');
     $("#loading_circle").css('display', 'block');
     $("#modal_trigger").attr('disabled', 'disabled');
+}
+
+function showCard() {
+    $("#modal_trigger").removeAttr('disabled');
+    $("#card_image_div").css('display', 'block');
+    $("#loading_circle").css('display', 'none');
+}
+
+function shuffleCard() {
+    currentCard = -1;
+    hideCard();
     let userid = getUserId();
     if (!userid) {
         return;
@@ -53,12 +63,9 @@ function shuffleCard() {
         data: {'userid': getUserId()},
     }).then(randomCard => {
         currentCard = randomCard.id;
-        setModalContentFromCard(randomCard);
-        $("#modal_trigger").removeAttr('disabled');
-        $("#card_name").text(randomCard.name);
-        $("#card_image_div").css('display', 'block');
-        $("#loading_circle").css('display', 'none');
         let imageurl = (randomCard.image_uris) ? randomCard.image_uris.border_crop : false;
         $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
+        setModalContentFromCard(randomCard);
+        showCard();
     });
 }

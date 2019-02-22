@@ -3,54 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Tap&Resolve</title>
-    <link rel="stylesheet" href="../css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/draw.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="blue-grey darken-4">
 
-<div id="card_container" class="card blue-grey darken-1 white-text">
-    <span id="loading_circle" class="">
-            <div id="loading_circle_inner" class="preloader-wrapper big active ">
-                <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
+<div id="card_container" class=" blue-grey darken-1 white-text">
+    <div id="loading_circle" class="row valign-wrapper">
+
+        <span id="loading_circle_inner" class="preloader-wrapper active big">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
                     <div class="circle"></div>
                 </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
                 </div>
             </div>
         </span>
+    </div>
     <div id="card_image_div" class="center-align waves-effect waves-block">
         <a id="modal_trigger" class="modal-trigger" href="#card_modal">
             <img id="card_image" src="" class="responsive-img" alt="">
         </a>
     </div>
-    <span id="card_name" class="card-title"></span>
-    <div class="card-content center-align row hide-on-small-and-down">
-        <a class="col s4 btn-large hoverable blue-grey waves-effect yellow-text" onclick="shuffleCard()" href="#"><i
-                class="material-icons">shuffle</i></a>
-        <a class="col s4 btn-large hoverable blue-grey waves-effect red-text" onclick="blockCard()" href="#"><i
-                class="material-icons">block</i></a>
-        <a class="col s4 btn-large hoverable blue-grey waves-effect green-text" onclick="likeCard()" href="#"><i
-                class="material-icons">check</i></a>
+    <div class=" center-align row valign-wrapper button_row">
+        <div class="col s3 btn_col valign-wrapper">
+            <a class="btn hoverable blue-grey waves-effect yellow-text center-block" onclick="shuffleCard()"
+               href="#">
+                <i class="material-icons btn_icon ">shuffle</i>
+            </a>
+        </div>
+        <div class="col s3 btn_col valign-wrapper">
+            <a class="btn hoverable blue-grey waves-effect red-text center-block" onclick="blockCard()" href="#"><i
+                    class="material-icons btn_icon ">block</i></a>
+        </div>
+        <div class="col s3 btn_col valign-wrapper">
+            <a class=" btn hoverable blue-grey waves-effect green-text center-block" onclick="likeCard()" href="#"><i
+                    class="material-icons">check</i></a>
+        </div>
+        <div class="col s3 btn_col valign-wrapper">
+            <a class=" btn hoverable blue-grey waves-effect center-block" onclick="openFilters()" href="#"><i
+                    class="material-icons btn_icon">filter_list</i></a>
+        </div>
     </div>
-    <div class="card-content center-align row hide-on-med-and-up">
-        <a class="col s4 btn blue-grey waves-effect yellow-text" onclick="shuffleCard()" href="#"><i
-                class="material-icons">shuffle</i></a>
-        <a class="col s4 btn blue-grey waves-effect red-text" onclick="blockCard()" href="#"><i class="material-icons">block</i></a>
-        <a class="col s4 btn blue-grey waves-effect green-text" onclick="likeCard()" href="#"><i class="material-icons">check</i></a>
-    </div>
-</div>
-<script
-        src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="../js/constants.js"></script>
-<script src="../js/draw.js"></script>
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="../js/constants.js"></script>
+    <script src="../js/draw.js"></script>
 </body>
 </html>
