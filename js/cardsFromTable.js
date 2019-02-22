@@ -21,9 +21,17 @@ function handleModalClose() {
     setTimeout(fetchAndDisplayCards, 500);
 }
 
+function loginCallback() {
+    fetchAndDisplayCards();
+}
+
 function fetchAndDisplayCards() {
     let cardCollection = $("#card_collection");
     cardCollection.empty();
+    let userid = getUserId();
+    if (!userid) {
+        return;
+    }
     $.post({
         url: API_URL + endpoint,
         data: {'userid': getUserId()}

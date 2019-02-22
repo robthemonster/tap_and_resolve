@@ -5,10 +5,15 @@ const PAGE_SIZE = 50;
 addNavBarAndLogin("liked.html", "blocked.html", "#", "draw.html");
 function handleModalClose() {}
 
+function loginCallback() {
+    filterCards();
+}
+
 function filterCards() {
     let queryString = $("#autocomplete-input").val();
     queryString = (queryString) ? queryString.toString().toLowerCase() : undefined;
-    if ((queryString === undefined) || (queryString === resultsReturnedFor)) {
+    let userid = getUserId();
+    if (!userid || (queryString === undefined) || (queryString === resultsReturnedFor)) {
         return;
     }
     $.post({

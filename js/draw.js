@@ -37,6 +37,10 @@ function blockCard() {
     })
 }
 
+function loginCallback() {
+    shuffleCard();
+}
+
 function shuffleCard() {
     currentCard = -1;
     $("#card_image_div").css('display', 'none');
