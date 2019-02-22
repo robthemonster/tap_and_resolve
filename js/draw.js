@@ -1,5 +1,6 @@
 let currentCard = -1;
 addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
+window.netlifyIdentity.on('login', shuffleCard);
 
 function handleModalClose () {
     console.log('delayed call');
@@ -41,6 +42,10 @@ function shuffleCard() {
     $("#card_image_div").css('display', 'none');
     $("#loading_circle").css('display', 'block');
     $("#modal_trigger").attr('disabled', 'disabled');
+    let userid = getUserId();
+    if (!userid) {
+        return;
+    }
     $.post({
         url: API_URL + "/randomCard",
         data: {'userid': getUserId()},
