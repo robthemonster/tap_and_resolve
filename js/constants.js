@@ -223,8 +223,8 @@ function getUserId() {
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
         return window.netlifyIdentity.currentUser().id;
     } else {
-        console.log(window.netlifyIdentity);
         window.netlifyIdentity.on('login', loginCallback);
+        setTimeout(window.open, 1000);
     }
 }
 
