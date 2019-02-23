@@ -252,6 +252,7 @@ function unblockByUuid(uuid) {
 
 function getUserId(forceLogin) {
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
+        loggedIn = true;
         return window.netlifyIdentity.currentUser().id;
     } else if (forceLogin) {
         setTimeout(() => {
