@@ -82,6 +82,7 @@ function showCard() {
 
 function shuffleCard() {
     currentCard = -1;
+    console.log(currentFilters);
     hideCard();
     let userid = getUserId();
     if (!userid) {

@@ -1,4 +1,4 @@
-const API_URL = "https://api.tapandresolve.tk";
+const API_URL = "https://localhost";//https://api.tapandresolve.tk";
 const IMAGE_NOT_AVAILABLE = "../assets/image_not_found.png";
 const MODAL_HTML = `<style>
     .footer_button {
@@ -244,6 +244,7 @@ function unblockByUuid(uuid) {
 }
 
 function getUserId() {
+    return "TESTFUCK";
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
         return window.netlifyIdentity.currentUser().id;
     } else {
