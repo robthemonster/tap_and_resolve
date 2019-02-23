@@ -10,7 +10,7 @@
 </head>
 <body class="blue-grey darken-4">
 
-<div id="card_container" class=" blue-grey darken-1 white-text">
+<div id="card_container" class=" blue-grey darken-1 ">
     <div id="loading_circle" class="row valign-wrapper">
 
         <span id="loading_circle_inner" class="preloader-wrapper active big">
@@ -50,6 +50,58 @@
         <div class="col s3 btn_col valign-wrapper">
             <a class=" btn hoverable blue-grey waves-effect center-block" onclick="openFilters()" href="#"><i
                     class="material-icons btn_icon">filter_list</i></a>
+        </div>
+    </div>
+    <div id="modal_filters" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4> Filters</h4>
+        </div>
+        <div class="modal-content">
+            <h5>Colors</h5>
+            <form class="row" action="#">
+                <div class="switch">
+                    Draw cards that use
+                    <label>
+                        <span class="teal-text" id="only_span">Only</span>
+                        <input onchange="highlightFilterMode()" id="color_filter_mode" type="checkbox">
+                        <span class="lever"></span>
+                        <span id="exactly_span">Exactly</span>
+                    </label>
+                    these colors.
+                </div>
+
+                <p>
+                    <label>
+                        <input type="checkbox" id="B_check" checked="checked" class="flow-text"/>
+                        <span>Black</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" id="U_check" checked="checked" class="flow-text"/>
+                        <span>Blue</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" id="G_check" checked="checked" class="flow-text"/>
+                        <span>Green</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" id="R_check" checked="checked" class="flow-text"/>
+                        <span>Red</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" id="W_check" checked="checked" class="flow-text"/>
+                        <span>White</span>
+                    </label>
+
+                </p>
+            </form>
         </div>
     </div>
 
