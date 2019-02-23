@@ -6,7 +6,7 @@ function handleModalClose() {
     setTimeout(() => {
         $.post({
             url: API_URL + "/getUserCardStatus",
-            data: {userid: getUserId(), uuid: currentCard}
+            data: {userid: getUserId(false), uuid: currentCard}
         })
             .then(response => {
                 if (response.liked || response.blocked) {
@@ -49,7 +49,7 @@ function openFilters() {
 function likeCard() {
     $.post({
         url: API_URL + "/addCardToLiked",
-        data: {'userid': getUserId(), 'uuid': currentCard},
+        data: {'userid': getUserId(true), 'uuid': currentCard},
     }).then(() => {
         shuffleCard();
     })
@@ -58,7 +58,7 @@ function likeCard() {
 function blockCard() {
     $.post({
         url: API_URL + "/addCardToBlocked",
-        data: {'userid': getUserId(), 'uuid': currentCard},
+        data: {'userid': getUserId(true), 'uuid': currentCard},
     }).then(() => {
         shuffleCard();
     })
@@ -82,15 +82,10 @@ function showCard() {
 
 function shuffleCard() {
     currentCard = -1;
-    console.log(currentFilters);
     hideCard();
-    let userid = getUserId();
-    if (!userid) {
-        return;
-    }
     $.post({
         url: API_URL + "/randomCard",
-        data: {'userid': getUserId(), 'filter': JSON.stringify(currentFilters)},
+        data: {'userid': getUserId(false), 'filter': JSON.stringify(currentFilters)},
     }).then(randomCard => {
         currentCard = randomCard.id;
         let imageurl = (randomCard.image_uris) ? randomCard.image_uris.border_crop : false;

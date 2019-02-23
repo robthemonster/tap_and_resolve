@@ -27,13 +27,9 @@ function loginCallback() {
 function fetchAndDisplayCards() {
     let cardCollection = $("#card_collection");
     cardCollection.empty();
-    let userid = getUserId();
-    if (!userid) {
-        return;
-    }
     $.post({
         url: API_URL + endpoint,
-        data: {'userid': getUserId()}
+        data: {'userid': getUserId(true)}
     }).then(response => {
         let autocomplete = {};
         response.forEach(card => {

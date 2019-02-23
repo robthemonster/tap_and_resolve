@@ -69,6 +69,8 @@ const MODAL_HTML = `<style>
     </div>
 </div>`;
 
+let loggedIn = false;
+
 function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
     return `<nav id="navbar">
     <div class="nav-wrapper blue-grey darken-2">
@@ -205,21 +207,26 @@ function changeButtonFunctions(response, uuid) {
 
 function resetModalButtons(uuid) {
     hideButtons();
-    $.post({
-        url: API_URL + "/getUserCardStatus",
-        data: {userid: getUserId(), uuid: uuid}
-    })
-        .then(response => {
-            showButtons();
-            changeButtonFunctions(response, uuid);
-        });
+    if (loggedIn) {
+        $.post({
+            url: API_URL + "/getUserCardStatus",
+            data: {userid: getUserId(true), uuid: uuid}
+        })
+            .then(response => {
+                showButtons();
+                changeButtonFunctions(response, uuid);
+            });
+    } else {
+        showButtons();
+        changeButtonFunctions({blocked: false, liked: false}, uuid);
+    }
 }
 
 function crudToEndpoint(endPoint, uuid) {
     hideButtons();
     $.post({
         url: API_URL + endPoint,
-        data: {userid: getUserId(), uuid: uuid}
+        data: {userid: getUserId(true), uuid: uuid}
     })
         .then(response => {
             resetModalButtons(uuid);
@@ -243,23 +250,29 @@ function unblockByUuid(uuid) {
     crudToEndpoint("/removeCardFromBlocked", uuid);
 }
 
-function getUserId() {
+function getUserId(forceLogin) {
     if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
         return window.netlifyIdentity.currentUser().id;
-    } else {
+    } else if (forceLogin) {
         setTimeout(() => {
             if (!window.netlifyIdentity) {
-                setTimeout(getUserId, 1000);
+                setTimeout(() => {
+                    getUserId(true);
+                }, 1000);
                 return;
             }
             if (!window.netlifyIdentity.currentUser()) {
                 window.netlifyIdentity.on('login', loginCallback);
-                window.netlifyIdentity.on('close', getUserId);
+                M.Modal.getInstance($("#card_modal")).close();
                 window.netlifyIdentity.open();
+                showButtons();
+
             } else if (loginCallback) {
                 loginCallback();
             }
         }, 1000);
+    } else {
+        return undefined;
     }
 }
 

@@ -14,13 +14,9 @@ function loginCallback() {
 function filterCards() {
     let queryString = $("#autocomplete-input").val();
     queryString = (queryString) ? queryString.toString().toLowerCase() : undefined;
-    let userid = getUserId();
-    if (!userid || (queryString === undefined)) {
-        return;
-    }
     $.post({
         url: API_URL + "/searchForCard",
-        data: {searchString: queryString, userid: getUserId(), pagesize: PAGE_SIZE}
+        data: {searchString: queryString, userid: getUserId(false), pagesize: PAGE_SIZE}
     }).then(response => {
         let resultsCollection = $("#results_collection");
         resultsCollection.empty();
