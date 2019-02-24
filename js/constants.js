@@ -69,7 +69,7 @@ const MODAL_HTML = `<style>
     </div>
 </div>`;
 
-function getAccountIfLoggedIn() {
+function isLoggedIn() {
     return !!(window.netlifyIdentity && window.netlifyIdentity.currentUser());
 }
 
@@ -84,7 +84,7 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
     }
 
     function getAccountDropdown() {
-        if (!getAccountIfLoggedIn()) {
+        if (!isLoggedIn()) {
             return ['', ''];
         } else {
             let email = window.netlifyIdentity.currentUser().email;
@@ -240,7 +240,7 @@ function changeButtonFunctions(response, uuid) {
 
 function resetModalButtons(uuid) {
     hideButtons();
-    if (getAccountIfLoggedIn()) {
+    if (isLoggedIn()) {
         $.post({
             url: `${API_URL}/getUserCardStatus`,
             data: {userid: getUserId(true), uuid: uuid}
@@ -284,7 +284,7 @@ function unblockByUuid(uuid) {
 }
 
 function getUserId(forceLogin) {
-    if (getAccountIfLoggedIn()) {
+    if (isLoggedIn()) {
         return window.netlifyIdentity.currentUser().id;
     } else if (forceLogin) {
         setTimeout(() => {
@@ -306,7 +306,7 @@ function getUserId(forceLogin) {
 }
 
 function logout() {
-    if (getAccountIfLoggedIn()) {
+    if (isLoggedIn()) {
         window.netlifyIdentity.currentUser().logout();
         loginCallback();
     }
