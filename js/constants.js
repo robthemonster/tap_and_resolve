@@ -113,8 +113,9 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
             ${accountDropdown}
         </ul>
     </div>
+    ${accountDropdownList}
+
 </nav>
-${accountDropdownList}
 <ul class="sidenav" id="mobile-demo">
     <li class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
                                                                  class="center-align material-icons green-text">check</i></a>
@@ -143,9 +144,6 @@ function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
 }
 
 $(document).ready(function () {
-    console.log(isLoggedIn());
-    netlifyIdentity.on('init', user => console.log('init ' + isLoggedIn(), user));
-
     $('.sidenav').sidenav();
     $(".dropdown-trigger").dropdown();
     $('.modal').modal({
