@@ -1,8 +1,17 @@
 let currentCard = -1;
 let currentFilters = {exclusive: false, flags: {B: true, U: true, G: true, R: true, W: true}};
+let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
+
 $(document).ready(() => {
     addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
     shuffleCard();
+    $("body").keypress((event) => {
+        if (event.keyCode === ADD_KEYCODE) {
+            likeCard();
+        } else if (event.keyCode === SUB_KEYCODE) {
+            blockCard();
+        }
+    })
 });
 
 function handleModalClose() {
