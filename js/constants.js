@@ -73,25 +73,38 @@ function isLoggedIn() {
     return window.netlifyIdentity && window.netlifyIdentity.currentUser();
 }
 
+
 function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
+    function getNavClass() {
+        let results = [];
+        for (let i in arguments) {
+            results[i] = arguments[i] === "#" ? " blue darken-1" : "";
+        }
+        return results;
+    }
+
+    let [likedClass, blockedClass, searchClass, homeClass] = getNavClass(likedRef, blockedRef, searchRef, homeRef);
     return `<nav id="navbar">
     <div class="nav-wrapper blue-grey darken-2">
         <a href="${homeRef}" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="${likedRef}"><i class="material-icons green-text">check</i></a></li>
-            <li><a href="${blockedRef}"><i class="material-icons red-text">block</i></a></li>
-            <li><a href="${searchRef}"><i class="material-icons prefix">search</i></a></li>
+            <li class="${likedClass}"><a href="${likedRef}"><i class="material-icons green-text ${likedClass}">check</i></a></li>
+            <li class="${blockedClass}"><a href="${blockedRef}"><i class="material-icons red-text ${blockedClass}">block</i></a></li>
+            <li class="${searchClass}"><a href="${searchRef}"><i class="material-icons prefix ${searchClass}">search</i></a></li>
         </ul>
     </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-    <li><a href="${likedRef}"><i style="width:100%;" class="center-align material-icons green-text">check</i></a>
+    <li class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
+                                                                 class="center-align material-icons green-text">check</i></a>
     </li>
-    <li><a href="${blockedRef}"><i style="width:100%;" class="center-align material-icons red-text">block</i></a>
+    <li class="${blockedClass}"><a href="${blockedRef}"><i style="width:100%;"
+                                                                 class="center-align material-icons red-text">block</i></a>
     </li>
-    <li><a href="${searchRef}"><i style="width: 100%" class="center-align material-icons prefix">search</i></a>
+    <li class="${searchClass}"><a href="${searchRef}"><i style="width: 100%"
+                                                                 class="center-align material-icons prefix">search</i></a>
     </li>
 </ul>`
 }
