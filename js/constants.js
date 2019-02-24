@@ -106,9 +106,9 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
         class="material-icons right">arrow_drop_down</i></a>
 </li>`;
             let list = `<ul id="account_dropdown_list" class="dropdown-content">
-    <li><a href="#!" onclick="logout();" >logout</a></li>
+    <li><a href="#!" class="black-text center" onclick="logout();" >Logout</a></li>
 </ul>   `;
-            let sidenav = `<li><a href="#!" onclick="logout();" >logout</a></li>`;
+            let sidenav = `<li><a href="#!" onclick="logout();" class="center" >Logout</a></li>`;
             return [list, dropdown, sidenav];
         }
     }
