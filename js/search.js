@@ -17,7 +17,7 @@ function filterCards() {
     queryString = (queryString) ? queryString.toString().toLowerCase() : undefined;
     $.post({
         url: API_URL + "/searchForCard",
-        data: {searchString: queryString, userid: getUserId(false), pagesize: PAGE_SIZE}
+        data: {searchString: queryString, pagesize: PAGE_SIZE}
     }).then(response => {
         let resultsCollection = $("#results_collection");
         resultsCollection.empty();

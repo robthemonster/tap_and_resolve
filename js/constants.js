@@ -1,3 +1,7 @@
+function getNetlifyIdentity() {
+    return window.netlifyIdentity;
+}
+
 const API_URL = "https://api.tapandresolve.tk";
 const IMAGE_NOT_AVAILABLE = "../assets/image_not_found.png";
 const NAVBAR_REFS = {
@@ -77,7 +81,7 @@ const MODAL_HTML = `<style>
 </div>`;
 
 function isLoggedIn() {
-    return window.netlifyIdentity && window.netlifyIdentity.currentUser();
+    return getNetlifyIdentity() && getNetlifyIdentity().currentUser();
 }
 
 
@@ -89,11 +93,12 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
         }
         return results;
     }
+
     function getAccountDropdown() {
         if (!isLoggedIn()) {
             return ['', '', ''];
         } else {
-            let email = window.netlifyIdentity.currentUser().email;
+            let email = getNetlifyIdentity().currentUser().email;
             email = email ? email : "Account";
             let dropdown = `<li><a class="dropdown-trigger" href="#!" data-target="account_dropdown_list">${email}<i
         class="material-icons right">arrow_drop_down</i></a>
@@ -254,14 +259,18 @@ function changeButtonFunctions(response, uuid) {
 function resetModalButtons(uuid) {
     hideButtons();
     if (isLoggedIn()) {
-        $.post({
-            url: `${API_URL}/getUserCardStatus`,
-            data: {userid: getUserId(true), uuid: uuid}
-        })
-            .then(response => {
-                showButtons();
-                changeButtonFunctions(response, uuid);
-            });
+        getAccount(true).then(([userid, token]) => {
+            $.post({
+                url: `${API_URL}/getUserCardStatus`,
+                data: {userid: userid, token: token, uuid: uuid}
+            })
+                .then(response => {
+                    showButtons();
+                    changeButtonFunctions(response, uuid);
+                });
+        }).catch((error) => {
+            console.log(error);
+        });
     } else {
         showButtons();
         changeButtonFunctions({blocked: false, liked: false}, uuid);
@@ -270,13 +279,15 @@ function resetModalButtons(uuid) {
 
 function crudToEndpoint(endPoint, uuid) {
     hideButtons();
-    $.post({
-        url: API_URL + endPoint,
-        data: {userid: getUserId(true), uuid: uuid}
-    })
-        .then(response => {
-            resetModalButtons(uuid);
-        });
+    getAccount(true).then(([userid, token]) => {
+        $.post({
+            url: API_URL + endPoint,
+            data: {userid: userid, token, uuid: uuid}
+        })
+            .then(response => {
+                resetModalButtons(uuid);
+            });
+    });
 }
 
 function likeByUuid(uuid) {
@@ -296,31 +307,35 @@ function unblockByUuid(uuid) {
     crudToEndpoint("/removeCardFromBlocked", uuid);
 }
 
-function getUserId(forceLogin) {
-    if (isLoggedIn()) {
-        return window.netlifyIdentity.currentUser().id;
-    } else if (forceLogin) {
-        setTimeout(() => {
-            if (!window.netlifyIdentity) {
-                setTimeout(() => {
-                    getUserId(true);
-                }, 1000);
-                return;
-            }
-            window.netlifyIdentity.on('login', loginCallback);
-            M.Modal.getInstance($("#card_modal")).close();
-            window.netlifyIdentity.open();
-            hideButtons();
-            showButtons();
-        }, 1000);
-    } else {
-        return undefined;
-    }
+async function getAccount(forceLogin) {
+    return new Promise((resolve, reject) => {
+        if (isLoggedIn()) {
+            getNetlifyIdentity().currentUser().jwt().then(token => {
+                resolve([getNetlifyIdentity().currentUser().id, token])
+            });
+        } else if (forceLogin) {
+            setTimeout(() => {
+                if (!getNetlifyIdentity()) {
+                    setTimeout(() => {
+                        getAccount(true);
+                    }, 1000);
+                    reject([undefined, undefined]);
+                }
+                getNetlifyIdentity().on('login', loginCallback);
+                M.Modal.getInstance($("#card_modal")).close();
+                getNetlifyIdentity().open();
+                hideButtons();
+                showButtons();
+            }, 1000);
+        } else {
+            resolve([undefined, undefined]);
+        }
+    });
 }
 
 function logout() {
     if (isLoggedIn()) {
-        window.netlifyIdentity.currentUser().logout();
+        getNetlifyIdentity().currentUser().logout();
         location.reload();
     }
 }

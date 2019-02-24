@@ -15,17 +15,21 @@ $(document).ready(() => {
 });
 
 function handleModalClose() {
-    setTimeout(() => {
-        $.post({
-            url: API_URL + "/getUserCardStatus",
-            data: {userid: getUserId(false), uuid: currentCard}
-        })
-            .then(response => {
-                if (response.liked || response.blocked) {
-                    shuffleCard();
-                }
-            })
-    }, 500);
+    if (isLoggedIn()) {
+        getAccount(true).then(([userid, token]) => {
+            setTimeout(() => {
+                $.post({
+                    url: API_URL + "/getUserCardStatus",
+                    data: {userid: userid, token: token, uuid: currentCard}
+                })
+                    .then(response => {
+                        if (response.liked || response.blocked) {
+                            shuffleCard();
+                        }
+                    })
+            }, 500);
+        });
+    }
 }
 
 function handleFiltersChange() {
@@ -57,21 +61,25 @@ function openFilters() {
 }
 
 function likeCard() {
-    $.post({
-        url: API_URL + "/addCardToLiked",
-        data: {'userid': getUserId(true), 'uuid': currentCard},
-    }).then(() => {
-        shuffleCard();
-    })
+    getAccount(true).then(([userid, token]) => {
+        $.post({
+            url: API_URL + "/addCardToLiked",
+            data: {userid: userid, token: token, uuid: currentCard},
+        }).then(() => {
+            shuffleCard();
+        })
+    });
 }
 
 function blockCard() {
-    $.post({
-        url: API_URL + "/addCardToBlocked",
-        data: {'userid': getUserId(true), 'uuid': currentCard},
-    }).then(() => {
-        shuffleCard();
-    })
+    getAccount(true).then(([userid, token]) => {
+        $.post({
+            url: API_URL + "/addCardToBlocked",
+            data: {userid: userid, token: token, uuid: currentCard},
+        }).then(() => {
+            shuffleCard();
+        })
+    });
 }
 
 function loginCallback() {
@@ -93,14 +101,16 @@ function showCard() {
 function shuffleCard() {
     currentCard = -1;
     hideCard();
-    $.post({
-        url: API_URL + "/randomCard",
-        data: {'userid': getUserId(false), 'filter': JSON.stringify(currentFilters)},
-    }).then(randomCard => {
-        currentCard = randomCard.id;
-        let imageurl = (randomCard.image_uris) ? randomCard.image_uris.border_crop : false;
-        $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
-        setModalContentFromCard(randomCard);
-        showCard();
+    getAccount(false).then(([userid, token]) => {
+        $.post({
+            url: API_URL + "/randomCard",
+            data: {userid: userid, token: token, filter: JSON.stringify(currentFilters)},
+        }).then(randomCard => {
+            currentCard = randomCard.id;
+            let imageurl = (randomCard.image_uris) ? randomCard.image_uris.border_crop : false;
+            $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
+            setModalContentFromCard(randomCard);
+            showCard();
+        });
     });
 }
