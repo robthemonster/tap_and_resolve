@@ -125,17 +125,16 @@ function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
 
 $(document).ready(function () {
     $('.sidenav').sidenav();
-});
-$(document).ready(function () {
+    $(".dropdown-trigger").dropdown();
     $('.modal').modal({
         onCloseEnd: handleModalClose
     });
-});
-$(".autocomplete").keydown((event) => {
-    if (event.keyCode === 27) {
-        let instance = M.Autocomplete.getInstance($(".autocomplete"));
-        instance.close();
-    }
+    $(".autocomplete").keydown((event) => {
+        if (event.keyCode === 27) {
+            let instance = M.Autocomplete.getInstance($(".autocomplete"));
+            instance.close();
+        }
+    });
 });
 
 function setModalContentFromIndex(index) {
