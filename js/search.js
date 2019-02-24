@@ -3,7 +3,7 @@ let resultsReturnedFor = null;
 const PAGE_SIZE = 50;
 
 $(document).ready(() => {
-    addNavBarAndLogin("liked.html", "blocked.html", "#", "draw.html");
+    addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, "#", NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT);
 });
 function handleModalClose() {
 }

@@ -1,7 +1,7 @@
 let currentCard = -1;
 let currentFilters = {exclusive: false, flags: {B: true, U: true, G: true, R: true, W: true}};
 $(document).ready(() => {
-    addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
+    addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
     shuffleCard();
 });
 

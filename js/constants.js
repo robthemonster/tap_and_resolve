@@ -1,5 +1,12 @@
 const API_URL = "https://api.tapandresolve.tk";
 const IMAGE_NOT_AVAILABLE = "../assets/image_not_found.png";
+const NAVBAR_REFS = {
+    LIKED: "liked.html",
+    BLOCKED: "blocked.html",
+    SEARCH: "search.html",
+    DRAW: 'draw.html',
+    ABOUT: 'about.html'
+};
 const MODAL_HTML = `<style>
     .footer_button {
         height: 100%;
@@ -74,7 +81,7 @@ function isLoggedIn() {
 }
 
 
-function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
+function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
     function getNavClass() {
         let results = [];
         for (let i in arguments) {
@@ -82,10 +89,9 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
         }
         return results;
     }
-
     function getAccountDropdown() {
         if (!isLoggedIn()) {
-            return ['', ''];
+            return ['', '', ''];
         } else {
             let email = window.netlifyIdentity.currentUser().email;
             email = email ? email : "Account";
@@ -95,18 +101,18 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
             let list = `<ul id="account_dropdown_list" class="dropdown-content">
     <li><a href="#!" onclick="logout();" >logout</a></li>
 </ul>   `;
-            return [list, dropdown];
+            let sidenav = `<li><a href="#!" onclick="logout();" >logout</a></li>`;
+            return [list, dropdown, sidenav];
         }
     }
 
-    let [likedClass, blockedClass, searchClass, homeClass] = getNavClass(likedRef, blockedRef, searchRef, homeRef);
-
-    let [accountDropdownList, accountDropdown] = getAccountDropdown();
+    let [likedClass, blockedClass, searchClass, drawClass, aboutClass] = getNavClass(likedRef, blockedRef, searchRef, drawRef, aboutRef);
+    let [accountDropdownList, accountDropdown, sideNav] = getAccountDropdown();
     return `
 <nav id="navbar">
 ${accountDropdownList}
     <div class="nav-wrapper blue-grey darken-2">
-        <a href="${homeRef}" class="brand-logo center">Tap&Resolve</a>
+        <a href="${drawRef}" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li class="${likedClass}"><a href="${likedRef}"><i
@@ -115,6 +121,8 @@ ${accountDropdownList}
                     class="material-icons red-text ${blockedClass}">block</i></a></li>
             <li class="${searchClass}"><a href="${searchRef}"><i
                     class="material-icons prefix ${searchClass}">search</i></a></li>
+            <li class="${aboutClass}"><a href="${aboutRef}"><i
+                    class="material-icons prefix ${aboutClass}">help</i></a></li>
             ${accountDropdown}
         </ul>
     </div>
@@ -129,6 +137,10 @@ ${accountDropdownList}
     <li class="${searchClass}"><a href="${searchRef}"><i style="width: 100%"
                                                                  class="center-align material-icons prefix">search</i></a>
     </li>
+    <li class="${aboutClass}"><a href="${aboutRef}"><i style="width: 100%"
+                                                                 class="center-align material-icons prefix">help</i></a>
+    </li>
+    ${sideNav}
 </ul>`
 }
 
@@ -142,8 +154,8 @@ function getFaceNameAndText(name, text, flavor) {
 
 $("body").append($(MODAL_HTML));
 
-function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
-    $("body").prepend($(getNavBarHtml(likedRef, blockedRef, searchRef, homeRef)));
+function addNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
+    $("body").prepend($(getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef)));
     $(".dropdown-trigger").dropdown();
     $('.sidenav').sidenav();
     $('.modal').modal({
@@ -156,10 +168,6 @@ function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
         }
     });
 }
-
-$(document).ready(function () {
-
-});
 
 function setModalContentFromIndex(index) {
     let card = cards[index];

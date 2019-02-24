@@ -6,14 +6,14 @@ let likedRef, blockedRef;
 if (TABLE_REF === "LIKED") {
     endpoint = "/getLiked";
     likedRef = "#";
-    blockedRef = "blocked.html";
+    blockedRef = NAVBAR_REFS.BLOCKED;
 } else if (TABLE_REF === "BLOCKED") {
     endpoint = "/getBlocked";
     blockedRef = "#";
-    likedRef = "liked.html";
+    likedRef = NAVBAR_REFS.LIKED;
 }
 $(document).ready(() => {
-    addNavBarAndLogin(likedRef, blockedRef, "search.html", "draw.html");
+    addNavBarAndLogin(likedRef, blockedRef, NAVBAR_REFS.SEARCH, NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT);
     fetchAndDisplayCards();
 });
 
