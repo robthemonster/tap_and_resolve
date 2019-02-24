@@ -22,6 +22,7 @@ function handleModalClose() {
 }
 
 function loginCallback() {
+    resetNavBarAndLogin(likedRef, blockedRef, NAVBAR_REFS.SEARCH, NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT);
     restoreModalButtons();
     fetchAndDisplayCards();
 }

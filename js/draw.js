@@ -29,6 +29,13 @@ $(document).ready(() => {
     })
 });
 
+function loginCallback() {
+    setButtonConfig(isLoggedIn());
+    resetNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
+    restoreModalButtons();
+    shuffleCard();
+}
+
 function handleModalClose() {
     if (isLoggedIn()) {
         getAccount(true).then(([userid, token]) => {
@@ -95,12 +102,6 @@ function blockCard() {
             shuffleCard();
         })
     });
-}
-
-function loginCallback() {
-    setButtonConfig(isLoggedIn());
-    restoreModalButtons();
-    shuffleCard();
 }
 
 function hideCard() {

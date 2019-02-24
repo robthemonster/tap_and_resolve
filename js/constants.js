@@ -177,6 +177,11 @@ function addNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
     });
 }
 
+function resetNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
+    $("#navbar").remove();
+    addNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef);
+}
+
 function setModalContentFromIndex(index) {
     let card = cards[index];
     setModalContentFromCard(card);

@@ -9,6 +9,7 @@ function handleModalClose() {
 }
 
 function loginCallback() {
+    resetNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, "#", NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT);
     restoreModalButtons();
     filterCards();
 }
