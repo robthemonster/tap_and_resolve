@@ -69,8 +69,8 @@ const MODAL_HTML = `<style>
     </div>
 </div>`;
 
-function isLoggedIn() {
-    return window.netlifyIdentity && window.netlifyIdentity.currentUser();
+function getAccountIfLoggedIn() {
+    return !!(window.netlifyIdentity && window.netlifyIdentity.currentUser());
 }
 
 
@@ -83,7 +83,25 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
         return results;
     }
 
+    function getAccountDropdown() {
+        if (!getAccountIfLoggedIn()) {
+            return ['', ''];
+        } else {
+            let email = window.netlifyIdentity.currentUser().email;
+            email = email ? email : "Account";
+            let dropdown = `<li><a class="dropdown-trigger" href="#!" data-target="account_dropdown_list">${email}<i
+        class="material-icons right">arrow_drop_down</i></a>
+</li>`;
+            let list = `<ul id="account_dropdown_list" class="dropdown-content">
+    <li><a href="#!" onclick="logout();" >logout</a></li>
+</ul>   `;
+            return [list, dropdown];
+        }
+    }
+
     let [likedClass, blockedClass, searchClass, homeClass] = getNavClass(likedRef, blockedRef, searchRef, homeRef);
+
+    let [accountDropdownList, accountDropdown] = getAccountDropdown();
     return `<nav id="navbar">
     <div class="nav-wrapper blue-grey darken-2">
         <a href="${homeRef}" class="brand-logo center">Tap&Resolve</a>
@@ -92,10 +110,11 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
             <li class="${likedClass}"><a href="${likedRef}"><i class="material-icons green-text ${likedClass}">check</i></a></li>
             <li class="${blockedClass}"><a href="${blockedRef}"><i class="material-icons red-text ${blockedClass}">block</i></a></li>
             <li class="${searchClass}"><a href="${searchRef}"><i class="material-icons prefix ${searchClass}">search</i></a></li>
+            ${accountDropdown}
         </ul>
     </div>
 </nav>
-
+${accountDropdownList}
 <ul class="sidenav" id="mobile-demo">
     <li class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
                                                                  class="center-align material-icons green-text">check</i></a>
@@ -171,9 +190,9 @@ function setModalTextAndImage(card) {
         .then(response => {
             let prices = response.prices;
             let [usd, foil, tix] = [prices['usd'], prices['usd_foil'], prices['usd_foil']];
-            $("#modal_card_usd").text(usd !== null ? "$" + usd : "");
-            $("#modal_card_foil").text(foil !== null ? "$" + foil + " foil" : "");
-            $("#modal_card_tix").text(tix !== null ? tix + " TIX" : "");
+            $("#modal_card_usd").text(usd !== null ? `$${usd}` : "");
+            $("#modal_card_foil").text(foil !== null ? `$${foil} foil` : "");
+            $("#modal_card_tix").text(tix !== null ? `${tix} TIX` : "");
 
             let purchase_uris = response.purchase_uris;
             let [cardhoarder, cardmarket, tcgplayer] = [purchase_uris['cardhoarder'], purchase_uris['cardmarket'], purchase_uris['tcgplayer']];
@@ -213,17 +232,17 @@ function showButtons() {
 function changeButtonFunctions(response, uuid) {
     let [block_anchor, like_anchor] = [$("#modal_block_anchor"), $('#modal_like_anchor')];
     let [block_icon, like_icon] = [$("#modal_block_icon"), $("#modal_like_icon")];
-    like_anchor.attr("onclick", response.liked ? 'unlikeByUuid(\"' + uuid + "\")" : "likeByUuid(\"" + uuid + "\")");
-    block_anchor.attr('onclick', response.blocked ? 'unblockByUuid(\"' + uuid + "\")" : 'blockByUuid(\"' + uuid + "\")");
+    like_anchor.attr("onclick", response.liked ? `unlikeByUuid(${uuid})` : `likeByUuid(${uuid})`);
+    block_anchor.attr('onclick', response.blocked ? `unblockByUuid(${uuid})` : `blockByUuid(${uuid})`);
     like_icon.text(response.liked ? 'undo' : 'check');
     block_icon.text(response.blocked ? 'undo' : 'block');
 }
 
 function resetModalButtons(uuid) {
     hideButtons();
-    if (isLoggedIn()) {
+    if (getAccountIfLoggedIn()) {
         $.post({
-            url: API_URL + "/getUserCardStatus",
+            url: `${API_URL}/getUserCardStatus`,
             data: {userid: getUserId(true), uuid: uuid}
         })
             .then(response => {
@@ -265,7 +284,7 @@ function unblockByUuid(uuid) {
 }
 
 function getUserId(forceLogin) {
-    if (isLoggedIn()) {
+    if (getAccountIfLoggedIn()) {
         return window.netlifyIdentity.currentUser().id;
     } else if (forceLogin) {
         setTimeout(() => {
@@ -283,6 +302,13 @@ function getUserId(forceLogin) {
         }, 1000);
     } else {
         return undefined;
+    }
+}
+
+function logout() {
+    if (getAccountIfLoggedIn()) {
+        window.netlifyIdentity.currentUser().logout();
+        loginCallback();
     }
 }
 
