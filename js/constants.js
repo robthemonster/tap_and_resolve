@@ -70,9 +70,7 @@ const MODAL_HTML = `<style>
 </div>`;
 
 function isLoggedIn() {
-    let x = !!(window.netlifyIdentity && window.netlifyIdentity.currentUser());
-    console.log(x);
-    return x;
+    return window.netlifyIdentity && window.netlifyIdentity.currentUser();
 }
 
 

@@ -14,8 +14,8 @@ if (TABLE_REF === "LIKED") {
 }
 $(document).ready(() => {
     addNavBarAndLogin(likedRef, blockedRef, "search.html", "draw.html");
+    fetchAndDisplayCards();
 });
-fetchAndDisplayCards();
 
 function handleModalClose() {
     setTimeout(fetchAndDisplayCards, 500);

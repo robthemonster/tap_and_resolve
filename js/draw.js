@@ -2,9 +2,9 @@ let currentCard = -1;
 let currentFilters = {exclusive: false, flags: {B: true, U: true, G: true, R: true, W: true}};
 $(document).ready(() => {
     addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
+    shuffleCard();
 });
 
-shuffleCard();
 function handleModalClose() {
     setTimeout(() => {
         $.post({
