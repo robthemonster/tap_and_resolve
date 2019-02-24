@@ -1,6 +1,9 @@
 let currentCard = -1;
 let currentFilters = {exclusive: false, flags: {B: true, U: true, G: true, R: true, W: true}};
-addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
+$(document).ready(() => {
+    addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
+});
+
 shuffleCard();
 function handleModalClose() {
     setTimeout(() => {

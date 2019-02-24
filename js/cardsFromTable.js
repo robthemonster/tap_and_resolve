@@ -12,8 +12,9 @@ if (TABLE_REF === "LIKED") {
     blockedRef = "#";
     likedRef = "liked.html";
 }
-addNavBarAndLogin(likedRef, blockedRef, "search.html", "draw.html");
-
+$(document).ready(() => {
+    addNavBarAndLogin(likedRef, blockedRef, "search.html", "draw.html");
+});
 fetchAndDisplayCards();
 
 function handleModalClose() {

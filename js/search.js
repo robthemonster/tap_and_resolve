@@ -2,8 +2,9 @@ let cards = [];
 let resultsReturnedFor = null;
 const PAGE_SIZE = 50;
 
-addNavBarAndLogin("liked.html", "blocked.html", "#", "draw.html");
-
+$(document).ready(() => {
+    addNavBarAndLogin("liked.html", "blocked.html", "#", "draw.html");
+});
 function handleModalClose() {
 }
 
