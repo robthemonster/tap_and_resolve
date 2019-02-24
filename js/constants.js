@@ -312,7 +312,7 @@ function getUserId(forceLogin) {
 function logout() {
     if (isLoggedIn()) {
         window.netlifyIdentity.currentUser().logout();
-        loginCallback();
+        location.reload();
     }
 }
 
