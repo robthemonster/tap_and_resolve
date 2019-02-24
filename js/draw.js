@@ -5,11 +5,14 @@ let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 function setButtonConfig(loggedIn) {
     $("#like_button_col").css('display', loggedIn ? 'block' : 'none');
     $("#block_button_col").css('display', loggedIn ? 'block' : 'none');
+    let shuffle = $("#shuffle_button_col");
+    let filter = $("#filters_button_col");
     if (!loggedIn) {
-        let shuffle = $("#shuffle_button_col");
-        let filter = $("#filters_button_col");
         shuffle.removeClass("s3").addClass("s6");
         filter.removeClass("s3").addClass("s6");
+    } else {
+        shuffle.removeClass("s6").addClass("s3");
+        filter.removeClass("s6").addClass("s3");
     }
 }
 
