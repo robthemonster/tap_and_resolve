@@ -1,7 +1,7 @@
 let currentCard = -1;
 let currentFilters = {exclusive: false, flags: {B: true, U: true, G: true, R: true, W: true}};
 addNavBarAndLogin("liked.html", "blocked.html", "search.html", "#");
-
+shuffleCard();
 function handleModalClose() {
     setTimeout(() => {
         $.post({
@@ -15,8 +15,6 @@ function handleModalClose() {
             })
     }, 500);
 }
-
-shuffleCard();
 
 function handleFiltersChange() {
     let exclusive = $("#color_filter_mode").prop('checked');

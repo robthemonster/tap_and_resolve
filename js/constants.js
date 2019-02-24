@@ -69,7 +69,9 @@ const MODAL_HTML = `<style>
     </div>
 </div>`;
 
-let loggedIn = false;
+function isLoggedIn() {
+    return window.netlifyIdentity && window.netlifyIdentity.currentUser();
+}
 
 function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
     return `<nav id="navbar">
@@ -207,7 +209,7 @@ function changeButtonFunctions(response, uuid) {
 
 function resetModalButtons(uuid) {
     hideButtons();
-    if (loggedIn) {
+    if (isLoggedIn()) {
         $.post({
             url: API_URL + "/getUserCardStatus",
             data: {userid: getUserId(true), uuid: uuid}
@@ -251,8 +253,7 @@ function unblockByUuid(uuid) {
 }
 
 function getUserId(forceLogin) {
-    if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
-        loggedIn = true;
+    if (isLoggedIn()) {
         return window.netlifyIdentity.currentUser().id;
     } else if (forceLogin) {
         setTimeout(() => {
@@ -262,15 +263,11 @@ function getUserId(forceLogin) {
                 }, 1000);
                 return;
             }
-            if (!window.netlifyIdentity.currentUser()) {
-                window.netlifyIdentity.on('login', loginCallback);
-                M.Modal.getInstance($("#card_modal")).close();
-                window.netlifyIdentity.open();
-                showButtons();
-
-            } else if (loginCallback) {
-                loginCallback();
-            }
+            window.netlifyIdentity.on('login', loginCallback);
+            M.Modal.getInstance($("#card_modal")).close();
+            window.netlifyIdentity.open();
+            hideButtons();
+            showButtons();
         }, 1000);
     } else {
         return undefined;
