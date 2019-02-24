@@ -143,6 +143,9 @@ function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
 }
 
 $(document).ready(function () {
+    console.log(isLoggedIn());
+    netlifyIdentity.on('init', user => console.log('init ' + isLoggedIn(), user));
+
     $('.sidenav').sidenav();
     $(".dropdown-trigger").dropdown();
     $('.modal').modal({
