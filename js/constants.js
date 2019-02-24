@@ -145,9 +145,6 @@ $("body").append($(MODAL_HTML));
 function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
     $("body").prepend($(getNavBarHtml(likedRef, blockedRef, searchRef, homeRef)));
     $(".dropdown-trigger").dropdown();
-}
-
-$(document).ready(function () {
     $('.sidenav').sidenav();
     $('.modal').modal({
         onCloseEnd: handleModalClose
@@ -158,6 +155,10 @@ $(document).ready(function () {
             instance.close();
         }
     });
+}
+
+$(document).ready(function () {
+
 });
 
 function setModalContentFromIndex(index) {
