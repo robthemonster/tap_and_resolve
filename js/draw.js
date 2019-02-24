@@ -2,8 +2,20 @@ let currentCard = -1;
 let currentFilters = {exclusive: false, flags: {B: true, U: true, G: true, R: true, W: true}};
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
+function setButtonConfig(loggedIn) {
+    $("#like_button_col").css('display', loggedIn ? 'block' : 'none');
+    $("#block_button_col").css('display', loggedIn ? 'block' : 'none');
+    if (!loggedIn) {
+        let shuffle = $("#shuffle_button_col");
+        let filter = $("#filters_button_col");
+        shuffle.removeClass("s3").addClass("s6");
+        filter.removeClass("s3").addClass("s6");
+    }
+}
+
 $(document).ready(() => {
     addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
+    setButtonConfig(isLoggedIn());
     shuffleCard();
     $("body").keypress((event) => {
         if (event.keyCode === ADD_KEYCODE) {
@@ -83,6 +95,8 @@ function blockCard() {
 }
 
 function loginCallback() {
+    setButtonConfig(isLoggedIn());
+    restoreModalButtons();
     shuffleCard();
 }
 

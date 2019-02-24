@@ -9,6 +9,7 @@ function handleModalClose() {
 }
 
 function loginCallback() {
+    restoreModalButtons();
     filterCards();
 }
 

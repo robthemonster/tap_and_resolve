@@ -22,6 +22,7 @@ function handleModalClose() {
 }
 
 function loginCallback() {
+    restoreModalButtons();
     fetchAndDisplayCards();
 }
 

@@ -41,7 +41,7 @@ const MODAL_HTML = `<style>
         </div>
     </div>
     <div class="modal-footer blue-grey darken-1 row valign-wrapper" style="margin-bottom: 0;">
-        <span class="col s4 center footer_column">
+        <span id="block_span_modal" class="col s4 center footer_column">
             <div id="modal_block_loader" class="preloader-wrapper small active">
                 <div class="spinner-layer ">
                   <div class="circle-clipper left">
@@ -57,11 +57,11 @@ const MODAL_HTML = `<style>
                class="center btn hoverable blue-grey waves-effect red-text footer_button">
                 <i id="modal_block_icon" class="material-icons">block</i></a>
         </span>
-        <span class="col s4 center footer_column">
+        <span id="dismiss_span_modal" class="col s4 center footer_column">
             <a href="#" class="center btn blue-grey waves-effect modal-close white-text footer_button"><i
                     class="material-icons">keyboard_arrow_down</i></a>
         </span>
-        <span class="col s4 center footer_column">
+        <span id="like_span_modal" class="col s4 center footer_column">
             <div id="modal_like_loader" class="preloader-wrapper small active">
                 <div class="spinner-layer ">
                   <div class="circle-clipper left">
@@ -96,11 +96,13 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
 
     function getAccountDropdown() {
         if (!isLoggedIn()) {
-            return ['', '', ''];
+            let dropdown_login_close_nav = `$('.sidenav').sidenav('close');getAccount(true);`;
+            return ['', `<li><a href="#!" onclick="getAccount(true)" > Login / Sign up
+                <i class="material-icons right">lock</i></a></li>`, `<li><a href="#!" onclick="${dropdown_login_close_nav}" >Login / Create Account <i class="material-icons right">lock</i></a></li>`];
         } else {
             let email = getNetlifyIdentity().currentUser().email;
             email = email ? email : "Account";
-            let dropdown = `<li><a class="dropdown-trigger" href="#!" data-target="account_dropdown_list">${email}<i
+            let dropdown = `<li><a class="dropdown-trigger" href="#!"  data-target="account_dropdown_list">${email}<i
         class="material-icons right">arrow_drop_down</i></a>
 </li>`;
             let list = `<ul id="account_dropdown_list" class="dropdown-content">
@@ -112,7 +114,8 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
     }
 
     let [likedClass, blockedClass, searchClass, drawClass, aboutClass] = getNavClass(likedRef, blockedRef, searchRef, drawRef, aboutRef);
-    let [accountDropdownList, accountDropdown, sideNav] = getAccountDropdown();
+    let loggedInVeil = isLoggedIn() ? `` : `style = "display: none;"`;
+    let [accountDropdownList, accountDropdown, logInOutSideNav] = getAccountDropdown();
     return `
 <nav id="navbar">
 ${accountDropdownList}
@@ -120,9 +123,9 @@ ${accountDropdownList}
         <a href="${drawRef}" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li class="${likedClass}"><a href="${likedRef}"><i
+            <li ${loggedInVeil} class="${likedClass}"><a href="${likedRef}"><i
                     class="material-icons green-text ${likedClass}">check</i></a></li>
-            <li class="${blockedClass}"><a href="${blockedRef}"><i
+            <li ${loggedInVeil} class="${blockedClass}"><a href="${blockedRef}"><i
                     class="material-icons red-text ${blockedClass}">block</i></a></li>
             <li class="${searchClass}"><a href="${searchRef}"><i
                     class="material-icons prefix ${searchClass}">search</i></a></li>
@@ -133,10 +136,10 @@ ${accountDropdownList}
     </div>
 </nav>
 <ul class="sidenav" id="mobile-demo">
-    <li class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
+    <li ${loggedInVeil} class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
                                                                  class="center-align material-icons green-text">check</i></a>
     </li>
-    <li class="${blockedClass}"><a href="${blockedRef}"><i style="width:100%;"
+    <li ${loggedInVeil} class="${blockedClass}"><a href="${blockedRef}"><i style="width:100%;"
                                                                  class="center-align material-icons red-text">block</i></a>
     </li>
     <li class="${searchClass}"><a href="${searchRef}"><i style="width: 100%"
@@ -145,7 +148,7 @@ ${accountDropdownList}
     <li class="${aboutClass}"><a href="${aboutRef}"><i style="width: 100%"
                                                                  class="center-align material-icons prefix">help</i></a>
     </li>
-    ${sideNav}
+    ${logInOutSideNav}
 </ul>`
 }
 
@@ -229,7 +232,7 @@ function setModalContentFromCard(card) {
     resetModalButtons(card.id);
 }
 
-function hideButtons() {
+function showLoadingCirclesOnModalButtons() {
     let [block_loader, like_loader] = [$("#modal_block_loader"), $('#modal_like_loader')];
     let [block_anchor, like_anchor] = [$("#modal_block_anchor"), $('#modal_like_anchor')];
     block_loader.css('display', 'inline-block');
@@ -238,7 +241,7 @@ function hideButtons() {
     like_anchor.css('display', 'none');
 }
 
-function showButtons() {
+function showModalButtons() {
     let [block_loader, like_loader] = [$("#modal_block_loader"), $('#modal_like_loader')];
     let [block_anchor, like_anchor] = [$("#modal_block_anchor"), $('#modal_like_anchor')];
     block_loader.css('display', 'none');
@@ -256,8 +259,20 @@ function changeButtonFunctions(response, uuid) {
     block_icon.text(response.blocked ? 'undo' : 'block');
 }
 
+function hideModalButtons() {
+    $("#like_span_modal").css('display', 'none');
+    $("#block_span_modal").css('display', 'none');
+    $("#dismiss_span_modal").removeClass('s3').addClass('s12');
+}
+
+function restoreModalButtons() {
+    $("#like_span_modal").css('display', 'inline');
+    $("#block_span_modal").css('display', 'inline');
+    $("#dismiss_span_modal").removeClass('s12').addClass('s3');
+}
+
 function resetModalButtons(uuid) {
-    hideButtons();
+    showLoadingCirclesOnModalButtons();
     if (isLoggedIn()) {
         getAccount(true).then(([userid, token]) => {
             $.post({
@@ -265,20 +280,20 @@ function resetModalButtons(uuid) {
                 data: {userid: userid, token: token, uuid: uuid}
             })
                 .then(response => {
-                    showButtons();
+                    showModalButtons();
                     changeButtonFunctions(response, uuid);
                 });
         }).catch((error) => {
             console.log(error);
         });
     } else {
-        showButtons();
+        hideModalButtons();
         changeButtonFunctions({blocked: false, liked: false}, uuid);
     }
 }
 
 function crudToEndpoint(endPoint, uuid) {
-    hideButtons();
+    showLoadingCirclesOnModalButtons();
     getAccount(true).then(([userid, token]) => {
         $.post({
             url: API_URL + endPoint,
@@ -324,8 +339,8 @@ async function getAccount(forceLogin) {
                 getNetlifyIdentity().on('login', loginCallback);
                 M.Modal.getInstance($("#card_modal")).close();
                 getNetlifyIdentity().open();
-                hideButtons();
-                showButtons();
+                showLoadingCirclesOnModalButtons();
+                showModalButtons();
             }, 1000);
         } else {
             resolve([undefined, undefined]);
