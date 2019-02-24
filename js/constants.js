@@ -102,19 +102,22 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, homeRef) {
     let [likedClass, blockedClass, searchClass, homeClass] = getNavClass(likedRef, blockedRef, searchRef, homeRef);
 
     let [accountDropdownList, accountDropdown] = getAccountDropdown();
-    return `<nav id="navbar">
+    return `
+<nav id="navbar">
+${accountDropdownList}
     <div class="nav-wrapper blue-grey darken-2">
         <a href="${homeRef}" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li class="${likedClass}"><a href="${likedRef}"><i class="material-icons green-text ${likedClass}">check</i></a></li>
-            <li class="${blockedClass}"><a href="${blockedRef}"><i class="material-icons red-text ${blockedClass}">block</i></a></li>
-            <li class="${searchClass}"><a href="${searchRef}"><i class="material-icons prefix ${searchClass}">search</i></a></li>
+            <li class="${likedClass}"><a href="${likedRef}"><i
+                    class="material-icons green-text ${likedClass}">check</i></a></li>
+            <li class="${blockedClass}"><a href="${blockedRef}"><i
+                    class="material-icons red-text ${blockedClass}">block</i></a></li>
+            <li class="${searchClass}"><a href="${searchRef}"><i
+                    class="material-icons prefix ${searchClass}">search</i></a></li>
             ${accountDropdown}
         </ul>
     </div>
-    ${accountDropdownList}
-
 </nav>
 <ul class="sidenav" id="mobile-demo">
     <li class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
@@ -141,11 +144,11 @@ $("body").append($(MODAL_HTML));
 
 function addNavBarAndLogin(likedRef, blockedRef, searchRef, homeRef) {
     $("body").prepend($(getNavBarHtml(likedRef, blockedRef, searchRef, homeRef)));
+    $(".dropdown-trigger").dropdown();
 }
 
 $(document).ready(function () {
     $('.sidenav').sidenav();
-    $(".dropdown-trigger").dropdown();
     $('.modal').modal({
         onCloseEnd: handleModalClose
     });
