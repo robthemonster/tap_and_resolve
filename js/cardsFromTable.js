@@ -41,8 +41,8 @@ function fetchAndDisplayCards() {
             autocomplete[name] = null;
             let outerAnchor = $("<a>", {
                 class: "collection-item row modal-trigger blue-grey darken-2 white-text",
-                id: uuid + "_collection_item",
-                onclick: 'setModalContentFromIndex(\"' + uuid + '\")',
+                id: `${uuid}_collection_item`,
+                onclick: `setModalContentFromIndex("${uuid}")`,
                 href: "#card_modal"
             });
             let cardNameSpan = $("<span>", {
