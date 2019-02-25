@@ -96,7 +96,7 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
 
     function getAccountDropdown() {
         if (!isLoggedIn()) {
-            return ['', `<li><a href="#!" onclick="getAccount(true)" > Login / Sign up <i class="material-icons right">lock</i></a></li>`, ``];
+            return ['', `<li><a href="#!" onclick="getAccount(true)" > Login <span class="hide-on-med-and-down">/ Sign up</span> <i class="material-icons right">lock</i></a></li>`, ``];
         } else {
             let dropdown = `<li><a class="dropdown-trigger" href="#!"  data-target="account_dropdown_list"><i
         class="material-icons right">arrow_drop_down</i></a>
