@@ -64,7 +64,8 @@
                         Draw cards that use
                         <label>
                             <span class="teal-text flow-text" id="only_span">At Most</span>
-                            <input onchange="highlightFilterMode()" id="color_filter_mode" type="checkbox">
+                            <input onchange="highlightFilterMode(); handleFiltersChange()" id="color_filter_mode"
+                                   type="checkbox">
                             <span class="lever"></span>
                             <span class="flow-text" id="exactly_span">Exactly</span>
                         </label>
@@ -73,31 +74,36 @@
 
                     <p>
                         <label>
-                            <input type="checkbox" id="B_check" checked="checked" class="flow-text"/>
+                            <input type="checkbox" id="B_check" checked="checked" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span><img src="../assets/B.png" class=" responsive-img"></span>
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox" id="U_check" checked="checked" class="flow-text"/>
+                            <input type="checkbox" id="U_check" checked="checked" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span><img src="../assets/U.png" class="responsive-img"></span>
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox" id="G_check" checked="checked" class="flow-text"/>
+                            <input type="checkbox" id="G_check" checked="checked" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span><img src="../assets/G.png" class="responsive-img"></span>
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox" id="R_check" checked="checked" class="flow-text"/>
+                            <input type="checkbox" id="R_check" checked="checked" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span><img src="../assets/R.png" class="responsive-img"></span>
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox" id="W_check" checked="checked" class="flow-text"/>
+                            <input type="checkbox" id="W_check" checked="checked" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span><img src="../assets/W.png" class="responsive-img"></span>
                         </label>
 
@@ -110,67 +116,76 @@
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="standard_check" class="flow-text"/>
+                            <input type="checkbox" id="standard_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Standard </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="future_check" class="flow-text"/>
+                            <input type="checkbox" id="future_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Future </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="frontier_check" class="flow-text"/>
+                            <input type="checkbox" id="frontier_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Frontier </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="modern_check" class="flow-text"/>
+                            <input type="checkbox" id="modern_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Modern </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="legacy_check" class="flow-text"/>
+                            <input type="checkbox" id="legacy_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Legacy </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="pauper_check" class="flow-text"/>
+                            <input type="checkbox" id="pauper_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Pauper </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="vintage_check" class="flow-text"/>
+                            <input type="checkbox" id="vintage_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Vintage </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="penny_check" class="flow-text"/>
+                            <input type="checkbox" id="penny_check" onchange="handleFiltersChange()" class="flow-text"/>
                             <span> Penny </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="commander_check" class="flow-text"/>
+                            <input type="checkbox" id="commander_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Commander </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="duel_check" class="flow-text"/>
+                            <input type="checkbox" id="duel_check" onchange="handleFiltersChange()" class="flow-text"/>
                             <span> Duel </span>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" id="oldschool_check" class="flow-text"/>
+                            <input type="checkbox" id="oldschool_check" onchange="handleFiltersChange()"
+                                   class="flow-text"/>
                             <span> Oldschool </span>
                         </label>
                     </div>
