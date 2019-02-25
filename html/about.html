@@ -10,30 +10,37 @@
 </head>
 <body class="blue-grey darken-4 white-text">
 <header>
-    <div class="row">
-        <div class="col xl6 offset-xl3">
-            <h3 class="center"><i class=" material-icons">help</i></h3>
-            <p class="flow-text">
-                Tap&Resolve allows you to discover new Magic The Gathering cards by presenting them to you randomly. Tap
-                <i
-                        class="green-text material-icons">check</i> to like a card, <i
-                    class="red-text material-icons">block</i> to banish it, and <i
-                    class="yellow-text material-icons">shuffle</i> to shuffle it back into the deck.
-            </p>
-            <p class="flow-text">
-                You'll need an account to <i class="green-text material-icons">check</i> and <i
-                    class="red-text material-icons">block</i>. This is to remember your cards for later.
-            </p>
+    <div id="outer_row" class="row valign-wrapper">
+        <div class="col s12">
+            <div class="row">
+                <div class="col xl6 offset-xl3">
+                    <h3 class="center"><i class=" material-icons">help</i></h3>
+                    <p class="flow-text">
+                        Tap&Resolve allows you to discover new Magic The Gathering cards by presenting them to you
+                        randomly.
+                        Tap
+                        <i
+                                class="green-text material-icons">check</i> to like a card, <i
+                            class="red-text material-icons">block</i> to banish it, and <i
+                            class="yellow-text material-icons">shuffle</i> to shuffle it back into the deck.
+                    </p>
+                    <p class="flow-text">
+                        You'll need an account to <i class="green-text material-icons">check</i> and <i
+                            class="red-text material-icons">block</i>. This is to remember your cards for later.
+                    </p>
 
+                </div>
+
+            </div>
+            <div id="get_started_row" class="row valign-wrapper">
+                <a id="get_started_button" class="center btn-large blue-grey lighten-2 col s12 xl6 offset-xl3"
+                   onclick="goToDrawPage()">Get Started</a>
+            </div>
         </div>
-
     </div>
 </header>
 <main>
-    <div id="get_started_row" class="row valign-wrapper">
-        <a id="get_started_button" class="center btn-large blue-grey lighten-2 col s12 xl6 offset-xl3"
-           onclick="goToDrawPage()">Get Started</a>
-    </div>
+
 </main>
 
 <footer class="page-footer blue-grey darken-3 center-align ">
