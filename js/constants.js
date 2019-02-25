@@ -151,7 +151,7 @@ ${accountDropdownList}
 </ul>`
 }
 
-function getFaceNameAndText(name, text, , flavor) {
+function getFaceNameAndText(name, text, flavor) {
     return `<h4 class="row header flow-text">${name}</h4>
 <div class="row">
     <p>${text}</p>
