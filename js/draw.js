@@ -71,8 +71,8 @@ function handleModalClose() {
 }
 
 function handleFiltersChange() {
-    for (let color in currentFilters.color) {
-        currentFilters.color[color] = $(`#${color}_check`).prop('checked');
+    for (let color in currentFilters.colorFlags) {
+        currentFilters.colorFlags[color] = $(`#${color}_check`).prop('checked');
     }
     currentFilters.colorExclusive = $("#color_filter_mode").prop('checked');
     for (let format in currentFilters.formatFlags) {
