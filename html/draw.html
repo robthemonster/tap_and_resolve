@@ -58,34 +58,32 @@
                 <h4> Filters</h4>
             </div>
             <div class="modal-content">
-                <h5>Colors</h5>
                 <form id="colors_row" class="" action="#">
                     <div class="switch flow-text">
-                        Draw cards that use
-                        <label>
-                            <span class="teal-text flow-text" id="only_span">At Most</span>
-                            <input onchange="(()=>{highlightFilterMode(); handleFiltersChange()})()"
-                                   id="color_filter_mode"
-                                   type="checkbox">
-                            <span class="lever"></span>
-                            <span class="flow-text" id="exactly_span">Exactly</span>
-                        </label>
-                        these colors.
+                        <h5>Draw cards that use
+                            <label>
+                                <span class="teal-text flow-text" id="only_span">At Most</span>
+                                <input onchange="(()=>{highlightFilterMode(); handleFiltersChange()})()"
+                                       id="color_filter_mode"
+                                       type="checkbox">
+                                <span class="lever"></span>
+                                <span class="flow-text" id="exactly_span">Exactly</span>
+                            </label>
+                            these colors.</h5>
                     </div>
 
                 </form>
-                <h5>Formats</h5>
                 <form id="formats_row" class="flow-text" action="#">
                     <div>
-                        <p>Draw cards that are legal in these formats.</p>
+                        <h5>Draw cards that are legal in these formats.</h5>
                     </div>
 
                 </form>
                 <form id="types_row" class="flow-text" action="#">
-                    <div>
-                        <p>Draw cards that are legal in these formats.</p>
-                    </div>
-
+                    <h5>Draw lands</h5>
+                </form>
+                <form id="commanders_row" class="flow-text" action="#">
+                    <h5>Draw commanders only</h5>
                 </form>
             </div>
         </div>
@@ -93,7 +91,6 @@
     <div id="fullscreen_filters" class="col xl3 show-on-xl-only white-text">
         <h4> Filters</h4>
         <div>
-            <h5>Colors</h5>
             <form action="#">
                 <div class="switch flow-text">
                     Draw cards that use
@@ -120,9 +117,16 @@
         </form>
         <form class="flow-text" action="#">
             <div>
-                <p>Types</p>
+                <p>Draw lands</p>
             </div>
             <div id="fullscreen_types_row" class="row">
+            </div>
+        </form>
+        <form class="flow-text" action="#">
+            <div>
+                <p>Draw commanders only</p>
+            </div>
+            <div id="fullscreen_commanders_row" class="row">
             </div>
         </form>
     </div>

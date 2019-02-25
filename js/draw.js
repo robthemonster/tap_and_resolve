@@ -15,7 +15,8 @@ let currentFilters = {
         "duel": false,
         "oldschool": false
     },
-    allowLands: false
+    allowLands: false,
+    commandersOnly: false
 };
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
@@ -78,6 +79,11 @@ function addFilterButtons() {
     let landsHtml = `<span>Lands</span>`;
     $("#types_row").append(getCheckBox('land', landsHtml, false, false));
     $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, false, true));
+
+    let commandersHtml = `<span>Commanders</span>`;
+    $("#fullscreen_commanders_row").append(getCheckBox('commanders', commandersHtml, false, true));
+    $("#commanders_row").append(getCheckBox('commanders', commandersHtml, false, false));
+
 }
 
 $(document).ready(() => {
@@ -138,6 +144,7 @@ function handleFiltersChange() {
         currentFilters.formatFlags[format] = $(`#${format}_check${suffix}`).prop('checked');
     }
     currentFilters.allowLands = $(`#land_check${suffix}`).prop('checked');
+    currentFilters.commandersOnly = $(`#commanders_check${suffix}`).prop('checked');
 }
 
 function highlightFilterMode() {
