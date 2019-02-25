@@ -113,26 +113,25 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
     let [accountDropdownList, accountDropdown, logInOutSideNav] = getAccountDropdown();
     return `
 <nav id="navbar">
-${accountDropdownList}
     <div class="nav-wrapper blue-grey darken-2">
         <a href="${drawRef}" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-            <li ${loggedInVeil} class="${likedClass}"><a href="${likedRef}"><i
+        <ul class="right ">
+            <li ${loggedInVeil} class="${likedClass} hide-on-med-and-down"><a href="${likedRef}"><i
                     class="material-icons green-text ${likedClass}">check</i></a></li>
-            <li ${loggedInVeil} class="${blockedClass}"><a href="${blockedRef}"><i
+            <li ${loggedInVeil} class="${blockedClass} hide-on-med-and-down"><a href="${blockedRef}"><i
                     class="material-icons red-text ${blockedClass}">block</i></a></li>
-            <li class="${searchClass}"><a href="${searchRef}"><i
+            <li class="${searchClass} hide-on-med-and-down"><a href="${searchRef}"><i
                     class="material-icons prefix ${searchClass}">search</i></a></li>
-            <li class="${aboutClass}"><a href="${aboutRef}"><i
+            <li class="${aboutClass} hide-on-med-and-down"><a href="${aboutRef}"><i
                     class="material-icons prefix ${aboutClass}">help</i></a></li>
             ${accountDropdown}
         </ul>
-        <ul class="right hide-on-large-only">
-            ${accountDropdown}
-        </ul>
+
     </div>
 </nav>
+        ${accountDropdownList}
+
 <ul class="sidenav" id="mobile-demo">
     <li ${loggedInVeil} class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
                                                                  class="center-align material-icons green-text">check</i></a>
