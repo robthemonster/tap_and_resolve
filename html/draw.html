@@ -64,7 +64,8 @@
                         Draw cards that use
                         <label>
                             <span class="teal-text flow-text" id="only_span">At Most</span>
-                            <input onchange="highlightFilterMode(); handleFiltersChange()" id="color_filter_mode"
+                            <input onchange="(()=>{highlightFilterMode(); handleFiltersChange()})()"
+                                   id="color_filter_mode"
                                    type="checkbox">
                             <span class="lever"></span>
                             <span class="flow-text" id="exactly_span">Exactly</span>
@@ -75,6 +76,12 @@
                 </form>
                 <h5>Formats</h5>
                 <form id="formats_row" class="flow-text" action="#">
+                    <div>
+                        <p>Draw cards that are legal in these formats.</p>
+                    </div>
+
+                </form>
+                <form id="typess_row" class="flow-text" action="#">
                     <div>
                         <p>Draw cards that are legal in these formats.</p>
                     </div>
@@ -109,6 +116,13 @@
                 <p>Draw cards that are legal in these formats.</p>
             </div>
             <div id="fullscreen_formats_row" class="row">
+            </div>
+        </form>
+        <form class="flow-text" action="#">
+            <div>
+                <p>Types</p>
+            </div>
+            <div id="fullscreen_types_row" class="row">
             </div>
         </form>
     </div>

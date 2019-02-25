@@ -14,7 +14,8 @@ let currentFilters = {
         "commander": false,
         "duel": false,
         "oldschool": false
-    }
+    },
+    allowLands: false
 };
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
@@ -48,10 +49,11 @@ function adjustCardButtons() {
     });
 }
 
-function getCheckBox(id, innerHtml, checked) {
+function getCheckBox(id, innerHtml, checked, xl) {
     let checkedText = checked ? `checked="checked"` : "";
+    let xlText = xl ? "_xl" : "";
     return `<span>                         <label>
-                                <input type="checkbox" onchange="handleFiltersChange()" id="${id}_check_xl"
+                                <input type="checkbox" onchange="handleFiltersChange()" id="${id}_check${xlText}"
                                        ${checkedText} class="flow-text"/>
                                 <span>${innerHtml}</span>
                             </label>
@@ -64,16 +66,18 @@ function getImgForColor(color) {
 
 function addFilterButtons() {
     for (let color in currentFilters.colorFlags) {
-        let checkbox = getCheckBox(color, getImgForColor(color), true);
-        $("#fullscreen_color_row").append(checkbox);
-        $("#colors_row").append(checkbox);
+        $("#fullscreen_color_row").append(getCheckBox(color, getImgForColor(color), true, true));
+        $("#colors_row").append(getCheckBox(color, getImgForColor(color), true, false));
     }
     for (let format in currentFilters.formatFlags) {
         let formatted = format.substring(0, 1).toUpperCase() + format.substring(1);
-        let checkbox = getCheckBox(format, `<span> ${formatted}</span>`, false);
-        $("#fullscreen_formats_row").append(checkbox);
-        $("#formats_row").append(checkbox);
+        let formatsHtmls = `<span> ${formatted}</span>`;
+        $("#fullscreen_formats_row").append(getCheckBox(format, formatsHtmls, false, true));
+        $("#formats_row").append(getCheckBox(format, formatsHtmls, false, false));
     }
+    let landsHtml = `<span>Lands</span>`;
+    $("#types_row").append(getCheckBox('land', landsHtml, false, false));
+    $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, false, true));
 }
 
 $(document).ready(() => {
@@ -120,11 +124,12 @@ function handleModalClose() {
     }
 }
 
+function getSuffix() {
+    return $("#fullscreen_filters").is(":visible") ? "_xl" : "";
+}
+
 function handleFiltersChange() {
-    let suffix = "";
-    if ($("#fullscreen_filters").is(":visible")) {
-        suffix = "_xl";
-    }
+    let suffix = getSuffix();
     for (let color in currentFilters.colorFlags) {
         currentFilters.colorFlags[color] = $(`#${color}_check${suffix}`).prop('checked');
     }
@@ -132,11 +137,13 @@ function handleFiltersChange() {
     for (let format in currentFilters.formatFlags) {
         currentFilters.formatFlags[format] = $(`#${format}_check${suffix}`).prop('checked');
     }
+    currentFilters.allowLands = $(`#land_check${suffix}`).prop('checked');
 }
 
 function highlightFilterMode() {
-    let checked = $("#color_filter_mode").prop('checked');
-    let [only, exactly] = [$("#only_span"), $("#exactly_span")];
+    let suffix = getSuffix();
+    let checked = $(`#color_filter_mode${suffix}`).prop('checked');
+    let [only, exactly] = [$(`#only_span${suffix}`), $(`#exactly_span${suffix}`)];
     let text_color = 'teal-text';
     only.removeClass(checked ? text_color : "");
     only.addClass(!checked ? text_color : "");
