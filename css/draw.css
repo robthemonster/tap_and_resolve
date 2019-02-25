@@ -38,3 +38,7 @@
 #card_image_div img {
     height: 100%;
 }
+
+.color_icons_filter {
+    max-width: 10%;
+}
