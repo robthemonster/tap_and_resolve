@@ -71,12 +71,16 @@ function handleModalClose() {
 }
 
 function handleFiltersChange() {
-    for (let color in currentFilters.colorFlags) {
-        currentFilters.colorFlags[color] = $(`#${color}_check`).prop('checked');
+    let suffix = "";
+    if ($("#fullscreen_filters").is(":visible")) {
+        suffix = "_xl";
     }
-    currentFilters.colorExclusive = $("#color_filter_mode").prop('checked');
+    for (let color in currentFilters.colorFlags) {
+        currentFilters.colorFlags[color] = $(`#${color}_check${suffix}`).prop('checked');
+    }
+    currentFilters.colorExclusive = $(`#color_filter_mode${suffix}`).prop('checked');
     for (let format in currentFilters.formatFlags) {
-        currentFilters.formatFlags[format] = $(`#${format}_check`).prop('checked');
+        currentFilters.formatFlags[format] = $(`#${format}_check${suffix}`).prop('checked');
     }
 }
 
