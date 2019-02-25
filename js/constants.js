@@ -96,12 +96,9 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
 
     function getAccountDropdown() {
         if (!isLoggedIn()) {
-            let dropdown_login_close_nav = `getAccount(true);`;
             return ['', `<li><a href="#!" onclick="getAccount(true)" > Login / Sign up <i class="material-icons right">lock</i></a></li>`, ``];
         } else {
-            let email = getNetlifyIdentity().currentUser().email;
-            email = email ? email : "Account";
-            let dropdown = `<li><a class="dropdown-trigger" href="#!"  data-target="account_dropdown_list">${email}<i
+            let dropdown = `<li><a class="dropdown-trigger" href="#!"  data-target="account_dropdown_list"><i
         class="material-icons right">arrow_drop_down</i></a>
 </li>`;
             let list = `<ul id="account_dropdown_list" class="dropdown-content">
@@ -154,7 +151,7 @@ ${accountDropdownList}
 </ul>`
 }
 
-function getFaceNameAndText(name, text, flavor) {
+function getFaceNameAndText(name, text, , flavor) {
     return `<h4 class="row header flow-text">${name}</h4>
 <div class="row">
     <p>${text}</p>
