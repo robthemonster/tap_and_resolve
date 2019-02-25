@@ -59,7 +59,7 @@
             </div>
             <div class="modal-content">
                 <h5>Colors</h5>
-                <form class="row" action="#">
+                <form id="colors_row" class="" action="#">
                     <div class="switch flow-text">
                         Draw cards that use
                         <label>
@@ -72,122 +72,11 @@
                         these colors.
                     </div>
 
-                    <p>
-                        <label>
-                            <input type="checkbox" id="B_check" checked="checked" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span><img src="../assets/B.png" class=" responsive-img"></span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" id="U_check" checked="checked" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span><img src="../assets/U.png" class="responsive-img"></span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" id="G_check" checked="checked" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span><img src="../assets/G.png" class="responsive-img"></span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" id="R_check" checked="checked" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span><img src="../assets/R.png" class="responsive-img"></span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" id="W_check" checked="checked" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span><img src="../assets/W.png" class="responsive-img"></span>
-                        </label>
-
-                    </p>
                 </form>
                 <h5>Formats</h5>
-                <form class="flow-text" action="#">
+                <form id="formats_row" class="flow-text" action="#">
                     <div>
                         <p>Draw cards that are legal in these formats.</p>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="standard_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Standard </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="future_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Future </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="frontier_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Frontier </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="modern_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Modern </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="legacy_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Legacy </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="pauper_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Pauper </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="vintage_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Vintage </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="penny_check" onchange="handleFiltersChange()" class="flow-text"/>
-                            <span> Penny </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="commander_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Commander </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="duel_check" onchange="handleFiltersChange()" class="flow-text"/>
-                            <span> Duel </span>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" id="oldschool_check" onchange="handleFiltersChange()"
-                                   class="flow-text"/>
-                            <span> Oldschool </span>
-                        </label>
                     </div>
 
                 </form>
@@ -210,46 +99,7 @@
                     </label>
                     these colors.
                 </div>
-                <div class="row ">
-
-                    <div>
-                        <span>
-                            <label>
-                                <input type="checkbox" onchange="handleFiltersChange()" id="B_check_xl"
-                                       checked="checked" class="flow-text"/>
-                                <span><img src="../assets/B.png" class="responsive-img "></span>
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input type="checkbox" onchange="handleFiltersChange()" id="U_check_xl"
-                                       checked="checked" class="flow-text"/>
-                                <span><img src="../assets/U.png" class="responsive-img "></span>
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input type="checkbox" onchange="handleFiltersChange()" id="G_check_xl"
-                                       checked="checked" class="flow-text"/>
-                                <span><img src="../assets/G.png" class="responsive-img "></span>
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input type="checkbox" onchange="handleFiltersChange()" id="R_check_xl"
-                                       checked="checked" class="flow-text"/>
-                                <span><img src="../assets/R.png" class="responsive-img "></span>
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input type="checkbox" onchange="handleFiltersChange()" id="W_check_xl"
-                                       checked="checked" class="flow-text"/>
-                                <span><img src="../assets/W.png" class="responsive-img "></span>
-                            </label>
-
-                        </span>
-                    </div>
+                <div id="fullscreen_color_row" class="row ">
                 </div>
             </form>
         </div>
@@ -258,85 +108,7 @@
             <div>
                 <p>Draw cards that are legal in these formats.</p>
             </div>
-            <div class="row">
-
-                    <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="standard_check_xl"
-                                   class="flow-text"/>
-                            <span> Standard </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="future_check_xl"
-                                   class="flow-text"/>
-                            <span> Future </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="frontier_check_xl"
-                                   class="flow-text"/>
-                            <span> Frontier </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="modern_check_xl"
-                                   class="flow-text"/>
-                            <span> Modern </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="legacy_check_xl"
-                                   class="flow-text"/>
-                            <span> Legacy </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="pauper_check_xl"
-                                   class="flow-text"/>
-                            <span> Pauper </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="vintage_check_xl"
-                                   class="flow-text"/>
-                            <span> Vintage </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="penny_check_xl"
-                                   class="flow-text"/>
-                            <span> Penny </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="commander_check_xl"
-                                   class="flow-text"/>
-                            <span> Commander </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="duel_check_xl"
-                                   class="flow-text"/>
-                            <span> Duel </span>
-                        </label>
-                    </span>
-                <span>
-                        <label>
-                            <input type="checkbox" onchange="handleFiltersChange()" id="oldschool_check_xl"
-                                   class="flow-text"/>
-                            <span> Oldschool </span>
-                        </label>
-                    </span>
+            <div id="fullscreen_formats_row" class="row">
             </div>
         </form>
     </div>

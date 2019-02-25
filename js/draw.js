@@ -48,8 +48,37 @@ function adjustCardButtons() {
     });
 }
 
+function getCheckBox(id, innerHtml, checked) {
+    let checkedText = checked ? `checked="checked"` : "";
+    return `<span>                         <label>
+                                <input type="checkbox" onchange="handleFiltersChange()" id="${id}_check_xl"
+                                       ${checkedText} class="flow-text"/>
+                                <span>${innerHtml}</span>
+                            </label>
+                        </span>`
+}
+
+function getImgForColor(color) {
+    return `<img src="../assets/${color}.png" class="responsive-img">`;
+}
+
+function addFilterButtons() {
+    for (let color in currentFilters.colorFlags) {
+        let checkbox = getCheckBox(color, getImgForColor(color), true);
+        $("#fullscreen_color_row").append(checkbox);
+        $("#colors_row").append(checkbox);
+    }
+    for (let format in currentFilters.formatFlags) {
+        let formatted = format.substring(0, 1).toUpperCase() + format.substring(1);
+        let checkbox = getCheckBox(format, `<span> ${formatted}</span>`, false);
+        $("#fullscreen_formats_row").append(checkbox);
+        $("#formats_row").append(checkbox);
+    }
+}
+
 $(document).ready(() => {
     addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
+    addFilterButtons(currentFilters);
     setButtonConfig(isLoggedIn());
     adjustCardButtons();
     shuffleCard();
