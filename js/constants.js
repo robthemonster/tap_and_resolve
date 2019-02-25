@@ -84,7 +84,6 @@ function isLoggedIn() {
     return getNetlifyIdentity() && getNetlifyIdentity().currentUser();
 }
 
-
 function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
     function getNavClass() {
         let results = [];
@@ -167,12 +166,6 @@ function addNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
     $('.sidenav').sidenav();
     $('.modal').modal({
         onCloseEnd: handleModalClose
-    });
-    $(".autocomplete").keydown((event) => {
-        if (event.keyCode === 27) {
-            let instance = M.Autocomplete.getInstance($(".autocomplete"));
-            instance.close();
-        }
     });
 }
 

@@ -4,6 +4,12 @@ const PAGE_SIZE = 50;
 
 $(document).ready(() => {
     addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, "#", NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT);
+    $(".autocomplete").keydown((event) => {
+        if (event.keyCode === 27) {
+            let instance = M.Autocomplete.getInstance($(".autocomplete"));
+            instance.close();
+        }
+    });
 });
 function handleModalClose() {
 }

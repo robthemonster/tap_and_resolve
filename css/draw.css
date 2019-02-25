@@ -1,7 +1,6 @@
-#card_container {
+card_container {
     max-height: 95vh;
     max-width: 95vh;
-    margin: auto;
 }
 
 #card_image_div {
@@ -26,6 +25,10 @@
     height: 10vh;
 }
 
+label {
+    display: inline-block;
+}
+
 .btn {
     width: 95%;
     height: 100%;
@@ -39,6 +42,23 @@
     height: 100%;
 }
 
-.color_icons_filter {
-    max-width: 10%;
+.show-on-xl-only {
+    display: none;
+}
+
+@media only screen and (min-width: 1201px) {
+
+    .show-on-xl-only {
+        display: block;
+    }
+
+    #filters_button_col {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    #filters_button_col {
+        display: block;
+    }
 }

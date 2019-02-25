@@ -42,7 +42,7 @@ $(document).ready(() => {
         } else if (event.keyCode === SUB_KEYCODE) {
             blockCard();
         }
-    })
+    });
 });
 
 function loginCallback() {
