@@ -1,9 +1,12 @@
+
 function getNetlifyIdentity() {
     return window.netlifyIdentity;
 }
 
 const API_URL = "https://api.tapandresolve.tk";
+const [ADD_CARD_LIKED_PATH, ADD_CARD_BLOCKED_PATH, DEL_CARD_LIKED_PATH, DEL_CARD_BLOCKED_PATH] = ["/addCardToLiked", "/addCardToBlocked", "/removeCardFromLiked", "/removeCardFromBlocked"];
 const IMAGE_NOT_AVAILABLE = "../assets/image_not_found.png";
+
 function isLoggedIn() {
     return getNetlifyIdentity() && getNetlifyIdentity().currentUser();
 }
@@ -19,23 +22,6 @@ function crudToEndpoint(endPoint, uuid) {
                 resetModalButtons(uuid);
             });
     });
-}
-
-function likeByUuid(uuid) {
-    crudToEndpoint("/addCardToLiked", uuid);
-}
-
-function blockByUuid(uuid) {
-    crudToEndpoint("/addCardToBlocked", uuid);
-}
-
-function unlikeByUuid(uuid) {
-    crudToEndpoint("/removeCardFromLiked", uuid);
-
-}
-
-function unblockByUuid(uuid) {
-    crudToEndpoint("/removeCardFromBlocked", uuid);
 }
 
 async function getAccount(forceLogin) {

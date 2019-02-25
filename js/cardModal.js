@@ -93,8 +93,8 @@ function showModalButtons() {
 function changeButtonFunctions(response, uuid) {
     let [block_anchor, like_anchor] = [$("#modal_block_anchor"), $('#modal_like_anchor')];
     let [block_icon, like_icon] = [$("#modal_block_icon"), $("#modal_like_icon")];
-    like_anchor.attr("onclick", response.liked ? `unlikeByUuid("${uuid}")` : `likeByUuid("${uuid}")`);
-    block_anchor.attr('onclick', response.blocked ? `unblockByUuid("${uuid}")` : `blockByUuid("${uuid}")`);
+    like_anchor.attr("onclick", response.liked ? `crudToEndpoint(DEL_CARD_LIKED_PATH,"${uuid}")` : `crudToEndpoint(ADD_CARD_LIKED_PATH,"${uuid}")`);
+    block_anchor.attr('onclick', response.blocked ? `crudToEndpoint(DEL_CARD_BLOCKED_PATH,"${uuid}")` : `crudToEndpoint(ADD_CARD_BLOCKED_PATH,"${uuid}")`);
     like_icon.text(response.liked ? 'undo' : 'check');
     block_icon.text(response.blocked ? 'undo' : 'block');
 }
