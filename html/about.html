@@ -6,27 +6,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/about.css">
 </head>
 <body class="blue-grey darken-4 white-text">
-<div class="row">
-    <div class="col xl6 offset-xl3">
-        <h3 class="">About</h3>
-        <p class="flow-text">
-            Tap&Resolve allows you to discover new Magic The Gathering cards randomly. Tap <i
-                class="green-text material-icons">check</i> to add a card to your hand, <i
-                class="red-text material-icons">block</i> to exile it, and <i
-                class="yellow-text material-icons">shuffle</i> to shuffle it back into the deck.
-        </p>
-        <p class="flow-text">
-            You only need an account to <i class="green-text material-icons">check</i> and <i
-                class="red-text material-icons">block</i>.
-        </p>
-        <h3>Contact</h3>
-        <p class="flow-text">
-            Email me at tapandresolve@gmail.com . This website is in active development so feedback is appreciated.
-        </p>
+<main>
+    <div class="row">
+        <div class="col xl6 offset-xl3">
+            <h3 class="center"><i class=" material-icons">help</i></h3>
+            <p class="flow-text">
+                Tap&Resolve allows you to discover new Magic The Gathering cards by presenting them to you randomly. Tap
+                <i
+                        class="green-text material-icons">check</i> to like a card, <i
+                    class="red-text material-icons">block</i> to banish it, and <i
+                    class="yellow-text material-icons">shuffle</i> to shuffle it back into the deck.
+            </p>
+            <p class="flow-text">
+                You'll need an account to <i class="green-text material-icons">check</i> and <i
+                    class="red-text material-icons">block</i>. This is to remember your cards for later.
+            </p>
+
+        </div>
+
     </div>
-</div>
+    <div id="get_started_row" class="row valign-wrapper">
+        <a id="get_started_button" class="center btn-large blue-grey lighten-2 col s12 xl6 offset-xl3"
+           onclick="goToDrawPage()">Get Started</a>
+    </div>
+</main>
+
+<footer class="page-footer blue-grey darken-3 center-align ">
+    <h3>Contact</h3>
+    <p class="flow-text">
+        Email: tapandresolve@gmail.com <br>
+        Twitter: @tapandresolve
+    </p>
+</footer>
 <script
         src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="

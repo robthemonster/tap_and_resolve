@@ -4,3 +4,7 @@ $(document).ready(() => {
 
 function handleModalClose() {
 }
+
+function goToDrawPage() {
+    location.href = NAVBAR_REFS.DRAW;
+}

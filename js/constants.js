@@ -96,9 +96,8 @@ function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef) {
 
     function getAccountDropdown() {
         if (!isLoggedIn()) {
-            let dropdown_login_close_nav = `$('.sidenav').sidenav('close');getAccount(true);`;
-            return ['', `<li><a href="#!" onclick="getAccount(true)" > Login / Sign up
-                <i class="material-icons right">lock</i></a></li>`, `<li><a href="#!" onclick="${dropdown_login_close_nav}" >Login / Create Account <i class="material-icons right">lock</i></a></li>`];
+            let dropdown_login_close_nav = `getAccount(true);`;
+            return ['', `<li><a href="#!" onclick="getAccount(true)" > Login / Sign up <i class="material-icons right">lock</i></a></li>`, ``];
         } else {
             let email = getNetlifyIdentity().currentUser().email;
             email = email ? email : "Account";
@@ -131,6 +130,9 @@ ${accountDropdownList}
                     class="material-icons prefix ${searchClass}">search</i></a></li>
             <li class="${aboutClass}"><a href="${aboutRef}"><i
                     class="material-icons prefix ${aboutClass}">help</i></a></li>
+            ${accountDropdown}
+        </ul>
+        <ul class="right hide-on-large-only">
             ${accountDropdown}
         </ul>
     </div>
