@@ -73,3 +73,8 @@ function filterCards() {
         }
     })
 }
+
+function setModalContentFromPageIndex(page, index) {
+    let card = cards[page][index];
+    setModalContentFromCard(card);
+}

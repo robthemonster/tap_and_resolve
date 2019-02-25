@@ -27,6 +27,11 @@ function loginCallback() {
     fetchAndDisplayCards();
 }
 
+function setModalContentFromIndex(index) {
+    let card = cards[index];
+    setModalContentFromCard(card);
+}
+
 function fetchAndDisplayCards() {
     let cardCollection = $("#card_collection");
     cardCollection.empty();
