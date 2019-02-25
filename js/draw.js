@@ -32,6 +32,22 @@ function setButtonConfig(loggedIn) {
     }
 }
 
+function adjustCardButtons() {
+    let buttons = [$("#shuffle_button_col"), $('#block_button_col'), $("#like_button_col"), $("#filters_button_col")];
+    let buttonsVisible = 0;
+    buttons.forEach((button) => {
+        buttonsVisible += button.is(':visible') ? 1 : 0
+    });
+
+    buttons.forEach((button) => {
+        button.removeClass('s3', 's4', 's6', 's12');
+    });
+    let columnClass = "s" + (Math.floor(12 / buttonsVisible)).toString();
+    buttons.forEach((button) => {
+        button.addClass(columnClass);
+    });
+}
+
 $(document).ready(() => {
     addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
     setButtonConfig(isLoggedIn());
@@ -45,6 +61,7 @@ $(document).ready(() => {
     });
     $(window).resize(() => {
         handleFiltersChange();
+        adjustCardButtons();
     });
 });
 
