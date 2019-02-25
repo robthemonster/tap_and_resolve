@@ -51,6 +51,7 @@ function adjustCardButtons() {
 $(document).ready(() => {
     addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
     setButtonConfig(isLoggedIn());
+    adjustCardButtons();
     shuffleCard();
     $("body").keypress((event) => {
         if (event.keyCode === ADD_KEYCODE) {
