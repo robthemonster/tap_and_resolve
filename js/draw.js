@@ -43,6 +43,9 @@ $(document).ready(() => {
             blockCard();
         }
     });
+    $(window).resize(() => {
+        handleFiltersChange();
+    });
 });
 
 function loginCallback() {
