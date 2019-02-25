@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tap&Resolve</title>
+    <title>Tap&Resolve - Draw Random Magic The Gathering Cards</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../css/draw.css">
@@ -53,20 +53,20 @@
                     class="material-icons btn_icon">filter_list</i></a>
         </div>
     </div>
-    <div id="modal_filters" class="modal bottom-sheet">
+    <div id="modal_filters" class="modal bottom-sheet row">
         <div class="modal-content">
             <h4> Filters</h4>
         </div>
         <div class="modal-content">
             <h5>Colors</h5>
             <form class="row" action="#">
-                <div class="switch">
+                <div class="switch flow-text">
                     Draw cards that use
                     <label>
-                        <span class="teal-text" id="only_span">Only</span>
+                        <span class="teal-text flow-text" id="only_span">Only</span>
                         <input onchange="highlightFilterMode()" id="color_filter_mode" type="checkbox">
                         <span class="lever"></span>
-                        <span id="exactly_span">Exactly</span>
+                        <span class="flow-text" id="exactly_span">Exactly</span>
                     </label>
                     these colors.
                 </div>
@@ -102,6 +102,79 @@
                     </label>
 
                 </p>
+            </form>
+            <h5>Formats</h5>
+            <form class="flow-text" action="#">
+                <div class="flow-text">
+                    <p>Draw cards that are legal in these formats.</p>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="standard_check" class="flow-text"/>
+                        <span> Standard </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="future_check" class="flow-text"/>
+                        <span> Future </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="frontier_check" class="flow-text"/>
+                        <span> Frontier </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="modern_check" class="flow-text"/>
+                        <span> Modern </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="legacy_check" class="flow-text"/>
+                        <span> Legacy </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="pauper_check" class="flow-text"/>
+                        <span> Pauper </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="vintage_check" class="flow-text"/>
+                        <span> Vintage </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="penny_check" class="flow-text"/>
+                        <span> Penny </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="commander_check" class="flow-text"/>
+                        <span> Commander </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="duel_check" class="flow-text"/>
+                        <span> Duel </span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="oldschool_check" class="flow-text"/>
+                        <span> Oldschool </span>
+                    </label>
+                </div>
+
             </form>
         </div>
     </div>

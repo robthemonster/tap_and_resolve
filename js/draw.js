@@ -1,5 +1,21 @@
 let currentCard = -1;
-let currentFilters = {exclusive: false, flags: {B: true, U: true, G: true, R: true, W: true}};
+let currentFilters = {
+    colorExclusive: false,
+    colorFlags: {"B": true, "U": true, "G": true, "R": true, "W": true},
+    formatFlags: {
+        "standard": false,
+        "future": false,
+        "frontier": false,
+        "modern": false,
+        "legacy": false,
+        "pauper": false,
+        "vintage": false,
+        "penny": false,
+        "commander": false,
+        "duel": false,
+        "oldschool": false
+    }
+};
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
 function setButtonConfig(loggedIn) {
@@ -55,15 +71,13 @@ function handleModalClose() {
 }
 
 function handleFiltersChange() {
-    let exclusive = $("#color_filter_mode").prop('checked');
-    let [B_check, U_check, G_check, R_check, W_check] = [$("#B_check"), $("#U_check"), $("#G_check"), $("#R_check"), $("#W_check")];
-
-    currentFilters.flags['B'] = B_check.prop("checked");
-    currentFilters.flags['U'] = U_check.prop("checked");
-    currentFilters.flags['G'] = G_check.prop("checked");
-    currentFilters.flags['R'] = R_check.prop("checked");
-    currentFilters.flags['W'] = W_check.prop("checked");
-    currentFilters.exclusive = exclusive;
+    for (let color in currentFilters.color) {
+        currentFilters.color[color] = $(`#${color}_check`).prop('checked');
+    }
+    currentFilters.colorExclusive = $("#color_filter_mode").prop('checked');
+    for (let format in currentFilters.formatFlags) {
+        currentFilters.formatFlags[format] = $(`#${format}_check`).prop('checked');
+    }
 }
 
 function highlightFilterMode() {
