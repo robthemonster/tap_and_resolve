@@ -39,7 +39,6 @@ async function getAccount(forceLogin) {
                     reject([undefined, undefined]);
                 }
                 getNetlifyIdentity().on('login', loginCallback);
-                M.Modal.getInstance($("#card_modal")).close();
                 getNetlifyIdentity().open();
                 showLoadingCirclesOnModalButtons();
                 showModalButtons();
