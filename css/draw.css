@@ -6,6 +6,12 @@
     height: 65vh;
     display: none;
 }
+#modal_trigger {
+    display:block;
+    width: fit-content;
+    margin:auto;
+    height:100%;
+}
 
 #loading_circle {
     height: 65vh;
