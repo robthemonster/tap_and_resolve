@@ -40,8 +40,6 @@ async function getAccount(forceLogin) {
                 }
                 getNetlifyIdentity().on('login', loginCallback);
                 getNetlifyIdentity().open();
-                showLoadingCirclesOnModalButtons();
-                showModalButtons();
             }, 1000);
         } else {
             resolve([undefined, undefined]);
