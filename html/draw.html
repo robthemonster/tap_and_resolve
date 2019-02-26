@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="blue-grey darken-4">
-<div id="draw_page_row" class="row blue-grey darken-1">
-    <div id="card_container" class="card_container col s12  offset-xl3 xl6 blue-grey darken-1 ">
+<div id="draw_page_row" class="row blue-grey darken-1 container">
+    <div id="card_container" class="card_container col s12 xl6 blue-grey darken-1 ">
         <div id="loading_circle" class="row valign-wrapper">
 
         <span id="loading_circle_inner" class="preloader-wrapper active big">
@@ -88,47 +88,50 @@
             </div>
         </div>
     </div>
-    <div id="fullscreen_filters" class="col xl3 show-on-xl-only white-text">
-        <h4> Filters</h4>
-        <div>
-            <form action="#">
-                <div class="switch flow-text">
-                    Draw cards that use
-                    <label>
-                        <span class="teal-text flow-text" id="only_span_xl">At Most</span>
-                        <input onchange="highlightFilterMode(); handleFiltersChange();" id="color_filter_mode_xl"
-                               type="checkbox">
-                        <span class="lever"></span>
-                        <span class="flow-text" id="exactly_span_xl">Exactly</span>
-                    </label>
-                    these colors.
+    <div class="col xl6 show-on-xl-only white-text">
+        <div id="fullscreen_filters" style="overflow-y: scroll;max-height:100vh; padding-left:20px;">
+            <h4> Filters</h4>
+            <div>
+                <form action="#">
+                    <div class="switch flow-text">
+                        Draw cards that use
+                        <label>
+                            <span class="teal-text flow-text" id="only_span_xl">At Most</span>
+                            <input onchange="highlightFilterMode(); handleFiltersChange();"
+                                   id="color_filter_mode_xl"
+                                   type="checkbox">
+                            <span class="lever"></span>
+                            <span class="flow-text" id="exactly_span_xl">Exactly</span>
+                        </label>
+                        these colors.
+                    </div>
+                    <div id="fullscreen_color_row" class="row ">
+                    </div>
+                </form>
+            </div>
+            <h5>Formats</h5>
+            <form class="flow-text" action="#">
+                <div>
+                    <p>Draw cards that are legal in these formats.</p>
                 </div>
-                <div id="fullscreen_color_row" class="row ">
+                <div id="fullscreen_formats_row" class="row">
+                </div>
+            </form>
+            <form class="flow-text" action="#">
+                <div>
+                    <p>Draw lands</p>
+                </div>
+                <div id="fullscreen_types_row" class="row">
+                </div>
+            </form>
+            <form class="flow-text" action="#">
+                <div>
+                    <p>Draw commanders only</p>
+                </div>
+                <div id="fullscreen_commanders_row" class="row">
                 </div>
             </form>
         </div>
-        <h5>Formats</h5>
-        <form class="flow-text" action="#">
-            <div>
-                <p>Draw cards that are legal in these formats.</p>
-            </div>
-            <div id="fullscreen_formats_row" class="row">
-            </div>
-        </form>
-        <form class="flow-text" action="#">
-            <div>
-                <p>Draw lands</p>
-            </div>
-            <div id="fullscreen_types_row" class="row">
-            </div>
-        </form>
-        <form class="flow-text" action="#">
-            <div>
-                <p>Draw commanders only</p>
-            </div>
-            <div id="fullscreen_commanders_row" class="row">
-            </div>
-        </form>
     </div>
 </div>
 
