@@ -1,6 +1,5 @@
-card_container {
-    max-height: 95vh;
-    max-width: 95vh;
+.card_container {
+    height: 100vh;
 }
 
 #card_image_div {
