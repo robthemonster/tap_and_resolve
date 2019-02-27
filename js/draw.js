@@ -189,7 +189,7 @@ function blockCard() {
 }
 
 function hideCard() {
-    $("#card_image").attr('src',"");
+    $("#card_image").attr('src', "");
     $("#card_image_div").css('display', 'none');
     $("#loading_circle").css('display', 'block');
     $("#modal_trigger").attr('disabled', 'disabled');
@@ -231,6 +231,7 @@ function shuffleCard() {
             data: {userid: userid, token: token, filter: JSON.stringify(currentFilters)},
         }).then(randomCard => {
             setCardContent(randomCard);
+            ga('send', 'event', 'card_interaction', 'card_drawn')
         });
     });
 }
