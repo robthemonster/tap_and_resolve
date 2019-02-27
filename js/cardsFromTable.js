@@ -29,7 +29,7 @@ function loginCallback() {
 
 function setModalContentFromIndex(index) {
     let card = cards[index];
-    setModalContentFromCard(card);
+    setCardModalContent(card);
 }
 
 function fetchAndDisplayCards() {

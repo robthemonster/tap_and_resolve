@@ -1,6 +1,13 @@
-
 function getNetlifyIdentity() {
     return window.netlifyIdentity;
+}
+
+function getLikedRatio(liked, disliked) {
+    if (liked + disliked === 0) {
+        return 50;
+    } else {
+        return 100 * (liked / (liked + disliked));
+    }
 }
 
 const API_URL = "https://api.tapandresolve.tk";
@@ -18,8 +25,9 @@ function crudToEndpoint(endPoint, uuid) {
             url: API_URL + endPoint,
             data: {userid: userid, token, uuid: uuid}
         })
-            .then(response => {
-                resetModalButtons(uuid);
+            .then(card => {
+                setModalLikedRatio(card.likedCount, card.dislikedCount);
+                resetModalButtons(card.id);
             });
     });
 }

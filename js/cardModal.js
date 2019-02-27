@@ -14,6 +14,12 @@ const MODAL_HTML = `<style>
         <div class="center row">
             <img src="#" id="modal_card_image" alt="" class="responsive-img">
         </div>
+        <div class="center-align white-text">
+            <div class="progress red">
+                <div id="modal_liked_ratio" style="width:50%;" class="determinate green"></div>
+            </div>
+            <span id="modal_card_rating">0</span>
+        </div>
         <div class="row">
             <div id="card_faces"></div>
             <div>
@@ -66,7 +72,7 @@ const MODAL_HTML = `<style>
         </span>
     </div>`;
 
-function setModalContentFromCard(card) {
+function setCardModalContent(card) {
     setModalTextAndImage(card);
     resetModalButtons(card.id);
 }
@@ -146,6 +152,17 @@ function appendCardFaceText(face) {
     facediv.append($(getFaceNameAndText(face.name, face.oracle_text ? face.oracle_text : "", face.flavor_text ? face.flavor_text : "")));
 }
 
+function setModalLikedRatio(likedCount, dislikedCount) {
+    let likedRatio = getLikedRatio(likedCount, dislikedCount);
+    $("#modal_liked_ratio").css('width', likedRatio + "%");
+    let cardRating = likedCount - dislikedCount;
+    let ratingText = cardRating > 0 ? `+${cardRating}` : cardRating;
+    let modal_card_rating = $("#modal_card_rating");
+    modal_card_rating.text(ratingText);
+    modal_card_rating.addClass(cardRating > 0 ? "green-text" : cardRating < 0 ? 'red-text' : '');
+    modal_card_rating.removeClass(cardRating > 0 ? "red-text" : cardRating < 0 ? 'green-text' : ['green-text', 'red-text']);
+}
+
 function setModalTextAndImage(card) {
     $("#card_faces").empty();
     if (card.card_faces) {
@@ -161,6 +178,9 @@ function setModalTextAndImage(card) {
     } else {
         cardImage.attr('src', IMAGE_NOT_AVAILABLE);
     }
+
+    setModalLikedRatio(card.likedCount, card.dislikedCount);
+
     $.get(card.uri)
         .then(response => {
             let prices = response.prices;

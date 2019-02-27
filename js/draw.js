@@ -167,10 +167,11 @@ function openFilters() {
 function likeCard() {
     getAccount(true).then(([userid, token]) => {
         $.post({
-            url: API_URL + "/addCardToLiked",
+            url: API_URL + ADD_CARD_LIKED_PATH,
             data: {userid: userid, token: token, uuid: currentCard},
-        }).then(() => {
-            shuffleCard();
+        }).then((card) => {
+            setCardContent(card);
+            setTimeout(shuffleCard, 1000);
         })
     });
 }
@@ -178,10 +179,11 @@ function likeCard() {
 function blockCard() {
     getAccount(true).then(([userid, token]) => {
         $.post({
-            url: API_URL + "/addCardToBlocked",
+            url: API_URL + ADD_CARD_BLOCKED_PATH,
             data: {userid: userid, token: token, uuid: currentCard},
-        }).then(() => {
-            shuffleCard();
+        }).then((card) => {
+            setCardContent(card);
+            setTimeout(shuffleCard, 1000);
         })
     });
 }
@@ -198,6 +200,23 @@ function showCard() {
     $("#loading_circle").css('display', 'none');
 }
 
+function setCardContent(card) {
+    currentCard = card.id;
+    let imageurl = (card.image_uris) ? card.image_uris.border_crop : false;
+    $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
+
+    let likedRatio = getLikedRatio(card.likedCount, card.dislikedCount);
+    $("#liked_ratio").css('width', likedRatio + "%");
+    let cardRating = card.likedCount - card.dislikedCount;
+    let ratingText = cardRating > 0 ? `+${cardRating}` : cardRating;
+    let card_rating_span = $("#card_rating");
+    card_rating_span.text(ratingText);
+    card_rating_span.addClass(cardRating > 0 ? "green-text" : cardRating < 0 ? 'red-text' : '');
+    card_rating_span.removeClass(cardRating > 0 ? "red-text" : cardRating < 0 ? 'green-text' : ['green-text', 'red-text']);
+    setCardModalContent(card);
+    showCard();
+}
+
 function shuffleCard() {
     currentCard = -1;
     hideCard();
@@ -206,11 +225,7 @@ function shuffleCard() {
             url: API_URL + "/randomCard",
             data: {userid: userid, token: token, filter: JSON.stringify(currentFilters)},
         }).then(randomCard => {
-            currentCard = randomCard.id;
-            let imageurl = (randomCard.image_uris) ? randomCard.image_uris.border_crop : false;
-            $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
-            setModalContentFromCard(randomCard);
-            showCard();
+            setCardContent(randomCard);
         });
     });
 }
