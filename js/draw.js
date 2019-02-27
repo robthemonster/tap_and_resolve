@@ -206,8 +206,8 @@ function setCardContent(card) {
     let imageurl = (card.image_uris) ? card.image_uris.border_crop : false;
     let image = new Image();
     image.onload = () => {
-        showCard();
         $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
+        showCard();
     };
     image.src = imageurl;
 

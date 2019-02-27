@@ -2,10 +2,17 @@
     height: 100vh;
 }
 
+#card_image_container {
+    height: 70vh;
+}
+
+#modal_trigger, #card_image {
+    height: 100%;
+}
 
 #loading_circle {
-    height: 65vh;
-    position:relative;
+    height: 100%;
+    position: relative;
 }
 
 #loading_circle_inner {
@@ -13,10 +20,6 @@
     position: absolute;
     top: calc(50% - 32px);
     left: calc(50% - 32px);
-}
-
-.button_row {
-    height: 10vh;
 }
 
 label {

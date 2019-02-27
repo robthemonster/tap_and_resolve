@@ -10,9 +10,9 @@
 </head>
 <body class="blue-grey darken-4">
 <div id="draw_page_row" class="card_container row blue-grey darken-1 container">
-    <div id="card_image_container" class="col s12 xl6 blue-grey darken-1">
-        <div id="loading_circle" class="row valign-wrapper">
-
+    <div class="col s12 xl6 blue-grey darken-1">
+        <div id="card_image_container" class="center-align">
+            <div id="loading_circle" class="row valign-wrapper">
         <span id="loading_circle_inner" class="preloader-wrapper active big">
             <div class="spinner-layer spinner-blue-only">
                 <div class="circle-clipper left">
@@ -26,13 +26,46 @@
                 </div>
             </div>
         </span>
-        </div>
-        <div class="center">
-            <a id="modal_trigger" class="center modal-trigger waves-effect waves-light" href="#card_modal">
+            </div>
+            <a id="modal_trigger" class=" modal-trigger waves-effect waves-light" href="#card_modal">
                 <img id="card_image" class="responsive-img" alt="" src="">
             </a>
+            <div id="modal_filters" class="modal bottom-sheet row left-align">
+                <div class="modal-content">
+                    <h4> Filters</h4>
+                </div>
+                <div class="modal-content">
+                    <form id="colors_row" class="" action="#">
+                        <div class="switch flow-text">
+                            <h5>Draw cards that use
+                                <label>
+                                    <span class="teal-text flow-text" id="only_span">At Most</span>
+                                    <input onchange="(()=>{highlightFilterMode(); handleFiltersChange()})()"
+                                           id="color_filter_mode"
+                                           type="checkbox">
+                                    <span class="lever"></span>
+                                    <span class="flow-text" id="exactly_span">Exactly</span>
+                                </label>
+                                these colors.</h5>
+                        </div>
+
+                    </form>
+                    <form id="formats_row" class="flow-text" action="#">
+                        <div>
+                            <h5>Draw cards that are legal in these formats.</h5>
+                        </div>
+
+                    </form>
+                    <form id="types_row" class="flow-text" action="#">
+                        <h5>Draw lands</h5>
+                    </form>
+                    <form id="commanders_row" class="flow-text" action="#">
+                        <h5>Draw commanders only</h5>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="center-align white-text">
+        <div class="center-align white-text row">
             <div class="progress red">
                 <div id="liked_ratio" style="width:50%;" class="determinate green"></div>
             </div>
@@ -57,40 +90,6 @@
             <div id="filters_button_col" class="col s3 btn_col valign-wrapper">
                 <a class=" btn hoverable blue-grey waves-effect center-block" onclick="openFilters()" href="#"><i
                         class="material-icons btn_icon">filter_list</i></a>
-            </div>
-        </div>
-        <div id="modal_filters" class="modal bottom-sheet row">
-            <div class="modal-content">
-                <h4> Filters</h4>
-            </div>
-            <div class="modal-content">
-                <form id="colors_row" class="" action="#">
-                    <div class="switch flow-text">
-                        <h5>Draw cards that use
-                            <label>
-                                <span class="teal-text flow-text" id="only_span">At Most</span>
-                                <input onchange="(()=>{highlightFilterMode(); handleFiltersChange()})()"
-                                       id="color_filter_mode"
-                                       type="checkbox">
-                                <span class="lever"></span>
-                                <span class="flow-text" id="exactly_span">Exactly</span>
-                            </label>
-                            these colors.</h5>
-                    </div>
-
-                </form>
-                <form id="formats_row" class="flow-text" action="#">
-                    <div>
-                        <h5>Draw cards that are legal in these formats.</h5>
-                    </div>
-
-                </form>
-                <form id="types_row" class="flow-text" action="#">
-                    <h5>Draw lands</h5>
-                </form>
-                <form id="commanders_row" class="flow-text" action="#">
-                    <h5>Draw commanders only</h5>
-                </form>
             </div>
         </div>
     </div>
