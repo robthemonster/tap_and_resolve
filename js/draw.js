@@ -231,7 +231,7 @@ function shuffleCard() {
             data: {userid: userid, token: token, filter: JSON.stringify(currentFilters)},
         }).then(randomCard => {
             setCardContent(randomCard);
-            ga('send', 'event', 'card_interaction', 'card_drawn')
+            gtag('event', 'card_drawn', {'event_category':'draw_page_interaction'});
         });
     });
 }
