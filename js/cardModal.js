@@ -3,11 +3,17 @@ const MODAL_HTML = `<style>
         height: 100%;
         width: 95%;
     }
+.spinner-container {
+    position:relative;    
+}
 
-    .footer_column {
-        padding-left: 0;
-        padding-right: 0;
-    }
+.preloader-wrapper {
+    margin: 0;
+    position: absolute;
+    top: calc(50% - 18px);
+    left: calc(50% - 18px);
+}
+    
 </style>
 <div id="card_modal" class="modal modal-fixed-footer blue-grey darken-2 white-text">
     <div class="modal-content row">
@@ -35,15 +41,17 @@ const MODAL_HTML = `<style>
     </div>
     <div class="modal-footer blue-grey darken-1 row valign-wrapper" style="margin-bottom: 0;">
         <span id="block_span_modal" class="col s4 center footer_column">
-            <div id="modal_block_loader" class="preloader-wrapper small active">
-                <div class="spinner-layer ">
-                  <div class="circle-clipper left">
-                    <div class="circle"></div>
-                  </div><div class="gap-patch">
-                    <div class="circle"></div>
-                  </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                  </div>
+            <div class="spinner-container">
+                <div id="modal_block_loader" class="preloader-wrapper small active">
+                    <div class="spinner-layer ">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
                 </div>
             </div>
             <a href="#" id="modal_block_anchor"
@@ -54,16 +62,18 @@ const MODAL_HTML = `<style>
             <a href="#" class="center btn blue-grey waves-effect modal-close white-text footer_button"><i
                     class="material-icons">keyboard_arrow_down</i></a>
         </span>
-        <span id="like_span_modal" class="col s4 center footer_column">
-            <div id="modal_like_loader" class="preloader-wrapper small active">
-                <div class="spinner-layer ">
-                  <div class="circle-clipper left">
-                    <div class="circle"></div>
-                  </div><div class="gap-patch">
-                    <div class="circle"></div>
-                  </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                  </div>
+        <span id="like_span_modal" class="col s4 center">
+            <div class="spinner-container">
+                <div id="modal_like_loader" class="preloader-wrapper small active">
+                    <div class="spinner-layer ">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
                 </div>
             </div>
             <a href="#" id="modal_like_anchor"
