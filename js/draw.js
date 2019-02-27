@@ -171,6 +171,7 @@ function likeCard() {
             data: {userid: userid, token: token, uuid: currentCard},
         }).then((card) => {
             setCardContent(card);
+            gtag('event', 'card_liked', {'event_category':'draw_page_interaction'});
             setTimeout(shuffleCard, 1000);
         })
     });
@@ -183,6 +184,7 @@ function blockCard() {
             data: {userid: userid, token: token, uuid: currentCard},
         }).then((card) => {
             setCardContent(card);
+            gtag('event', 'card_disliked', {'event_category':'draw_page_interaction'});
             setTimeout(shuffleCard, 1000);
         })
     });
