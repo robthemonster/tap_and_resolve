@@ -18,7 +18,7 @@ $(document).ready(() => {
 });
 
 function handleModalClose() {
-    setTimeout(fetchAndDisplayCards, 500);
+    fetchAndDisplayCards();
 }
 
 function loginCallback() {
@@ -34,12 +34,12 @@ function setModalContentFromIndex(index) {
 
 function fetchAndDisplayCards() {
     let cardCollection = $("#card_collection");
-    cardCollection.empty();
     getAccount(true).then(([userid, token]) => {
         $.post({
             url: API_URL + endpoint,
             data: {userid: userid, token: token}
         }).then(response => {
+            cardCollection.empty();
             let autocomplete = {};
             response.forEach(card => {
                 let uuid = card.id;
