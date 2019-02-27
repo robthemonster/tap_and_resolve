@@ -189,6 +189,7 @@ function blockCard() {
 }
 
 function hideCard() {
+    $("#card_image").attr('src',"");
     $("#card_image_div").css('display', 'none');
     $("#loading_circle").css('display', 'block');
     $("#modal_trigger").attr('disabled', 'disabled');
@@ -203,7 +204,12 @@ function showCard() {
 function setCardContent(card) {
     currentCard = card.id;
     let imageurl = (card.image_uris) ? card.image_uris.border_crop : false;
-    $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
+    let image = new Image();
+    image.onload = () => {
+        showCard();
+        $("#card_image").attr('src', (imageurl) ? imageurl : IMAGE_NOT_AVAILABLE);
+    };
+    image.src = imageurl;
 
     let likedRatio = getLikedRatio(card.likedCount, card.dislikedCount);
     $("#liked_ratio").css('width', likedRatio + "%");
@@ -214,7 +220,6 @@ function setCardContent(card) {
     card_rating_span.addClass(cardRating > 0 ? "green-text" : cardRating < 0 ? 'red-text' : '');
     card_rating_span.removeClass(cardRating > 0 ? "red-text" : cardRating < 0 ? 'green-text' : ['green-text', 'red-text']);
     setCardModalContent(card);
-    showCard();
 }
 
 function shuffleCard() {
