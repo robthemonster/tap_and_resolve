@@ -87,7 +87,7 @@ function addFilterButtons() {
 }
 
 $(document).ready(() => {
-    addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
+    addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT, NAVBAR_REFS.TOP_CARDS);
     addFilterButtons(currentFilters);
     setButtonConfig(isLoggedIn());
     adjustCardButtons();
@@ -215,12 +215,8 @@ function setCardContent(card) {
 
     let likedRatio = getLikedRatio(card.likedCount, card.dislikedCount);
     $("#liked_ratio").css('width', likedRatio + "%");
-    let cardRating = card.likedCount - card.dislikedCount;
-    let ratingText = cardRating > 0 ? `+${cardRating}` : cardRating;
-    let card_rating_span = $("#card_rating");
-    card_rating_span.text(ratingText);
-    card_rating_span.addClass(cardRating > 0 ? "green-text" : cardRating < 0 ? 'red-text' : '');
-    card_rating_span.removeClass(cardRating > 0 ? "red-text" : cardRating < 0 ? 'green-text' : ['green-text', 'red-text']);
+    $("#liked_count").text(card.likedCount);
+    $("#disliked_count").text(card.dislikedCount);
     setCardModalContent(card);
 }
 

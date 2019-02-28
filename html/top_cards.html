@@ -2,22 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Blocked - Tap&Resolve - Draw Random Magic The Gathering Cards</title>
+    <title>Top Cards - Tap&Resolve - Draw Random Magic The Gathering Cards</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/card_collection.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="blue-grey darken-4 white-text">
-
-<div class="row white">
-    <div class="input-field col s12">
-        <input type="text" id="autocomplete-input" oninput="filterCards()" class="autocomplete" disabled>
-        <label for="autocomplete-input"><i class="material-icons prefix">search</i></label>
+<div class="row valign-wrapper">
+    <div class="container center switch">
+        <label class="right">
+            Top
+            <input id="sort_type_check" onchange="changeSortType()" type="checkbox">
+            <span class="lever"></span>
+            Controversial
+        </label>
     </div>
 </div>
-<div class="row container">
-    <div id="card_collection" class="collection">
+<div class="row">
+    <div id="card_collection" class="collection container">
     </div>
 </div>
 <script
@@ -28,7 +31,7 @@
 <script src="../js/constants.js"></script>
 <script src="../js/navBar.js"></script>
 <script src="../js/cardModal.js"></script>
-<input type="text" value="BLOCKED" id="TABLE_REF" disabled style="display: none">
+<input type="text" value="TOP_CARDS" id="TABLE_REF" disabled style="display: none">
 <script src="../js/cardsFromTable.js"></script>
 </body>
 </html>
