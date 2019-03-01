@@ -19,7 +19,7 @@ function isLoggedIn() {
 }
 
 function crudToEndpoint(endPoint, uuid) {
-    gtag('event', 'modal_interaction', endPoint);
+    gtag('event', 'modal_interaction', {'event_category': endPoint});
     showLoadingCirclesOnModalButtons();
     getAccount(true).then(([userid, token]) => {
         $.post({
