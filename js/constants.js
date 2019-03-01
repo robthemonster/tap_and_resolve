@@ -19,11 +19,12 @@ function isLoggedIn() {
 }
 
 function crudToEndpoint(endPoint, uuid) {
+    gtag('event', 'modal_interaction', endPoint);
     showLoadingCirclesOnModalButtons();
     getAccount(true).then(([userid, token]) => {
         $.post({
             url: API_URL + endPoint,
-            data: {userid: userid, token, uuid: uuid}
+            data: {userid: userid, token:token, uuid: uuid}
         })
             .then(card => {
                 setModalLikedRatio(card.likedCount, card.dislikedCount);
