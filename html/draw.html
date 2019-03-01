@@ -74,22 +74,25 @@
         </div>
         <div class="center-align row valign-wrapper button_row">
             <div id="shuffle_button_col" class="col s3 btn_col valign-wrapper">
-                <a class="btn hoverable blue-grey waves-effect yellow-text center-block" onclick="shuffleCard()"
+                <a class="btn hoverable blue-grey waves-effect yellow-text center-block tooltipped"
+                   data-position="bottom" data-tooltip="Draw a new card" onclick="shuffleCard()"
                    href="#">
                     <i class="material-icons btn_icon ">shuffle</i>
                 </a>
             </div>
             <div id="block_button_col" class="col s3 btn_col valign-wrapper">
-                <a class="btn hoverable blue-grey waves-effect red-text center-block" onclick="blockCard()" href="#"><i
+                <a class="btn hoverable blue-grey waves-effect red-text center-block tooltipped" data-position="bottom"
+                   data-tooltip="Dislike this card" onclick="blockCard()" href="#"><i
                         class="material-icons btn_icon ">block</i></a>
             </div>
             <div id="like_button_col" class="col s3 btn_col valign-wrapper">
-                <a class=" btn hoverable blue-grey waves-effect green-text center-block" onclick="likeCard()"
-                   href="#"><i
-                        class="material-icons">check</i></a>
+                <a class=" btn hoverable blue-grey waves-effect green-text center-block tooltipped"
+                   data-position="bottom" data-tooltip="Like this card" onclick="likeCard()"
+                   href="#"><i class="material-icons">check</i></a>
             </div>
             <div id="filters_button_col" class="col s3 btn_col valign-wrapper">
-                <a class=" btn hoverable blue-grey waves-effect center-block" onclick="openFilters()" href="#"><i
+                <a class=" btn hoverable blue-grey waves-effect center-block tooltipped" data-position="bottom"
+                   data-tooltip="Change filters" onclick="openFilters()" href="#"><i
                         class="material-icons btn_icon">filter_list</i></a>
             </div>
         </div>

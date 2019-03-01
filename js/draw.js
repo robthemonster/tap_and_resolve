@@ -99,6 +99,7 @@ $(document).ready(() => {
             blockCard();
         }
     });
+    $(".tooltipped").tooltip({enterDelay:500});
     $(window).resize(() => {
         handleFiltersChange();
         adjustCardButtons();
