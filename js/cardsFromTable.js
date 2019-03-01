@@ -5,10 +5,22 @@ let endpoint = "";
 let sortType = "TOP";
 const [TOP_SORT, CONTROVERSIAL_SORT] = ['TOP', 'CONTROVERSIAL'];
 const [LIKED_PAGE_KEY, BLOCKED_PAGE_KEY, TOP_CARDS_PAGE_KEY, SEARCH_PAGE_KEY] = ["LIKED", "BLOCKED", "TOP_CARDS", "SEARCH"];
-const ENDPOINTS = {'LIKED': "/getLiked", 'BLOCKED': "/getBlocked", 'TOP_CARDS':"/getTopCards", 'SEARCH':"/searchForCards"};
+const ENDPOINTS = {
+    'LIKED': "/getLiked",
+    'BLOCKED': "/getBlocked",
+    'TOP_CARDS': "/getTopCards",
+    'SEARCH': "/searchForCard"
+};
 endpoint = ENDPOINTS[TABLE_REF];
 
 $(document).ready(() => {
+    let autocomplete = $("#autocomplete-input");
+    autocomplete.keydown((event) => {
+        if (event.keyCode === 27) {
+            let instance = M.Autocomplete.getInstance($(".autocomplete"));
+            instance.close();
+        }
+    });
     fetchAndDisplayCards();
 });
 
@@ -22,7 +34,7 @@ function handleModalClose() {
 }
 
 function loginCallback() {
-    resetNavBarAndLogin(likedRef, blockedRef, NAVBAR_REFS.SEARCH, NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT);
+    resetNavBarAndLogin();
     restoreModalButtons();
     fetchAndDisplayCards();
 }
@@ -52,21 +64,32 @@ function fetchCardsPromise() {
             }).then(results => {
                 resolve(results)
             });
+        } else if (TABLE_REF === SEARCH_PAGE_KEY) {
+            let queryString = $("#autocomplete-input").val();
+            queryString = (queryString) ? queryString.toString().toLowerCase() : undefined;
+            $.post({
+                url: API_URL + endpoint,
+                data: {searchString: queryString, pageSize: 50, pageNumber: 0}
+            }).then(results => {
+                resolve(results.cards);
+            })
         }
     });
 }
 
 function fetchAndDisplayCards() {
     let cardCollection = $("#card_collection");
-    fetchCardsPromise().then(response => {
+    fetchCardsPromise().then(results => {
         cardCollection.empty();
         let autocomplete = {};
-        response.forEach(card => {
+        results.forEach(card => {
             let uuid = card.id;
             let name = card.name;
             let imageurl = card.image_uris ? card.image_uris.border_crop : false;
             cards[uuid] = card;
-            autocomplete[name] = null;
+            if (Object.keys(autocomplete).length < 8) {
+                autocomplete[name] = null;
+            }
             let outerAnchor = $("<a>", {
                 class: "collection-item row modal-trigger blue-grey darken-2 white-text",
                 id: `${uuid}_collection_item`,
@@ -118,12 +141,14 @@ function fetchAndDisplayCards() {
             outerAnchor.append(likedRatioDiv, cardNameSpan, cardImageSpan);
             cardCollection.append(outerAnchor);
         });
-        if (TABLE_REF === LIKED_PAGE_KEY || TABLE_REF === BLOCKED_PAGE_KEY) {
+        if (TABLE_REF === LIKED_PAGE_KEY || TABLE_REF === BLOCKED_PAGE_KEY || TABLE_REF === SEARCH_PAGE_KEY) {
             let autocomplete_input = $("#autocomplete-input");
             autocomplete_input.autocomplete({
                 data: autocomplete,
                 onAutocomplete: filterCards,
-                sortFunction: (a, b) => (a < b ? -1 : 1)
+                sortFunction: (a, b) => (a < b ? -1 : 1),
+                limit: 8,
+                minLength: 3
             });
             autocomplete_input.removeAttr("disabled");
             filterReady = true;
@@ -138,9 +163,21 @@ function filterCards() {
     if (!filterReady) {
         return;
     }
-    let querystring = $("#autocomplete-input").val().toString().toLowerCase();
+    const autocompleteEl = $("#autocomplete-input");
+    let querystring = autocompleteEl.val().toString().toLowerCase();
+    let autocomplete = {};
     for (let uuid in cards) {
         let name = cards[uuid].name.toLowerCase();
         $("#" + uuid + "_collection_item").css('display', name.includes(querystring) ? 'block' : 'none');
+        if (name.includes(querystring) && Object.keys(autocomplete).length < 8) {
+            autocomplete[name] = null;
+        }
     }
+    autocompleteEl.autocomplete({
+        data: autocomplete,
+        onAutocomplete: filterCards,
+        sortFunction: (a, b) => (a < b ? -1 : 1),
+        limit: 8,
+        minLength: 3
+    });
 }

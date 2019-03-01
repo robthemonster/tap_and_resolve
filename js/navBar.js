@@ -110,7 +110,7 @@ $(document).ready(() => {
     addNavBarAndLogin();
 });
 
-function resetNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef) {
+function resetNavBarAndLogin() {
     $("#navbar").remove();
-    addNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef);
+    addNavBarAndLogin();
 }

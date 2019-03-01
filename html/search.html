@@ -12,12 +12,12 @@
 
 <div class="row white">
     <div class="input-field col s12">
-        <input type="text" id="autocomplete-input" oninput="filterCards()" class="autocomplete">
+        <input type="text" id="autocomplete-input" oninput="fetchAndDisplayCards()" class="autocomplete">
         <label for="autocomplete-input"><i class="material-icons prefix">search</i></label>
     </div>
 </div>
 
-<div id="results_collection" class="collection blue-grey darken-4 white-text container">
+<div id="card_collection" class="collection blue-grey darken-4 white-text container">
 </div>
 
 <footer class="page-footer blue-grey darken-3 center-align ">
@@ -35,6 +35,7 @@
 <script src="../js/constants.js"></script>
 <script src="../js/navBar.js"></script>
 <script src="../js/cardModal.js"></script>
-<script src="../js/search.js"></script>
+<input type="text" id="TABLE_REF" value="SEARCH" disabled style="display:none;">
+<script src="../js/cardsFromTable.js"></script>
 </body>
 </html>
