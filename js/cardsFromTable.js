@@ -3,21 +3,12 @@ let filterReady = false;
 let TABLE_REF = $("#TABLE_REF").val();
 let endpoint = "";
 let sortType = "TOP";
-let [likedRef, blockedRef, topCardsRef] = [NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.TOP_CARDS];
 const [TOP_SORT, CONTROVERSIAL_SORT] = ['TOP', 'CONTROVERSIAL'];
-const [LIKED_TABLE_REF, BLOCKED_TABLE_REF, TOP_CARDS_REF] = ["LIKED", "BLOCKED", "TOP_CARDS"];
-if (TABLE_REF === LIKED_TABLE_REF) {
-    endpoint = "/getLiked";
-    likedRef = "#";
-} else if (TABLE_REF === BLOCKED_TABLE_REF) {
-    endpoint = "/getBlocked";
-    blockedRef = "#";
-} else if (TABLE_REF === TOP_CARDS_REF) {
-    endpoint = '/getTopCards';
-    topCardsRef = "#";
-}
+const [LIKED_PAGE_KEY, BLOCKED_PAGE_KEY, TOP_CARDS_PAGE_KEY, SEARCH_PAGE_KEY] = ["LIKED", "BLOCKED", "TOP_CARDS", "SEARCH"];
+const ENDPOINTS = {'LIKED': "/getLiked", 'BLOCKED': "/getBlocked", 'TOP_CARDS':"/getTopCards", 'SEARCH':"/searchForCards"};
+endpoint = ENDPOINTS[TABLE_REF];
+
 $(document).ready(() => {
-    addNavBarAndLogin(likedRef, blockedRef, NAVBAR_REFS.SEARCH, NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT, topCardsRef);
     fetchAndDisplayCards();
 });
 
@@ -43,7 +34,7 @@ function setModalContentFromIndex(index) {
 
 function fetchCardsPromise() {
     return new Promise((resolve, reject) => {
-        if (TABLE_REF === LIKED_TABLE_REF || TABLE_REF === BLOCKED_TABLE_REF) {
+        if (TABLE_REF === LIKED_PAGE_KEY || TABLE_REF === BLOCKED_PAGE_KEY) {
             getAccount(true).then(([userid, token]) => {
                 $.post({
                     url: API_URL + endpoint,
@@ -54,7 +45,7 @@ function fetchCardsPromise() {
             }).catch(() => {
                 reject();
             });
-        } else if (TABLE_REF === TOP_CARDS_REF) {
+        } else if (TABLE_REF === TOP_CARDS_PAGE_KEY) {
             $.post({
                 url: API_URL + endpoint,
                 data: {sort: sortType}
@@ -127,7 +118,7 @@ function fetchAndDisplayCards() {
             outerAnchor.append(likedRatioDiv, cardNameSpan, cardImageSpan);
             cardCollection.append(outerAnchor);
         });
-        if (TABLE_REF === LIKED_TABLE_REF || TABLE_REF === BLOCKED_TABLE_REF) {
+        if (TABLE_REF === LIKED_PAGE_KEY || TABLE_REF === BLOCKED_PAGE_KEY) {
             let autocomplete_input = $("#autocomplete-input");
             autocomplete_input.autocomplete({
                 data: autocomplete,

@@ -7,7 +7,21 @@ const NAVBAR_REFS = {
     TOP_CARDS: 'top_cards.html'
 };
 
-function getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef) {
+function getRefsForCurrentPage() {
+    let page = document.location.pathname.match(/[^\/]+$/)[0];
+    let refs = NAVBAR_REFS;
+    for (let ref in refs) {
+        if (refs[ref] === page) {
+            refs[ref] = '#';
+        }
+    }
+    return refs;
+}
+
+function getNavBarHtml() {
+    let refs = getRefsForCurrentPage();
+    let [likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef] = [refs.LIKED, refs.BLOCKED, refs.SEARCH, refs.DRAW, refs.ABOUT, refs.TOP_CARDS];
+
     function getNavClass() {
         let results = [];
         for (let i in arguments) {
@@ -83,14 +97,18 @@ ${accountDropdownList}
 }
 
 
-function addNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef) {
-    $("body").prepend($(getNavBarHtml(likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef)));
+function addNavBarAndLogin() {
+    $("body").prepend($(getNavBarHtml()));
     $(".dropdown-trigger").dropdown();
     $('.sidenav').sidenav();
     $('.modal').modal({
         onCloseEnd: handleModalClose
     });
 }
+
+$(document).ready(() => {
+    addNavBarAndLogin();
+});
 
 function resetNavBarAndLogin(likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef) {
     $("#navbar").remove();

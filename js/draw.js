@@ -87,7 +87,6 @@ function addFilterButtons() {
 }
 
 $(document).ready(() => {
-    addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT, NAVBAR_REFS.TOP_CARDS);
     addFilterButtons(currentFilters);
     setButtonConfig(isLoggedIn());
     adjustCardButtons();

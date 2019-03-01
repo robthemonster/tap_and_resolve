@@ -3,7 +3,6 @@ let resultsReturnedFor = null;
 const PAGE_SIZE = 50;
 
 $(document).ready(() => {
-    addNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, "#", NAVBAR_REFS.DRAW, NAVBAR_REFS.ABOUT, NAVBAR_REFS.TOP_CARDS);
     $(".autocomplete").keydown((event) => {
         if (event.keyCode === 27) {
             let instance = M.Autocomplete.getInstance($(".autocomplete"));
