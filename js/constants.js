@@ -11,7 +11,8 @@ function getLikedRatio(liked, disliked) {
 }
 
 const API_URL = "https://api.tapandresolve.tk";
-const [ADD_CARD_LIKED_PATH, ADD_CARD_BLOCKED_PATH, DEL_CARD_LIKED_PATH, DEL_CARD_BLOCKED_PATH] = ["/addCardToLiked", "/addCardToBlocked", "/removeCardFromLiked", "/removeCardFromBlocked"];
+const ADD_CARD_LIKED_PATH = "/addCardToLiked", ADD_CARD_BLOCKED_PATH = "/addCardToBlocked",
+    DEL_CARD_LIKED_PATH = "/removeCardFromLiked", DEL_CARD_BLOCKED_PATH = "/removeCardFromBlocked";
 const IMAGE_NOT_AVAILABLE = "../assets/image_not_found.png";
 
 function isLoggedIn() {
@@ -24,7 +25,7 @@ function crudToEndpoint(endPoint, uuid) {
     getAccount(true).then(([userid, token]) => {
         $.post({
             url: API_URL + endPoint,
-            data: {userid: userid, token:token, uuid: uuid}
+            data: {userid: userid, token: token, uuid: uuid}
         })
             .then(card => {
                 setModalLikedRatio(card.likedCount, card.dislikedCount);

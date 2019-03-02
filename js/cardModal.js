@@ -130,7 +130,9 @@ function restoreModalButtons() {
 function resetModalButtons(uuid) {
     showLoadingCirclesOnModalButtons();
     if (isLoggedIn()) {
-        getAccount(true).then(([userid, token]) => {
+        getAccount(true).then(function(args) {
+            var userid = args[0];
+            var token = args[1];
             $.post({
                 url: `${API_URL}/getUserCardStatus`,
                 data: {userid: userid, token: token, uuid: uuid}
