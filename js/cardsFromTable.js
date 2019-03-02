@@ -3,7 +3,7 @@ let filterReady = false;
 let TABLE_REF = $("#TABLE_REF").val();
 let endpoint = "";
 let sortType = "TOP";
-const [TOP_SORT, CONTROVERSIAL_SORT] = ['TOP', 'CONTROVERSIAL'];
+const SORT_TYPES = {'top': 'TOP', 'controversial': 'CONTROVERSIAL', 'worst': 'WORST'};
 const [LIKED_PAGE_KEY, BLOCKED_PAGE_KEY, TOP_CARDS_PAGE_KEY, SEARCH_PAGE_KEY] = ["LIKED", "BLOCKED", "TOP_CARDS", "SEARCH"];
 const ENDPOINTS = {
     'LIKED': "/getLiked",
@@ -25,7 +25,8 @@ $(document).ready(() => {
 });
 
 function changeSortType() {
-    sortType = !$("#sort_type_check").prop('checked') ? TOP_SORT : CONTROVERSIAL_SORT;
+    let sortValue = $("input[type='radio']:checked").val();
+    sortType = SORT_TYPES[sortValue];
     fetchAndDisplayCards();
 }
 

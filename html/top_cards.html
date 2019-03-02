@@ -9,16 +9,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="blue-grey darken-4 white-text">
-<div class="row valign-wrapper">
-    <div class="container center switch">
-        <label class="right">
-            Top
-            <input id="sort_type_check" onchange="changeSortType()" type="checkbox">
-            <span class="lever"></span>
-            Controversial
+<form class="center row blue-grey darken-1 container" action="#">
+    <label>
+        <p>Sort by</p>
+        <span>
+        <label for="radio_top">
+            <input class="with-gap" onclick="changeSortType()" name="sort_radio" value="top" id="radio_top" type="radio"
+                   checked/>
+            <span>Top</span>
         </label>
-    </div>
-</div>
+    </span>
+        <span>
+        <label for="radio_controversial">
+            <input class="with-gap" name="sort_radio" onclick="changeSortType()" value="controversial"
+                   id="radio_controversial" type="radio"/>
+            <span>Controversial</span>
+        </label>
+    </span>
+        <span>
+        <label for="radio_worst">
+            <input class="with-gap" name="sort_radio" onclick="changeSortType()" value="worst" id="radio_worst"
+                   type="radio"/>
+            <span>Worst</span>
+        </label>
+    </span>
+    </label>
+</form>
 <div class="row">
     <div id="card_collection" class="collection container">
     </div>
