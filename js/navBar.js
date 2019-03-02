@@ -102,6 +102,9 @@ function addNavBarAndLogin() {
     $(".dropdown-trigger").dropdown();
     $('.sidenav').sidenav();
     $('.modal').modal({
+        onOpenEnd: () => {
+            gtag('event', 'modal_open', {'event_category': "modal_interaction"});
+        },
         onCloseEnd: handleModalClose
     });
 }
