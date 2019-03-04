@@ -170,7 +170,7 @@ function setModalLikedRatio(likedCount, dislikedCount) {
     let cardRating = likedCount - dislikedCount;
     let ratingText = cardRating > 0 ? `+${cardRating}` : cardRating;
     let modal_card_rating = $("#modal_card_rating");
-    modal_card_rating.text(ratingText);
+    modal_card_rating.text(ratingText ? ratingText : "");
     modal_card_rating.addClass(cardRating > 0 ? "green-text" : cardRating < 0 ? 'red-text' : '');
     modal_card_rating.removeClass(cardRating > 0 ? "red-text" : cardRating < 0 ? 'green-text' : ['green-text', 'red-text']);
 }
@@ -197,20 +197,31 @@ function setModalTextAndImage(card) {
         .then(response => {
             let prices = response.prices;
             let [usd, foil, tix] = [prices['usd'], prices['usd_foil'], prices['usd_foil']];
-            $("#modal_card_usd").text(usd !== null ? `$${usd}` : "");
-            $("#modal_card_foil").text(foil !== null ? `$${foil} foil` : "");
-            $("#modal_card_tix").text(tix !== null ? `${tix} TIX` : "");
+            $("#modal_card_usd").text(usd ? `$${usd}` : "");
+            $("#modal_card_foil").text(foil ? `$${foil} foil` : "");
+            $("#modal_card_tix").text(tix ? `${tix} TIX` : "");
 
             let purchase_uris = response.purchase_uris;
             let [cardhoarder, cardmarket, tcgplayer] = [purchase_uris['cardhoarder'], purchase_uris['cardmarket'], purchase_uris['tcgplayer']];
             let [cardhoarder_link, cardmarket_link, tcgplayer_link] = [$("#modal_cardhoarder_link"), $("#modal_cardmarket_link"), $("#modal_tcgplayer_link")];
-            cardhoarder_link.text(cardhoarder !== null ? "Cardhoarder " : "");
-            cardmarket_link.text(cardmarket !== null ? "Cardmarket " : "");
-            tcgplayer_link.text(tcgplayer !== null ? "TCGPlayer" : "");
+            cardhoarder_link.text(cardhoarder ? "Cardhoarder " : "");
+            cardmarket_link.text(cardmarket ? "Cardmarket " : "");
+            tcgplayer_link.text(tcgplayer ? "TCGPlayer" : "");
             cardhoarder_link.attr("href", cardhoarder);
             cardmarket_link.attr("href", cardmarket);
             tcgplayer_link.attr("href", tcgplayer);
-        });
+        }).catch(() => {
+        let [cardhoarder_link, cardmarket_link, tcgplayer_link] = [$("#modal_cardhoarder_link"), $("#modal_cardmarket_link"), $("#modal_tcgplayer_link")];
+        cardhoarder_link.text("");
+        cardmarket_link.text("");
+        tcgplayer_link.text("");
+        cardhoarder_link.attr("href", "#");
+        cardmarket_link.attr("href", "#");
+        tcgplayer_link.attr("href", "#");
+        $("#modal_card_usd").text("");
+        $("#modal_card_foil").text("");
+        $("#modal_card_tix").text("");
+    });
 }
 
 $(document).ready(() => {
