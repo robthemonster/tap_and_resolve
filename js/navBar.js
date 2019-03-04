@@ -54,7 +54,7 @@ function getNavBarHtml() {
     <div class="nav-wrapper blue-grey darken-2">
         <a href="${drawRef}" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right ">
+        <ul class="right">
             <li ${loggedInVeil} class="${likedClass} hide-on-med-and-down"><a href="${likedRef}"><i
                     class="material-icons green-text ${likedClass}">check</i></a></li>
             <li ${loggedInVeil} class="${blockedClass} hide-on-med-and-down"><a href="${blockedRef}"><i

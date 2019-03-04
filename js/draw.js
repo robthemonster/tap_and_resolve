@@ -23,6 +23,7 @@ let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 function setButtonConfig(loggedIn) {
     $("#like_button_col").css('display', loggedIn ? 'block' : 'none');
     $("#block_button_col").css('display', loggedIn ? 'block' : 'none');
+    $("#login_suggestion_div").css('display', loggedIn ? "none":"block");
     let shuffle = $("#shuffle_button_col");
     let filter = $("#filters_button_col");
     if (!loggedIn) {
@@ -107,7 +108,7 @@ $(document).ready(() => {
 
 function loginCallback() {
     setButtonConfig(isLoggedIn());
-    resetNavBarAndLogin(NAVBAR_REFS.LIKED, NAVBAR_REFS.BLOCKED, NAVBAR_REFS.SEARCH, "#", NAVBAR_REFS.ABOUT);
+    resetNavBarAndLogin();
     restoreModalButtons();
     shuffleCard();
 }
