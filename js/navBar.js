@@ -108,6 +108,6 @@ function resetNavBarAndLogin() {
 $(document).ready(() => {
     $(".dropdown-trigger").dropdown();
     $('.sidenav').sidenav();
+    $("body").prepend($(getNavBarHtml()));
 });
 
-$("body").prepend($(getNavBarHtml()));

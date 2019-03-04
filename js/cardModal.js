@@ -220,6 +220,6 @@ $(document).ready(() => {
         },
         onCloseEnd: handleModalClose
     });
+    $("body").append($(MODAL_HTML));
 });
 
-$("body").append($(MODAL_HTML));
