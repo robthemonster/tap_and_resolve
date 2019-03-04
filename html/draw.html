@@ -30,7 +30,7 @@
             <a id="modal_trigger" class=" modal-trigger waves-effect waves-light" href="#card_modal">
                 <img id="card_image" class="responsive-img" alt="" src="">
             </a>
-            <div id="modal_filters" class="modal bottom-sheet row left-align">
+            <div id="modal_filters" class="modal bottom-sheet row left-align blue-grey darken-1 white-text" >
                 <div class="modal-content">
                     <h4> Filters</h4>
                 </div>
@@ -62,6 +62,18 @@
                     <form id="commanders_row" class="flow-text" action="#">
                         <h5>Draw commanders only</h5>
                     </form>
+                    <h5> Exclude these sets </h5>
+                    <div class="input-field">
+                        <input type="text" id="set_autocomplete" oninput="changeSetFilter()" class="autocomplete">
+                        <label for="set_autocomplete"><i class="material-icons prefix">search</i></label>
+                    </div>
+                    <div id="sets_row" class="flow-text collection ">
+
+                    </div>
+                    <div class="row">
+                        <a href="#" class="btn col s6" onclick="selectAllSets()">Select All Sets</a>
+                        <a href="#" class="btn col s6" onclick="selectAllSets(false)">Deselect All Sets</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,6 +154,18 @@
                 </div>
                 <br>
             </form>
+            <h5> Exclude these sets </h5>
+            <div class="input-field">
+                <input type="text" id="fullscreen_set_autocomplete" oninput="changeSetFilter()" class="autocomplete">
+                <label for="set_autocomplete"><i class="material-icons prefix">search</i></label>
+            </div>
+            <div id="fullscreen_sets_row" class="flow-text collection">
+
+            </div>
+            <div class="row">
+                <a href="#" class="btn col s6" onclick="selectAllSets()">Select All Sets</a>
+                <a href="#" class="btn col s6" onclick="selectAllSets(false)">Deselect All Sets</a>
+            </div>
         </div>
 
     </div>

@@ -18,8 +18,15 @@
     left: calc(50% - 32px);
 }
 
-label {
-    display: inline-block;
+#sets_row,#fullscreen_sets_row {
+    overflow-y: scroll;
+
+}
+#fullscreen_sets_row {
+    height:25vh;
+}
+#sets_row {
+    height:25vh;
 }
 
 .btn {

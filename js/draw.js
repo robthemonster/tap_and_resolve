@@ -16,14 +16,16 @@ let currentFilters = {
         "oldschool": false
     },
     allowLands: false,
-    commandersOnly: false
+    commandersOnly: false,
+    excludedSets: []
 };
+let sets = {};
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
 function setButtonConfig(loggedIn) {
     $("#like_button_col").css('display', loggedIn ? 'block' : 'none');
     $("#block_button_col").css('display', loggedIn ? 'block' : 'none');
-    $("#login_suggestion_div").css('display', loggedIn ? "none":"block");
+    $("#login_suggestion_div").css('display', loggedIn ? "none" : "block");
     let shuffle = $("#shuffle_button_col");
     let filter = $("#filters_button_col");
     if (!loggedIn) {
@@ -51,15 +53,16 @@ function adjustCardButtons() {
     });
 }
 
-function getCheckBox(id, innerHtml, checked, xl) {
+function getCheckBox(id, innerHtml, checked, xl, inline = true) {
     let checkedText = checked ? `checked="checked"` : "";
     let xlText = xl ? "_xl" : "";
-    return `<span>                         <label>
+    let elType = inline ? "span" : `div class="collection-item blue-grey" id="${id}_collection_item${xlText}"`;
+    return `<${elType}>                         <label>
                                 <input type="checkbox" onchange="handleFiltersChange()" id="${id}_check${xlText}"
                                        ${checkedText} class="flow-text"/>
-                                <span>${innerHtml}</span>
+                                <span class="white-text">${innerHtml}</span>
                             </label>
-                        </span>`
+                        </${elType}>`
 }
 
 function getImgForColor(color) {
@@ -84,7 +87,40 @@ function addFilterButtons() {
     let commandersHtml = `<span>Commanders</span>`;
     $("#fullscreen_commanders_row").append(getCheckBox('commanders', commandersHtml, false, true));
     $("#commanders_row").append(getCheckBox('commanders', commandersHtml, false, false));
+    $.post({url: API_URL + "/getSetCodes"}).then(setsResponse => {
+        let autocomplete = {};
+        sets = setsResponse;
+        sets.forEach(set => {
+            let setHtml = `<p>${set.name}</p>`;
+            $("#sets_row").append(getCheckBox(`${set.code}`, setHtml, false, false, false));
+            $("#fullscreen_sets_row").append(getCheckBox(`${set.code}`, setHtml, false, true, false));
+            autocomplete[set.name] = null;
+        });
+        $("#fullscreen_set_autocomplete").autocomplete({
+            data: autocomplete,
+            onAutocomplete: changeSetFilter,
+            limit: 8,
+            oninput: changeSetFilter
+        });
+    })
 
+}
+
+function changeSetFilter() {
+    let suffix = getSuffix();
+    let filter = $(suffix === "" ? "#set_autocomplete" : "#fullscreen_set_autocomplete").val().toString().toLowerCase();
+    console.log(filter);
+    sets.forEach(set => {
+        $(`#${set.code}_collection_item${suffix}`).css('display', set.name.toLowerCase().includes(filter) ? "block" : "none");
+    });
+}
+
+function selectAllSets(setBool = true) {
+    let suffix = getSuffix();
+    sets.forEach(set => {
+        $(`#${set.code}_check${suffix}`).prop('checked', setBool);
+    });
+    handleFiltersChange();
 }
 
 $(document).ready(() => {
@@ -146,6 +182,12 @@ function handleFiltersChange() {
     }
     currentFilters.allowLands = $(`#land_check${suffix}`).prop('checked');
     currentFilters.commandersOnly = $(`#commanders_check${suffix}`).prop('checked');
+    currentFilters.excludedSets = [];
+    sets.forEach(set => {
+        if ($(`#${set.code}_check${suffix}`).prop('checked')) {
+            currentFilters.excludedSets.push(set.code);
+        }
+    });
 }
 
 function highlightFilterMode() {
@@ -230,7 +272,7 @@ function shuffleCard() {
             data: {userid: userid, token: token, filter: JSON.stringify(currentFilters)},
         }).then(randomCard => {
             setCardContent(randomCard);
-            gtag('event', 'card_drawn', {'event_category':'draw_page_interaction'});
+            gtag('event', 'card_drawn', {'event_category': 'draw_page_interaction'});
         });
     });
 }
