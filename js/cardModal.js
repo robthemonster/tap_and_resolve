@@ -214,12 +214,12 @@ function setModalTextAndImage(card) {
 }
 
 $(document).ready(() => {
+    $("body").append($(MODAL_HTML));
     $('.modal').modal({
         onOpenEnd: () => {
             gtag('event', 'modal_open', {'event_category': "modal_interaction"});
         },
         onCloseEnd: handleModalClose
     });
-    $("body").append($(MODAL_HTML));
 });
 
