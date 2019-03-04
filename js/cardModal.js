@@ -1,3 +1,5 @@
+const CARD_MODAL_ID = "card_modal";
+
 const MODAL_HTML = `<style>
     .footer_button {
         height: 100%;
@@ -15,7 +17,7 @@ const MODAL_HTML = `<style>
 }
     
 </style>
-<div id="card_modal" class="modal modal-fixed-footer blue-grey darken-2 white-text">
+<div id="${CARD_MODAL_ID}" class="modal modal-fixed-footer blue-grey darken-2 white-text">
     <div class="modal-content row">
         <div class="center row">
             <img src="#" id="modal_card_image" alt="" class="responsive-img">
@@ -87,7 +89,6 @@ function setCardModalContent(card) {
     resetModalButtons(card.id);
 }
 
-
 function showLoadingCirclesOnModalButtons() {
     let [block_loader, like_loader] = [$("#modal_block_loader"), $('#modal_like_loader')];
     let [block_anchor, like_anchor] = [$("#modal_block_anchor"), $('#modal_like_anchor')];
@@ -130,7 +131,7 @@ function restoreModalButtons() {
 function resetModalButtons(uuid) {
     showLoadingCirclesOnModalButtons();
     if (isLoggedIn()) {
-        getAccount(true).then(function(args) {
+        getAccount(true).then(function (args) {
             var userid = args[0];
             var token = args[1];
             $.post({
@@ -157,7 +158,6 @@ function getFaceNameAndText(name, text, flavor) {
     <p>${flavor}</p>
 </div>`;
 }
-
 
 function appendCardFaceText(face) {
     let facediv = $("#card_faces");
@@ -212,5 +212,14 @@ function setModalTextAndImage(card) {
             tcgplayer_link.attr("href", tcgplayer);
         });
 }
+
+$(document).ready(() => {
+    $('.modal').modal({
+        onOpenEnd: () => {
+            gtag('event', 'modal_open', {'event_category': "modal_interaction"});
+        },
+        onCloseEnd: handleModalClose
+    });
+});
 
 $("body").append($(MODAL_HTML));

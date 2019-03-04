@@ -7,6 +7,8 @@ const NAVBAR_REFS = {
     TOP_CARDS: 'top_cards.html'
 };
 
+const NAVBAR_ID = 'navbar';
+
 function getRefsForCurrentPage() {
     let page = document.location.pathname.match(/[^\/]+$/)[0];
     let refs = NAVBAR_REFS;
@@ -48,7 +50,7 @@ function getNavBarHtml() {
     let [likedClass, blockedClass, searchClass, drawClass, aboutClass, topCardsClass] = getNavClass(likedRef, blockedRef, searchRef, drawRef, aboutRef, topCardsRef);
     let loggedInVeil = isLoggedIn() ? `` : `style = "display: none;"`;
     let [accountDropdownList, accountDropdown, logInOutSideNav] = getAccountDropdown();
-    return `<nav id="navbar">
+    return `<nav id="${NAVBAR_ID}">
     <div class="nav-wrapper blue-grey darken-2">
         <a href="${drawRef}" class="brand-logo center">Tap&Resolve</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -96,24 +98,16 @@ ${accountDropdownList}
 </ul>`
 }
 
-
-function addNavBarAndLogin() {
+function resetNavBarAndLogin() {
+    $("#navbar").remove();
     $("body").prepend($(getNavBarHtml()));
     $(".dropdown-trigger").dropdown();
     $('.sidenav').sidenav();
-    $('.modal').modal({
-        onOpenEnd: () => {
-            gtag('event', 'modal_open', {'event_category': "modal_interaction"});
-        },
-        onCloseEnd: handleModalClose
-    });
 }
 
 $(document).ready(() => {
-    addNavBarAndLogin();
+    $(".dropdown-trigger").dropdown();
+    $('.sidenav').sidenav();
 });
 
-function resetNavBarAndLogin() {
-    $("#navbar").remove();
-    addNavBarAndLogin();
-}
+$("body").prepend($(getNavBarHtml()));
