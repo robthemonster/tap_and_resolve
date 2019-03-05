@@ -263,7 +263,7 @@ function setCardContent(card) {
     setCardModalContent(card);
 }
 
-function shuffleCard() {
+function shuffleCard(buttonPress = false) {
     currentCard = -1;
     hideCard();
     getAccount(false).then(([userid, token]) => {
@@ -272,7 +272,9 @@ function shuffleCard() {
             data: {userid: userid, token: token, filter: JSON.stringify(currentFilters)},
         }).then(randomCard => {
             setCardContent(randomCard);
-            gtag('event', 'card_drawn', {'event_category': 'draw_page_interaction'});
+            if (buttonPress) {
+                gtag('event', 'card_drawn', {'event_category': 'draw_page_interaction'});
+            }
         });
     });
 }
