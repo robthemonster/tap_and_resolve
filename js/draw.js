@@ -53,16 +53,15 @@ function adjustCardButtons() {
     });
 }
 
-function getCheckBox(id, innerHtml, checked, xl, inline = true) {
+function getCheckBox(id, innerHtml, checked, xl, outerTagType = "span", outerClassString = "") {
     let checkedText = checked ? `checked="checked"` : "";
     let xlText = xl ? "_xl" : "";
-    let elType = inline ? "span" : `div class="collection-item blue-grey" id="${id}_collection_item${xlText}"`;
-    return `<${elType}>                         <label>
+    return `<${outerTagType} id="${id}_check_outer_tag${xlText}" class="${outerClassString}">                         <label>
                                 <input type="checkbox" onchange="handleFiltersChange()" id="${id}_check${xlText}"
                                        ${checkedText} class="flow-text"/>
                                 <span class="white-text">${innerHtml}</span>
                             </label>
-                        </${elType}>`
+                        </${outerTagType}>`
 }
 
 function getImgForColor(color) {
@@ -91,9 +90,9 @@ function addFilterButtons() {
         let autocomplete = {};
         sets = setsResponse;
         sets.forEach(set => {
-            let setHtml = `<p>${set.name}</p>`;
-            $("#sets_row").append(getCheckBox(`${set.code}`, setHtml, false, false, false));
-            $("#fullscreen_sets_row").append(getCheckBox(`${set.code}`, setHtml, false, true, false));
+            let setHtml = `<span>${set.name}</span>`;
+            $("#sets_row").append(getCheckBox(`${set.code}`, setHtml, false, false, "div", "collection-item blue-grey"));
+            $("#fullscreen_sets_row").append(getCheckBox(`${set.code}`, setHtml, false, true, "div", "collection-item blue-grey "));
             autocomplete[set.name] = null;
         });
         $("#fullscreen_set_autocomplete").autocomplete({
@@ -111,7 +110,7 @@ function changeSetFilter() {
     let filter = $(suffix === "" ? "#set_autocomplete" : "#fullscreen_set_autocomplete").val().toString().toLowerCase();
     console.log(filter);
     sets.forEach(set => {
-        $(`#${set.code}_collection_item${suffix}`).css('display', set.name.toLowerCase().includes(filter) ? "block" : "none");
+        $(`#${set.code}_check_outer_tag${suffix}`).css('display', set.name.toLowerCase().includes(filter) ? "block" : "none");
     });
 }
 
