@@ -79,9 +79,9 @@ function addFilterButtons() {
         $("#fullscreen_formats_row").append(getCheckBox(format, formatsHtmls, false, true));
         $("#formats_row").append(getCheckBox(format, formatsHtmls, false, false));
     }
-    let landsHtml = `<span>Lands</span>`;
-    $("#types_row").append(getCheckBox('land', landsHtml, false, false));
-    $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, false, true));
+    let landsHtml = `<span>Allow Lands</span>`;
+    $("#types_row").append(getCheckBox('land', landsHtml, true, false));
+    $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, true, true));
 
     let commandersHtml = `<span>Commanders only</span>`;
     $("#fullscreen_commanders_row").append(getCheckBox('commanders', commandersHtml, false, true));
@@ -91,8 +91,8 @@ function addFilterButtons() {
         sets = setsResponse;
         sets.forEach(set => {
             let setHtml = `<span>${set.name}</span>`;
-            $("#sets_row").append(getCheckBox(`${set.code}`, setHtml, false, false, "div", "collection-item blue-grey"));
-            $("#fullscreen_sets_row").append(getCheckBox(`${set.code}`, setHtml, false, true, "div", "collection-item blue-grey "));
+            $("#sets_row").append(getCheckBox(`${set.code}`, setHtml, true, false, "div", "collection-item blue-grey"));
+            $("#fullscreen_sets_row").append(getCheckBox(`${set.code}`, setHtml, true, true, "div", "collection-item blue-grey "));
             autocomplete[set.name] = null;
         });
         $("#fullscreen_set_autocomplete").autocomplete({
@@ -182,7 +182,7 @@ function handleFiltersChange() {
     currentFilters.commandersOnly = $(`#commanders_check${suffix}`).prop('checked');
     currentFilters.excludedSets = [];
     sets.forEach(set => {
-        if ($(`#${set.code}_check${suffix}`).prop('checked')) {
+        if (!$(`#${set.code}_check${suffix}`).prop('checked')) {
             currentFilters.excludedSets.push(set.code);
         }
     });

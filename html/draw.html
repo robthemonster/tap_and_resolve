@@ -52,15 +52,15 @@
                     </form>
                     <form id="formats_row" class="flow-text" action="#">
                         <div>
-                            <h5>Draw cards that are legal in these formats.</h5>
+                            <h5>Draw only cards that are legal in these formats</h5>
                         </div>
 
                     </form>
-                    <form id="types_row" class="flow-text" action="#">
-                        <h5>Allow lands</h5>
-                    </form>
                     <form id="commanders_row" class="flow-text" action="#">
-                        <h5>Draw commanders only</h5>
+                        <h5>Draw only these types of cards</h5>
+                    </form>
+                    <form id="types_row" class="flow-text" action="#">
+                        <h5>Allow these types of cards</h5>
                     </form>
                     <h5> Exclude these sets </h5>
                     <div class="input-field">
@@ -133,27 +133,28 @@
             </div>
             <form class="flow-text" action="#">
                 <div>
-                    <p>Draw cards that are legal in these formats.</p>
+                    <p>Draw only cards that are legal in these formats</p>
                 </div>
                 <div id="fullscreen_formats_row" class="row">
                 </div>
             </form>
             <form class="flow-text" action="#">
                 <div>
-                    <p>Allow lands</p>
-                </div>
-                <div id="fullscreen_types_row" class="row">
-                </div>
-            </form>
-            <form class="flow-text" action="#">
-                <div>
-                    <p>Draw commanders only</p>
+                    <p>Draw only these types of cards</p>
                 </div>
                 <div id="fullscreen_commanders_row" class="row">
                 </div>
                 <br>
             </form>
-            <h5> Exclude these sets </h5>
+            <form class="flow-text" action="#">
+                <div>
+                    <p>Allow these types of cards</p>
+                </div>
+                <div id="fullscreen_types_row" class="row">
+                </div>
+            </form>
+
+            <h5> Include these sets </h5>
             <div class="input-field">
                 <input type="text" id="fullscreen_set_autocomplete" oninput="changeSetFilter()" class="autocomplete white-text">
                 <label for="set_autocomplete"><i class="material-icons prefix">search</i></label>
@@ -162,8 +163,8 @@
 
             </div>
             <div class="row">
-                <a href="#" class="btn col s6" onclick="selectAllSets()">Exclude All Sets</a>
-                <a href="#" class="btn col s6" onclick="selectAllSets(false)">Include All Sets</a>
+                <a href="#" class="btn col s6" onclick="selectAllSets()">Include All Sets</a>
+                <a href="#" class="btn col s6" onclick="selectAllSets(false)">Exclude All Sets</a>
             </div>
         </div>
 
