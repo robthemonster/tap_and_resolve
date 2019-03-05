@@ -84,7 +84,7 @@ function addFilterButtons() {
     $("#types_row").append(getCheckBox('land', landsHtml, false, false));
     $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, false, true));
 
-    let commandersHtml = `<span>Commanders</span>`;
+    let commandersHtml = `<span>Commanders only</span>`;
     $("#fullscreen_commanders_row").append(getCheckBox('commanders', commandersHtml, false, true));
     $("#commanders_row").append(getCheckBox('commanders', commandersHtml, false, false));
     $.post({url: API_URL + "/getSetCodes"}).then(setsResponse => {
