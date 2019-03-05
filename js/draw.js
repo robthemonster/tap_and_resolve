@@ -108,7 +108,6 @@ function addFilterButtons() {
 function changeSetFilter() {
     let suffix = getSuffix();
     let filter = $(suffix === "" ? "#set_autocomplete" : "#fullscreen_set_autocomplete").val().toString().toLowerCase();
-    console.log(filter);
     sets.forEach(set => {
         $(`#${set.code}_check_outer_tag${suffix}`).css('display', set.name.toLowerCase().includes(filter) ? "block" : "none");
     });
