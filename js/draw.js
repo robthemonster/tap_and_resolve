@@ -17,7 +17,10 @@ let currentFilters = {
     },
     allowLands: true,
     commandersOnly: false,
-    excludedSets: []
+    excludedSets: [],
+    excludeSilly: false,
+    excludePromos: false,
+    excludeDigital: false
 };
 let sets = {};
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
@@ -70,22 +73,24 @@ function getImgForColor(color) {
 
 function addFilterButtons() {
     for (let color in currentFilters.colorFlags) {
-        $("#fullscreen_color_row").append(getCheckBox(color, getImgForColor(color), true, true));
-        $("#colors_row").append(getCheckBox(color, getImgForColor(color), true, false));
+        const checked = currentFilters.colorFlags[color];
+        $("#fullscreen_color_row").append(getCheckBox(color, getImgForColor(color), checked, true));
+        $("#colors_row").append(getCheckBox(color, getImgForColor(color), checked, false));
     }
     for (let format in currentFilters.formatFlags) {
+        let checked = currentFilters.formatFlags[format]
         let formatted = format.substring(0, 1).toUpperCase() + format.substring(1);
         let formatsHtmls = `<span> ${formatted}</span>`;
-        $("#fullscreen_formats_row").append(getCheckBox(format, formatsHtmls, false, true));
-        $("#formats_row").append(getCheckBox(format, formatsHtmls, false, false));
+        $("#fullscreen_formats_row").append(getCheckBox(format, formatsHtmls, checked, true));
+        $("#formats_row").append(getCheckBox(format, formatsHtmls, checked, false));
     }
     let landsHtml = `<span>Allow Lands</span>`;
-    $("#types_row").append(getCheckBox('land', landsHtml, true, false));
-    $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, true, true));
+    $("#types_row").append(getCheckBox('land', landsHtml, currentFilters.allowLands, false));
+    $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, currentFilters.allowLands, true));
 
     let commandersHtml = `<span>Commanders only</span>`;
-    $("#fullscreen_commanders_row").append(getCheckBox('commanders', commandersHtml, false, true));
-    $("#commanders_row").append(getCheckBox('commanders', commandersHtml, false, false));
+    $("#fullscreen_commanders_row").append(getCheckBox('commanders', commandersHtml, currentFilters.commandersOnly, true));
+    $("#commanders_row").append(getCheckBox('commanders', commandersHtml, currentFilters.commandersOnly, false));
     $.post({url: API_URL + "/getSetCodes"}).then(setsResponse => {
         let autocomplete = {};
         sets = setsResponse;
