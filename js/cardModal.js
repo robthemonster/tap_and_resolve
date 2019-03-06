@@ -20,7 +20,7 @@ const MODAL_HTML = `<style>
 <div id="${CARD_MODAL_ID}" class="modal modal-fixed-footer blue-grey darken-2 white-text">
     <div class="modal-content row">
         <div class="center row">
-            <img src="#" id="modal_card_image" alt="" class="responsive-img">
+            <img ondblclick="rotateModalImage()" src="#" id="modal_card_image" alt="" class="responsive-img">
         </div>
         <div class="center-align white-text">
             <div class="progress red">
@@ -84,6 +84,16 @@ const MODAL_HTML = `<style>
                     id="modal_like_icon" class="material-icons">check</i></a>
         </span>
     </div>`;
+let rotated = false;
+function rotateModalImage() {
+    let image = $("#modal_card_image");
+    if (rotated) {
+        image.css('transform', '');
+    } else {
+        image.css('transform', 'rotate(90deg)');
+    }
+    rotated = !rotated;
+}
 
 function setCardModalContent(card) {
     setModalTextAndImage(card);
