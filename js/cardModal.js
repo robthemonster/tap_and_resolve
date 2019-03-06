@@ -39,6 +39,13 @@ const MODAL_HTML = `<style>
                 <p><a target="_blank" id="modal_cardhoarder_link"></a></p>
                 <p><a target="_blank" id="modal_cardmarket_link"></a></p>
                 <p><a target="_blank" id="modal_tcgplayer_link"></a></p>
+                <h3 class="header flow-text">Resources</h3>
+                <p><a target="_blank" id="modal_scryfall_link"></a></p>
+                <p><a target="_blank" id="modal_edhrec_link"></a></p>
+                <p><a target="_blank" id="modal_gatherer_link"></a></p>
+                <p><a target="_blank" id="modal_mtgtop8_link"></a></p>
+                <p><a target="_blank" id="modal_tcgplayerdecks_link"></a></p>
+
             </div>
         </div>
     </div>
@@ -85,6 +92,7 @@ const MODAL_HTML = `<style>
         </span>
     </div>`;
 let rotated = false;
+
 function rotateModalImage() {
     let image = $("#modal_card_image");
     if (rotated) {
@@ -221,6 +229,20 @@ function setModalTextAndImage(card) {
             cardhoarder_link.attr("href", cardhoarder);
             cardmarket_link.attr("href", cardmarket);
             tcgplayer_link.attr("href", tcgplayer);
+            let relatedUris = response.related_uris;
+            let [scryfall, edhrec, gatherer, mtgtop8, tcgplayer_decks] = [response.scryfall_uri, relatedUris['edhrec'], relatedUris['gatherer'], relatedUris['mtgtop8'], relatedUris['tcgplayer_decks']];
+            let [scryfallLink, edhrecLink, gathererLink, mtgtop8Link, tcgplayer_decksLink] = [$('#modal_scryfall_link'),
+                $("#modal_edhrec_link"), $("#modal_gatherer_link"), $("#modal_mtgtop8_link"), $("#modal_tcgplayerdecks_link")];
+            scryfallLink.text(scryfall ? "Scryfall" : "");
+            edhrecLink.text(edhrec ? "EDHREC":"");
+            gathererLink.text(gatherer ? "Gatherer" :"");
+            mtgtop8Link.text(mtgtop8 ? "MTGTOP8": "");
+            tcgplayer_decksLink.text(tcgplayer_decks ? "TCGPlayer Decks":"");
+            scryfallLink.attr("href", scryfall);
+            edhrecLink.attr("href", edhrec);
+            gathererLink.attr("href", gatherer);
+            mtgtop8Link.attr("href", mtgtop8);
+            tcgplayer_decksLink.attr("href", tcgplayer_decks);
         }).catch(() => {
         let [cardhoarder_link, cardmarket_link, tcgplayer_link] = [$("#modal_cardhoarder_link"), $("#modal_cardmarket_link"), $("#modal_tcgplayer_link")];
         cardhoarder_link.text("");
