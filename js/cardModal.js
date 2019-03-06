@@ -36,8 +36,9 @@ const MODAL_HTML = `<style>
                 <p id="modal_card_foil"></p>
                 <p id="modal_card_tix"></p>
                 <h3 class="header flow-text">Purchase links</h3>
-                <p><a target="_blank" id="modal_cardhoarder_link"></a></p><p><a target="_blank" id="modal_cardmarket_link"></a></p><p><a
-                        target="_blank" id="modal_tcgplayer_link"></a></p>
+                <p><a target="_blank" id="modal_cardhoarder_link"></a></p>
+                <p><a target="_blank" id="modal_cardmarket_link"></a></p>
+                <p><a target="_blank" id="modal_tcgplayer_link"></a></p>
             </div>
         </div>
     </div>
