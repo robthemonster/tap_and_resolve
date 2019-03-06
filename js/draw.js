@@ -16,12 +16,16 @@ let currentFilters = {
         "oldschool": false
     },
     allowLands: true,
+    allowBasicLands: true,
     commandersOnly: false,
     excludedSets: [],
     excludeSilly: false,
     excludePromos: false,
-    excludeDigital: false
+    excludeDigital: false,
+    excludeTokens: false
 };
+const [LANDS_ID, BASICS_ID, TOKENS_ID, DIGITALS_ID, PROMOS_ID, SILLY_ID, COMMANDERS_ID, COLOR_FILTER_MODE_ID] = ['lands', 'basics',
+    'tokens', 'digitals', 'promos', 'sillys', 'commanders', 'color_filter_mode'];
 let sets = {};
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
@@ -84,13 +88,25 @@ function addFilterButtons() {
         $("#fullscreen_formats_row").append(getCheckBox(format, formatsHtmls, checked, true));
         $("#formats_row").append(getCheckBox(format, formatsHtmls, checked, false));
     }
-    let landsHtml = `<span>Allow Lands</span>`;
-    $("#types_row").append(getCheckBox('land', landsHtml, currentFilters.allowLands, false));
-    $("#fullscreen_types_row").append(getCheckBox('land', landsHtml, currentFilters.allowLands, true));
+
+    function appendTypeCheck(typeId, name, checked) {
+        let typesRow = $("#types_row");
+        let xlTypesRow = $("#fullscreen_types_row");
+        typesRow.append(getCheckBox(typeId, `<span>Allow ${name}</span>`, checked, false));
+        xlTypesRow.append(getCheckBox(typeId, `<span>Allow ${name}</span>`, checked, true));
+    }
+
+
+    appendTypeCheck(LANDS_ID, 'Lands', currentFilters.allowLands);
+    appendTypeCheck(BASICS_ID, 'Basic Lands', currentFilters.allowBasicLands);
+    appendTypeCheck(TOKENS_ID, 'Tokens', !currentFilters.excludeTokens);
+    appendTypeCheck(DIGITALS_ID, 'Digital Cards', !currentFilters.excludeDigital);
+    appendTypeCheck(PROMOS_ID, "Promotional Cards", !currentFilters.excludePromos);
+    appendTypeCheck(SILLY_ID, "Silly Cards", !currentFilters.excludeSilly);
 
     let commandersHtml = `<span>Commanders only</span>`;
-    $("#fullscreen_commanders_row").append(getCheckBox('commanders', commandersHtml, currentFilters.commandersOnly, true));
-    $("#commanders_row").append(getCheckBox('commanders', commandersHtml, currentFilters.commandersOnly, false));
+    $("#fullscreen_commanders_row").append(getCheckBox(COMMANDERS_ID, commandersHtml, currentFilters.commandersOnly, true));
+    $("#commanders_row").append(getCheckBox(COMMANDERS_ID, commandersHtml, currentFilters.commandersOnly, false));
     $.post({url: API_URL + "/getSetCodes"}).then(setsResponse => {
         let autocomplete = {};
         sets = setsResponse;
@@ -176,21 +192,31 @@ function getSuffix() {
 
 function handleFiltersChange() {
     let suffix = getSuffix();
+
+    function isChecked(id) {
+        return $(`#${id}_check${suffix}`).prop('checked');
+    }
+
     for (let color in currentFilters.colorFlags) {
-        currentFilters.colorFlags[color] = $(`#${color}_check${suffix}`).prop('checked');
+        currentFilters.colorFlags[color] = isChecked(color);
     }
-    currentFilters.colorExclusive = $(`#color_filter_mode${suffix}`).prop('checked');
+    currentFilters.colorExclusive = isChecked(COLOR_FILTER_MODE_ID);
     for (let format in currentFilters.formatFlags) {
-        currentFilters.formatFlags[format] = $(`#${format}_check${suffix}`).prop('checked');
+        currentFilters.formatFlags[format] = isChecked(format);
     }
-    currentFilters.allowLands = $(`#land_check${suffix}`).prop('checked');
-    currentFilters.commandersOnly = $(`#commanders_check${suffix}`).prop('checked');
+    currentFilters.allowLands = isChecked(LANDS_ID);
+    currentFilters.allowBasicLands = isChecked(BASICS_ID);
+    currentFilters.commandersOnly = isChecked(COMMANDERS_ID);
     currentFilters.excludedSets = [];
     sets.forEach(set => {
-        if (!$(`#${set.code}_check${suffix}`).prop('checked')) {
+        if (!isChecked(set.code)) {
             currentFilters.excludedSets.push(set.code);
         }
     });
+    currentFilters.excludeSilly = !isChecked(SILLY_ID);
+    currentFilters.excludePromos = !isChecked(PROMOS_ID);
+    currentFilters.excludeDigital = !isChecked(DIGITALS_ID);
+    currentFilters.excludeTokens = !isChecked(TOKENS_ID);
 }
 
 function highlightFilterMode() {
