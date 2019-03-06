@@ -177,11 +177,18 @@ function getSuffix() {
     return $("#fullscreen_filters").is(":visible") ? "_xl" : "";
 }
 
+function getOffSuffix() {
+    return $("#fullscreen_filters").is(":visible") ? "" : "_xl";
+
+}
+
 function handleFiltersChange() {
     let suffix = getSuffix();
-
+    let offSuffix = getOffSuffix();
     function isChecked(id) {
-        return $(`#${id}_check${suffix}`).prop('checked');
+        let checked =  $(`#${id}_check${suffix}`).prop('checked');
+        $(`#${id}_check${offSuffix}`).prop('checked', checked);
+        return checked;
     }
 
     for (let color in currentFilters.colorFlags) {
