@@ -232,13 +232,18 @@ function getCookie(cname) {
 
 function highlightFilterMode() {
     let suffix = getSuffix();
+    let offSuffix = getOffSuffix();
     let checked = $(`#${COLOR_FILTER_MODE_ID}_check${suffix}`).prop('checked');
-    let [only, exactly] = [$(`#only_span${suffix}`), $(`#exactly_span${suffix}`)];
+    let [only, exactly, onlyOff, exactlyOff] = [$(`#only_span${suffix}`), $(`#exactly_span${suffix}`), $(`#only_span${offSuffix}`), $(`#exactly_span${offSuffix}`)];
     let text_color = 'teal-text';
     only.removeClass(checked ? text_color : "");
     only.addClass(!checked ? text_color : "");
+    onlyOff.removeClass(checked ? text_color : "");
+    onlyOff.addClass(!checked ? text_color : "");
     exactly.removeClass(checked ? "" : text_color);
     exactly.addClass(checked ? text_color : '');
+    exactlyOff.removeClass(checked ? "" : text_color);
+    exactlyOff.addClass(checked ? text_color : '');
 
 }
 
