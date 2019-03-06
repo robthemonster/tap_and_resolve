@@ -42,8 +42,7 @@
     display: none;
 }
 
-@media only screen and (min-width: 1201px) {
-
+@media only screen and (min-width: 1201px) and (orientation: landscape){
     .show-on-xl-only {
         display: block;
     }
@@ -51,6 +50,40 @@
     #filters_button_col {
         display: none;
     }
+    #card_image_container {
+        height: 65vh;
+    }
+
+    #fullscreen_sets_row {
+        height:25vh;
+    }
+    #sets_row {
+        height:25vh;
+    }
+}
+
+@media only screen and (min-width: 1201px) and (orientation: portrait) {
+    .show-on-xl-only {
+        display: block;
+    }
+
+    #filters_button_col {
+             display: none;
+         }
+    #card_image_container {
+        max-height: 65vh;
+        height:auto;
+    }
+
+    #fullscreen_sets_row {
+        max-height:25vh;
+        height:auto;
+    }
+    #sets_row {
+        max-height:25vh;
+        height:auto;
+    }
+
 }
 
 @media only screen and (max-width: 1200px) {
