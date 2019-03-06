@@ -31,6 +31,8 @@ const MODAL_HTML = `<style>
         <div class="row">
             <div id="card_faces"></div>
             <div>
+                <h3 class="header flow-text">Set</h3>
+                <p id="modal_set_text"></p>
                 <h3 class="header flow-text">Prices</h3>
                 <p id="modal_card_usd"></p>
                 <p id="modal_card_foil"></p>
@@ -214,6 +216,8 @@ function setModalTextAndImage(card) {
 
     $.get(card.uri)
         .then(response => {
+            let setname = response.set_name;
+            $("#modal_set_text").text(setname ? setname : "");
             let prices = response.prices;
             let [usd, foil, tix] = [prices['usd'], prices['usd_foil'], prices['usd_foil']];
             $("#modal_card_usd").text(usd ? `$${usd}` : "");
