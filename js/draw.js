@@ -84,6 +84,7 @@ function addFilterButtons() {
     }
     $("#color_filter_mode_check").prop('checked', currentFilters.colorExclusive);
     $("#color_filter_mode_check_xl").prop('checked', currentFilters.colorExclusive);
+    highlightFilterMode();
     for (let format in currentFilters.formatFlags) {
         let checked = currentFilters.formatFlags[format];
         let formatted = format.substring(0, 1).toUpperCase() + format.substring(1);
@@ -224,7 +225,7 @@ function getCookie(cname) {
 
 function highlightFilterMode() {
     let suffix = getSuffix();
-    let checked = $(`#color_filter_mode${suffix}`).prop('checked');
+    let checked = $(`#${COLOR_FILTER_MODE_ID}_check${suffix}`).prop('checked');
     let [only, exactly] = [$(`#only_span${suffix}`), $(`#exactly_span${suffix}`)];
     let text_color = 'teal-text';
     only.removeClass(checked ? text_color : "");
