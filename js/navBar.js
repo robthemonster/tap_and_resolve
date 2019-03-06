@@ -76,6 +76,9 @@ function getNavBarHtml() {
 ${accountDropdownList}
 
 <ul class="sidenav" id="mobile-demo">
+    <li class="${drawClass}">
+        <a href="${drawRef}"> <i style="width:100%;" class="center-align material-icons">home</i></a>
+    </li>
     <li ${loggedInVeil} class="${likedClass}"><a href="${likedRef}"><i style="width:100%;"
                                                                                    class="center-align material-icons green-text">check</i></a>
     </li>
