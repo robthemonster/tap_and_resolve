@@ -15,7 +15,7 @@ let currentFilters = {
         "duel": false,
         "oldschool": false
     },
-    allowLands: false,
+    allowLands: true,
     commandersOnly: false,
     excludedSets: []
 };
