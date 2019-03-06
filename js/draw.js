@@ -1,5 +1,5 @@
 let currentCard = -1;
-let currentFilters = {
+const DEFAULT_FILTERS = {
     colorExclusive: false,
     colorFlags: {"B": true, "U": true, "G": true, "R": true, "W": true},
     formatFlags: {
@@ -24,6 +24,7 @@ let currentFilters = {
     excludeDigital: false,
     excludeTokens: false
 };
+let currentFilters = DEFAULT_FILTERS;
 const [LANDS_ID, BASICS_ID, TOKENS_ID, DIGITALS_ID, PROMOS_ID, SILLY_ID, COMMANDERS_ID, COLOR_FILTER_MODE_ID] = ['lands', 'basics',
     'tokens', 'digitals', 'promos', 'sillys', 'commanders', 'color_filter_mode'];
 let sets = {};
@@ -81,8 +82,10 @@ function addFilterButtons() {
         $("#fullscreen_color_row").append(getCheckBox(color, getImgForColor(color), checked, true));
         $("#colors_row").append(getCheckBox(color, getImgForColor(color), checked, false));
     }
+    $("#color_filter_mode_check").prop('checked', currentFilters.colorExclusive);
+    $("#color_filter_mode_check_xl").prop('checked', currentFilters.colorExclusive);
     for (let format in currentFilters.formatFlags) {
-        let checked = currentFilters.formatFlags[format]
+        let checked = currentFilters.formatFlags[format];
         let formatted = format.substring(0, 1).toUpperCase() + format.substring(1);
         let formatsHtmls = `<span> ${formatted}</span>`;
         $("#fullscreen_formats_row").append(getCheckBox(format, formatsHtmls, checked, true));
@@ -107,13 +110,15 @@ function addFilterButtons() {
     let commandersHtml = `<span>Commanders only</span>`;
     $("#fullscreen_commanders_row").append(getCheckBox(COMMANDERS_ID, commandersHtml, currentFilters.commandersOnly, true));
     $("#commanders_row").append(getCheckBox(COMMANDERS_ID, commandersHtml, currentFilters.commandersOnly, false));
+    let excludedSetsSet = new Set(currentFilters.excludedSets);
     $.post({url: API_URL + "/getSetCodes"}).then(setsResponse => {
         let autocomplete = {};
         sets = setsResponse;
         sets.forEach(set => {
             let setHtml = `<span>${set.name}</span>`;
-            $("#sets_row").append(getCheckBox(`${set.code}`, setHtml, true, false, "div", "collection-item blue-grey"));
-            $("#fullscreen_sets_row").append(getCheckBox(`${set.code}`, setHtml, true, true, "div", "collection-item blue-grey "));
+            let checked = !excludedSetsSet.has(set.code);
+            $("#sets_row").append(getCheckBox(`${set.code}`, setHtml, checked, false, "div", "collection-item blue-grey"));
+            $("#fullscreen_sets_row").append(getCheckBox(`${set.code}`, setHtml, checked, true, "div", "collection-item blue-grey "));
             autocomplete[set.name] = null;
         });
         $("#fullscreen_set_autocomplete").autocomplete({
@@ -141,25 +146,6 @@ function selectAllSets(setBool = true) {
     });
     handleFiltersChange();
 }
-
-$(document).ready(() => {
-    addFilterButtons(currentFilters);
-    setButtonConfig(isLoggedIn());
-    adjustCardButtons();
-    shuffleCard();
-    $("body").keypress((event) => {
-        if (event.keyCode === ADD_KEYCODE) {
-            likeCard();
-        } else if (event.keyCode === SUB_KEYCODE) {
-            blockCard();
-        }
-    });
-    $(".tooltipped").tooltip({enterDelay: 500});
-    $(window).resize(() => {
-        handleFiltersChange();
-        adjustCardButtons();
-    });
-});
 
 function loginCallback() {
     setButtonConfig(isLoggedIn());
@@ -217,6 +203,23 @@ function handleFiltersChange() {
     currentFilters.excludePromos = !isChecked(PROMOS_ID);
     currentFilters.excludeDigital = !isChecked(DIGITALS_ID);
     currentFilters.excludeTokens = !isChecked(TOKENS_ID);
+    document.cookie = "filters=" + JSON.stringify(currentFilters);
+}
+
+function getCookie(cname) {
+    const name = cname + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 function highlightFilterMode() {
@@ -307,3 +310,34 @@ function shuffleCard(buttonPress = false) {
         });
     });
 }
+
+function resetFiltersToDefault() {
+    document.cookie = "filters=";
+    location.reload();
+}
+
+$(document).ready(() => {
+    let filtersCookie = getCookie("filters");
+    try {
+        currentFilters = JSON.parse(filtersCookie);
+    } catch (e) {
+        currentFilters = DEFAULT_FILTERS;
+    }
+    addFilterButtons(currentFilters);
+    setButtonConfig(isLoggedIn());
+    adjustCardButtons();
+    shuffleCard();
+    $("body").keypress((event) => {
+        if (event.keyCode === ADD_KEYCODE) {
+            likeCard();
+        } else if (event.keyCode === SUB_KEYCODE) {
+            blockCard();
+        }
+    });
+    $(".tooltipped").tooltip({enterDelay: 500});
+    $(window).resize(() => {
+        handleFiltersChange();
+        adjustCardButtons();
+    });
+
+});
