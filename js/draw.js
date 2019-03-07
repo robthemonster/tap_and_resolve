@@ -22,11 +22,18 @@ const DEFAULT_FILTERS = {
     excludeSilly: false,
     excludePromos: false,
     excludeDigital: false,
-    excludeTokens: false
+    excludeTokens: false,
+    rarityExclusions: {
+        uncommon:false,
+        common:false,
+        rare:false,
+        mythic:false
+    }
 };
 let currentFilters = DEFAULT_FILTERS;
 const [LANDS_ID, BASICS_ID, TOKENS_ID, DIGITALS_ID, PROMOS_ID, SILLY_ID, COMMANDERS_ID, COLOR_FILTER_MODE_ID] = ['lands', 'basics',
     'tokens', 'digitals', 'promos', 'sillys', 'commanders', 'color_filter_mode'];
+const COMMON_ID = "common", UNCOMMON_ID = "uncommon", RARE_ID = "rare", MYTHIC_ID = "mythic";
 let sets = {};
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
@@ -93,20 +100,26 @@ function addFilterButtons() {
         $("#formats_row").append(getCheckBox(format, formatsHtmls, checked, false));
     }
 
-    function appendTypeCheck(typeId, name, checked) {
-        let typesRow = $("#types_row");
-        let xlTypesRow = $("#fullscreen_types_row");
-        typesRow.append(getCheckBox(typeId, `<span>Allow ${name}</span>`, checked, false));
-        xlTypesRow.append(getCheckBox(typeId, `<span>Allow ${name}</span>`, checked, true));
+    function appendCheck(div_name,typeId, innerText, checked) {
+        let typesRow = $(`#${div_name}`);
+        let xlTypesRow = $(`#fullscreen_${div_name}`);
+        typesRow.append(getCheckBox(typeId, `<span>${innerText}</span>`, checked, false));
+        xlTypesRow.append(getCheckBox(typeId, `<span>${innerText}</span>`, checked, true));
     }
 
+    let types_div = "types_row";
+    appendCheck(types_div, LANDS_ID, 'Allow Lands', currentFilters.allowLands);
+    appendCheck(types_div, BASICS_ID, 'Allow Basic Lands', currentFilters.allowBasicLands);
+    appendCheck(types_div, TOKENS_ID, 'Allow Tokens', !currentFilters.excludeTokens);
+    appendCheck(types_div, DIGITALS_ID, 'Allow Digital Cards', !currentFilters.excludeDigital);
+    appendCheck(types_div, PROMOS_ID, "Allow Promotional Cards", !currentFilters.excludePromos);
+    appendCheck(types_div, SILLY_ID, "Allow Silly Cards", !currentFilters.excludeSilly);
 
-    appendTypeCheck(LANDS_ID, 'Lands', currentFilters.allowLands);
-    appendTypeCheck(BASICS_ID, 'Basic Lands', currentFilters.allowBasicLands);
-    appendTypeCheck(TOKENS_ID, 'Tokens', !currentFilters.excludeTokens);
-    appendTypeCheck(DIGITALS_ID, 'Digital Cards', !currentFilters.excludeDigital);
-    appendTypeCheck(PROMOS_ID, "Promotional Cards", !currentFilters.excludePromos);
-    appendTypeCheck(SILLY_ID, "Silly Cards", !currentFilters.excludeSilly);
+    let rarities_div = "rarities_row";
+    appendCheck(rarities_div, COMMON_ID, "Common", !currentFilters.rarityExclusions.common);
+    appendCheck(rarities_div, UNCOMMON_ID, "Uncommon", !currentFilters.rarityExclusions.uncommon);
+    appendCheck(rarities_div, RARE_ID, "Rare", !currentFilters.rarityExclusions.rare);
+    appendCheck(rarities_div, MYTHIC_ID, "Mythic", !currentFilters.rarityExclusions.mythic);
 
     let commandersHtml = `<span>Commanders only</span>`;
     $("#fullscreen_commanders_row").append(getCheckBox(COMMANDERS_ID, commandersHtml, currentFilters.commandersOnly, true));
@@ -211,6 +224,10 @@ function handleFiltersChange() {
     currentFilters.excludePromos = !isChecked(PROMOS_ID);
     currentFilters.excludeDigital = !isChecked(DIGITALS_ID);
     currentFilters.excludeTokens = !isChecked(TOKENS_ID);
+    currentFilters.rarityExclusions.common = !isChecked(COMMON_ID);
+    currentFilters.rarityExclusions.uncommon = !isChecked(UNCOMMON_ID);
+    currentFilters.rarityExclusions.rare = !isChecked(RARE_ID);
+    currentFilters.rarityExclusions.mythic = !isChecked(MYTHIC_ID);
     document.cookie = "filters=" + JSON.stringify(currentFilters);
 }
 
@@ -333,6 +350,9 @@ $(document).ready(() => {
     let filtersCookie = getCookie("filters");
     try {
         currentFilters = JSON.parse(filtersCookie);
+        if (JSON.stringify(Object.keys(currentFilters).sort()) !== JSON.stringify(Object.keys(DEFAULT_FILTERS).sort())) {
+            currentFilters = DEFAULT_FILTERS;
+        }
     } catch (e) {
         currentFilters = DEFAULT_FILTERS;
     }
