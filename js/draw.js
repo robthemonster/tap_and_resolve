@@ -24,17 +24,19 @@ const DEFAULT_FILTERS = {
     excludeDigital: false,
     excludeTokens: false,
     rarityExclusions: {
-        uncommon:false,
-        common:false,
-        rare:false,
-        mythic:false
-    }
+        uncommon: false,
+        common: false,
+        rare: false,
+        mythic: false
+    },
+    artist: ""
 };
 let currentFilters = DEFAULT_FILTERS;
 const [LANDS_ID, BASICS_ID, TOKENS_ID, DIGITALS_ID, PROMOS_ID, SILLY_ID, COMMANDERS_ID, COLOR_FILTER_MODE_ID] = ['lands', 'basics',
     'tokens', 'digitals', 'promos', 'sillys', 'commanders', 'color_filter_mode'];
 const COMMON_ID = "common", UNCOMMON_ID = "uncommon", RARE_ID = "rare", MYTHIC_ID = "mythic";
 let sets = {};
+let artists = new Set();
 let [ADD_KEYCODE, SUB_KEYCODE] = [43, 45];
 
 function setButtonConfig(loggedIn) {
@@ -100,7 +102,7 @@ function addFilterButtons() {
         $("#formats_row").append(getCheckBox(format, formatsHtmls, checked, false));
     }
 
-    function appendCheck(div_name,typeId, innerText, checked) {
+    function appendCheck(div_name, typeId, innerText, checked) {
         let typesRow = $(`#${div_name}`);
         let xlTypesRow = $(`#fullscreen_${div_name}`);
         typesRow.append(getCheckBox(typeId, `<span>${innerText}</span>`, checked, false));
@@ -121,7 +123,7 @@ function addFilterButtons() {
     appendCheck(rarities_div, RARE_ID, "Rare", !currentFilters.rarityExclusions.rare);
     appendCheck(rarities_div, MYTHIC_ID, "Mythic", !currentFilters.rarityExclusions.mythic);
 
-    let commandersHtml = `<span>Commanders only</span>`;
+    let commandersHtml = `<span>Draw Commanders only</span>`;
     $("#fullscreen_commanders_row").append(getCheckBox(COMMANDERS_ID, commandersHtml, currentFilters.commandersOnly, true));
     $("#commanders_row").append(getCheckBox(COMMANDERS_ID, commandersHtml, currentFilters.commandersOnly, false));
     let excludedSetsSet = new Set(currentFilters.excludedSets);
@@ -141,6 +143,22 @@ function addFilterButtons() {
             limit: 8,
             oninput: changeSetFilter
         });
+    })
+    $.post({url: API_URL + "/getArtistNames"}).then(artistNames => {
+        let autoComplete = {};
+        artistNames.forEach(artist => {
+            autoComplete[artist] = null;
+            artists.add(artist);
+        });
+        console.log(autoComplete);
+        const options = {
+            data: autoComplete,
+            onAutocomplete: handleFiltersChange,
+            limit: 4,
+            oninput: "handleFiltersChange()"
+        };
+        $("#fullscreen_artists_autocomplete").autocomplete(options);
+        $("#artists_autocomplete").autocomplete(options);
     })
 
 }
@@ -186,6 +204,15 @@ function handleModalClose() {
     }
 }
 
+function getPrefix() {
+    return $("#fullscreen_filters").is(":visible") ? "fullscreen_" : "";
+}
+
+function getOffPrefix() {
+    return !$("#fullscreen_filters").is(":visible") ? "fullscreen_" : "";
+
+}
+
 function getSuffix() {
     return $("#fullscreen_filters").is(":visible") ? "_xl" : "";
 }
@@ -198,8 +225,9 @@ function getOffSuffix() {
 function handleFiltersChange() {
     let suffix = getSuffix();
     let offSuffix = getOffSuffix();
+
     function isChecked(id) {
-        let checked =  $(`#${id}_check${suffix}`).prop('checked');
+        let checked = $(`#${id}_check${suffix}`).prop('checked');
         $(`#${id}_check${offSuffix}`).prop('checked', checked);
         return checked;
     }
@@ -228,6 +256,16 @@ function handleFiltersChange() {
     currentFilters.rarityExclusions.uncommon = !isChecked(UNCOMMON_ID);
     currentFilters.rarityExclusions.rare = !isChecked(RARE_ID);
     currentFilters.rarityExclusions.mythic = !isChecked(MYTHIC_ID);
+
+    let artist_autocomplete = $(`#${getPrefix()}artists_autocomplete`);
+    let off_autocomplete = $(`#${getOffPrefix()}artists_autocomplete`);
+    let artistVal = artist_autocomplete.val();
+    off_autocomplete.val(artistVal);
+    console.log(artistVal);
+    if (artists.has(artistVal) || artistVal === "") {
+        currentFilters.artist = artistVal;
+    }
+
     document.cookie = "filters=" + JSON.stringify(currentFilters);
 }
 

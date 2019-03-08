@@ -58,18 +58,26 @@
                     </form>
                     <form id="formats_row" class="flow-text" action="#">
                         <div>
-                            <h5>Draw only cards that are legal in these formats</h5>
+                            <h5>Only draw cards that are legal in these formats</h5>
                         </div>
 
                     </form>
 
-                    <form id="commanders_row" class="flow-text" action="#">
-                        <h5>Draw only these types of cards</h5>
+                    <form action="#" id="rarities_row" class="flow-text">
+                        <h5>Only draw these rarities</h5>
                     </form>
 
-                    <form action="#" id="rarities_row" class="flow-text">
-                        <h5>Draw only these rarities</h5>
+                    <form id="commanders_row" class="flow-text" action="#">
+                        <h5>Commanders Only</h5>
                     </form>
+
+                    <h5>Only draw cards by this artist</h5>
+                    <div class="input-field">
+                        <input type="text" id="artists_autocomplete" oninput="handleFiltersChange()"
+                               class="autocomplete white-text">
+                        <label for="artists_autocomplete"><i
+                                class="material-icons prefix">search</i></label>
+                    </div>
 
                     <h5> Include these sets </h5>
                     <div class="input-field">
@@ -154,31 +162,46 @@
             </form>
             <form class="flow-text" action="#">
                 <div>
-                    <p>Draw only cards that are legal in these formats</p>
+                    <p>Only draw cards that are legal in these formats</p>
                 </div>
                 <div id="fullscreen_formats_row" class="row">
                 </div>
             </form>
+
             <form class="flow-text" action="#">
                 <div>
-                    <p>Draw only these types of cards</p>
-                </div>
-                <div id="fullscreen_commanders_row" class="row">
-                </div>
-            </form>
-            <form class="flow-text" action="#">
-                <div>
-                    <p>Draw only these rarities</p>
+                    <p>Only draw these rarities</p>
                 </div>
                 <div id="fullscreen_rarities_row" class="row"></div>
             </form>
 
+            <form class="flow-text" action="#">
+                <div>
+                    <p>Commanders only</p>
+                </div>
+                <div id="fullscreen_commanders_row" class="row">
+                </div>
+            </form>
+
+            <form action="#" class="flow-text">
+                <div>
+                    <p>Only draw cards by this artist</p>
+                    <div class="row ">
+                        <div class="input-field">
+                            <input type="text" id="fullscreen_artists_autocomplete" oninput="handleFiltersChange()"
+                                   class="autocomplete white-text">
+                            <label for="fullscreen_artists_autocomplete"><i
+                                    class="material-icons prefix">search</i></label>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
             <h5> Include these sets </h5>
-            <div class="input-field">
+            <div class="input-field ">
                 <input type="text" id="fullscreen_set_autocomplete" oninput="changeSetFilter()"
                        class="autocomplete white-text">
-                <label for="set_autocomplete"><i class="material-icons prefix">search</i></label>
+                <label for="fullscreen_set_autocomplete"><i class="material-icons prefix">search</i></label>
             </div>
             <div id="fullscreen_sets_row" class="flow-text collection">
 
@@ -196,7 +219,9 @@
     <h3>Contact</h3>
     <p class="flow-text">
         Email: <a href="mailto:tapandresolve@gmail.com">tapandresolve@gmail.com</a> <br>
-        Twitter:<a href="https://twitter.com/tapandresolve?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @tapandresolve</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        Twitter:<a href="https://twitter.com/tapandresolve?ref_src=twsrc%5Etfw" class="twitter-follow-button"
+                   data-show-count="false">Follow @tapandresolve</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </p>
 </footer>
 <script
