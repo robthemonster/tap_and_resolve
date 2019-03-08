@@ -157,10 +157,12 @@ function addFilterButtons() {
             limit: 4,
             oninput: "handleFiltersChange()"
         };
-        $("#fullscreen_artists_autocomplete").autocomplete(options);
-        $("#artists_autocomplete").autocomplete(options);
-        $("#fullscreen_artists_autocomplete").val(currentFilters.artist);
-        $("#artists_autocomplete").val(currentFilters.artist);
+        const xlArtistAutoComplete = $("#fullscreen_artists_autocomplete");
+        const artistAutocomplete = $("#artists_autocomplete");
+        xlArtistAutoComplete.autocomplete(options);
+        artistAutocomplete.autocomplete(options);
+        xlArtistAutoComplete.val(currentFilters.artist);
+        artistAutocomplete.val(currentFilters.artist);
     })
 
 }
