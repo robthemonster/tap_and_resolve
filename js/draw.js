@@ -143,7 +143,7 @@ function addFilterButtons() {
             limit: 8,
             oninput: changeSetFilter
         });
-    })
+    });
     $.post({url: API_URL + "/getArtistNames"}).then(artistNames => {
         let autoComplete = {};
         artistNames.forEach(artist => {
@@ -159,6 +159,8 @@ function addFilterButtons() {
         };
         $("#fullscreen_artists_autocomplete").autocomplete(options);
         $("#artists_autocomplete").autocomplete(options);
+        $("#fullscreen_artists_autocomplete").val(currentFilters.artist);
+        $("#artists_autocomplete").val(currentFilters.artist);
     })
 
 }
