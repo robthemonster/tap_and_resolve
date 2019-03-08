@@ -150,7 +150,6 @@ function addFilterButtons() {
             autoComplete[artist] = null;
             artists.add(artist);
         });
-        console.log(autoComplete);
         const options = {
             data: autoComplete,
             onAutocomplete: handleFiltersChange,
@@ -265,7 +264,6 @@ function handleFiltersChange() {
     let off_autocomplete = $(`#${getOffPrefix()}artists_autocomplete`);
     let artistVal = artist_autocomplete.val();
     off_autocomplete.val(artistVal);
-    console.log(artistVal);
     if (artists.has(artistVal) || artistVal === "") {
         currentFilters.artist = artistVal;
     }
